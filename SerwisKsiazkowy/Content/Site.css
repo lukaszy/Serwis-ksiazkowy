@@ -1,0 +1,113 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.down {
+    padding: 70px 0;
+}
+
+.site {
+    width: 65%;
+    margin: auto;
+}
+
+#booklist-right {
+    float: left;
+    margin-left: 60px;
+}
+
+#book-details-section {
+    width: 768px;
+    float: left;
+    margin-top: 20px;
+}
+
+#book-details-left {
+    width: 335px;
+    float: left;
+    margin-right: 28px;
+}
+
+#book-details-left img {
+        height: 250px;
+        float: left;
+        display: block;
+        width: 90%;
+        height: 90%;
+    }
+
+#book-details-right {
+    float: left;
+    width: 405px;
+}
+
+    #book-details-right #product-details-names {
+        border: 5px solid #7C7C7C;
+    }
+
+    #book-details-right #book-details-names > h1 {
+        margin-top: 20px;
+        font-family: 'Segoe UI Light';
+        font-size: 38px;
+        text-transform: uppercase;
+        font-weight: normal;
+        color: #39312d;
+        text-align: left;
+    }
+
+        #book-details-right #book-details-names > h2 {
+            margin-top: 15px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            font-family: 'Segoe UI Light';
+            text-transform: uppercase;
+            font-weight: normal;
+            color: #39312d;
+            text-align: left;
+        }
+#book-details{
+    margin-top: 50px;
+}
+#book-details-right #book-details > h1 {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-family: 'Segoe UI Light';
+    text-transform: uppercase;
+    font-weight: normal;
+    color: #39312d;
+    text-align: left;
+}
+
+#book-details-description > h1 {
+    font-family: 'Segoe UI Light';
+    font-size: 35px;
+    width: 100%;
+    background-color: none;
+}
+#book-details-description {
+    margin-top: 550px;
+    font-family: 'Segoe UI Light';
+    width: 100%;
+    background-color:lightgoldenrodyellow;
+}
