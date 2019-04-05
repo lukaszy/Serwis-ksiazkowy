@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SerwisKsiazkowy.Models
 {
-    [Table("Books")]
+    
     public class Book
     {
         [Key]
@@ -20,6 +20,6 @@ namespace SerwisKsiazkowy.Models
         public int Rate { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
-
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

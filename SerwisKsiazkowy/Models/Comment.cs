@@ -7,16 +7,16 @@ using System.Web;
 
 namespace SerwisKsiazkowy.Models
 {
-    [Table("Comments")]
+    
     public class Comment
     {
         [Key]
         public int CommentId { get; set; }
         public string Content { get; set; }
 
-        [ForeignKey("Books")]
+        
         public int BookId { get; set; }
-        public virtual Book Books { get; set; }
+        public virtual Book Book { get; set; }
 
         
 
