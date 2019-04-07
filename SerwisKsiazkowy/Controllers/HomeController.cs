@@ -12,9 +12,9 @@ namespace SerwisKsiazkowy.Controllers
         {
             return View();
         }
-        public ActionResult Index2()
+        public ActionResult StaticContent(string viewname)
         {
-            return View();
+            return View(viewname);
         }
         public ActionResult About()
         {
