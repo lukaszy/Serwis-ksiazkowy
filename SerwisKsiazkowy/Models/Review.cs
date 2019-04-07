@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SerwisKsiazkowy.Models
 {
-    [Table("Reviews")]
+    
     public class Review
     {
         [Key]
@@ -15,9 +15,9 @@ namespace SerwisKsiazkowy.Models
         public string Content { get; set; }
 
        
-        [ForeignKey("Books")]
+        
         public int BookId { get; set; }
-        public virtual Book Books { get; set; }
+        public virtual Book Book { get; set; }
 
 
     }

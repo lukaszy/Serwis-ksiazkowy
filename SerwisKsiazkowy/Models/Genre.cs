@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SerwisKsiazkowy.Models
 {
-    [Table("Genres")]
+    
     public class Genre
     {
         [Key]
