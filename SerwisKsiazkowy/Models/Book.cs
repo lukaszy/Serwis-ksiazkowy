@@ -12,12 +12,13 @@ namespace SerwisKsiazkowy.Models
     {
         [Key]
         public int BookId { get; set; }
-        public string GenreId { get; set; }
+        public int GenreId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }  
         public int Pages { get; set; }
         public DateTime Published { get; set; }
         public int Rate { get; set; }
+        public string CoverFileName { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
