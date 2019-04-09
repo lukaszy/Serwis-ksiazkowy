@@ -1,7 +1,7 @@
 ﻿
 @{
     Layout = null;
-   
+
 }
 
 <!DOCTYPE html>
@@ -21,63 +21,66 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    
-        <div class="site">
 
-            <div class="row">
-                <div class="navbar navbar-inverse navbar-fixed-top">
-                    <div class="site">
 
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" datatoggle="collapse" data-target=".navbar-collapse">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <a class="navbar-brand" href="/">Serwis książkowy</a>
-                        </div>
+    <div class="site">
 
-                        <div class="navbar-collapse collapse">
-                            <ul class="nav navbar-nav">
-                                <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
-                                <li>@Html.ActionLink("Informacje", "About", "Home")</li>
-                                <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                                <li>@Html.ActionLink("Regulamin", "StaticContent", "Home", new { viewname = "regulamin" }, null)</li>
-                            </ul>
 
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a href="/Account/Register" id="registerLink">Rejestracja</a></li>
-                                <li><a href="/Account/Login" id="loginLink">Logowanie</a></li>
-                            </ul>
+        <div class="row">
+            
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="site">
 
-                        </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" datatoggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">Serwis książkowy</a>
+                    </div>
+
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Informacje", "About", "Home")</li>
+                            <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Regulamin", "StaticContent", "Home", new { viewname = "regulamin" }, null)</li>
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/Account/Register" id="registerLink">Rejestracja</a></li>
+                            <li><a href="/Account/Login" id="loginLink">Logowanie</a></li>
+                        </ul>
 
                     </div>
 
                 </div>
 
-                <div class="row">
-                    @RenderBody()
-                </div>
-
-
-
-
-
-
-                <div>
-                    <hr />
-                    <footer>
-
-                        &copy; @DateTime.Now.Year Serwis książkowy Łukasz Krysiak
-
-                    </footer>
-                </div>
-
             </div>
 
+            <div class="row">
+                @RenderBody()
             </div>
-        
+
+
+
+
+
+
+            <div>
+                <hr />
+                <footer>
+
+                    &copy; @DateTime.Now.Year Serwis książkowy Łukasz Krysiak
+
+                </footer>
+            </div>
+
+        </div>
+
+    </div>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

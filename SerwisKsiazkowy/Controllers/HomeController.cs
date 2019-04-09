@@ -1,5 +1,6 @@
 ﻿using SerwisKsiazkowy.DAL;
 using SerwisKsiazkowy.Models;
+using SerwisKsiazkowy.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,20 @@ namespace SerwisKsiazkowy.Controllers
             //db.Genres.Add(newGenre);
             //db.SaveChanges();
 
-            var booksList = db.Books.ToList();
-            return View();
+            // var booksList = db.Books.ToList();
+
+            var genres = db.Genres.ToList();
+
+            var lastBooks = db.Books.OrderByDescending(a => a.Title).ToList();
+
+            var vm = new HomeViewModel()
+            {
+                Genres = genres,
+                LastBooks = lastBooks
+
+            };
+                
+            return View(vm);
         }
         public ActionResult StaticContent(string viewname)
         {
