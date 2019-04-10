@@ -29,12 +29,9 @@ textarea {
 .site {
     width: 65%;
     margin: auto;
+    
 }
 
-#booklist-right {
-    float: left;
-    margin-left: 60px;
-}
 
 #book-details-section {
     width: 768px;
@@ -42,6 +39,11 @@ textarea {
     margin-top: 20px;
 }
 
+/*#booklist-details-left {
+    width: 335px;
+    float: left;
+    margin-right: 28px;
+}*/
 #book-details-left {
     width: 335px;
     float: left;
@@ -49,7 +51,7 @@ textarea {
 }
 
 #book-details-left img {
-        height: 250px;
+        /*height: 250px;*/
         float: left;
         display: block;
         width: 90%;
@@ -85,6 +87,11 @@ textarea {
             color: #39312d;
             text-align: left;
         }
+
+
+
+
+
 #book-details{
     margin-top: 50px;
 }
@@ -112,3 +119,65 @@ textarea {
     background-color:lightgoldenrodyellow;
 }
 
+/*booklist*/
+
+#booklist-details-left img {
+    /*height: 250px;*/
+    float: left;
+    display: block;
+    width: 30%;
+    height: 30%;
+}
+
+#booklist-left {
+    float: left;
+    margin-left: 60px;
+    border: 5px solid #7C7C7C;
+}
+
+#booklist-right {
+    float: left;
+    margin-left: 60px;
+}
+#booklist-details-right {
+    float: left;
+    width: 80%;
+    
+}
+
+    #booklist-details-right #product-details-names {
+        border: 5px solid #7C7C7C;
+    }
+
+    #booklist-details-right #booklist-details-names > h1 {
+        margin-top: 20px;
+        margin-left: 250px;
+        font-family: 'Segoe UI Light';
+        font-size: 15px;
+        text-transform: uppercase;
+        font-weight: normal;
+        color: #39312d;
+        text-align: left;
+    }
+
+    #booklist-details-right #booklist-details-names > h2 {
+        margin-left: 250px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        font-size: 25px;
+        font-family: 'Segoe UI Light';
+        text-transform: uppercase;
+        font-weight: normal;
+        color: #39312d;
+        text-align: left;
+    }
+
+#booklist-details {
+    margin-top: 20px;
+}
+
+#booklist-border {
+    width: 90%;
+    
+    margin-bottom:50px;
+}

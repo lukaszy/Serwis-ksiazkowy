@@ -3,6 +3,7 @@
 @{
 
     ViewBag.Title = "Witaj w świecie książek!";
+    
 }
 
 
@@ -22,27 +23,72 @@
             <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
             <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
             <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>
-            
+
         </ul>
     </div>
-    <div class="col-sm-10">
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="tab1">
-                @foreach (var book in Model.LastBooks)
-                {
-                    
-                        <a href="@Url.Action("Details", "Book", new { id = book.BookId })">
-                            @book.Title
-                            @book.Rate  /5
-                        </a>
-                    
-                }
-                <p>
-                    Nam sodales magna eget nulla interdum gravida. Aenean cursus magna vel lorem eleifend, vel eleifend massa rhoncus.
-                    Duis accumsan vehicula ultricies. Proin tincidunt blandit congue. Curabitur semper odio ut malesuada dapibus.
-                </p>
+        <div class="col-sm-10">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="tab1">
+                    <div id="booklist-details-right">
+                        @foreach (var book in Model.LastBooks)
+                        {
+                            <div id="booklist-border">
+                                <div id="booklist-details-left">
+
+                                    <img src="@Url.Content("~/Content/Covers/" + book.CoverFileName)" />
+                                </div>
+
+                                @*<a href="@Url.Action("Details", "Book", new { id = book.BookId })">
+                    @book.Title
+                </a>*@
+
+
+                                <div id="booklist-details-names">
+
+                                    <h2>
+                                        <a href="@Url.Action("Details", "Book", new { id = book.BookId })">
+                                            @book.Title
+                                        </a>
+                                    </h2>
+
+                                    <h1>
+                                        Autor: @book.Author
+                                    </h1>
+
+                                </div>
+
+                                <div id="booklist-details-names">
+
+                                    <h1>
+                                        Wydawnictwo:  
+                                    </h1>
+                                    <h1>
+                                        Liczba stron: @book.Pages
+                                    </h1>
+                                    <h1>
+                                        Data premiery: @book.Published
+                                    </h1>
+                                    <h1>
+                                        Ocena: @book.Rate
+                                    </h1>
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+                        }
+                    </div>
+                    </div>
+
             </div>
-            
         </div>
     </div>
-</div>
