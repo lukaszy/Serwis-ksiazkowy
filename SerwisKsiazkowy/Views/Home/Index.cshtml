@@ -19,10 +19,10 @@
                     </a>
                 </li>
             }
-            <li role="presentation" class="brand-nav "><a href="Book-details.html" aria-controls="tab1" role="tab" data-toggle="tab">Lorem ipsum</a></li>
+            @*<li role="presentation" class="brand-nav "><a href="Book-details.html" aria-controls="tab1" role="tab" data-toggle="tab">Lorem ipsum</a></li>
             <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
             <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
-            <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>
+            <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>*@
 
         </ul>
     </div>
@@ -60,7 +60,10 @@
                                 <div id="booklist-details-names">
 
                                     <h1>
-                                        Wydawnictwo:  
+                                        Wydawnictwo:
+                                    </h1>
+                                    <h1>
+                                        Gatunek: @Model.Genres.Where(a => a.GenreId == book.GenreId).Single().Name
                                     </h1>
                                     <h1>
                                         Liczba stron: @book.Pages
@@ -69,7 +72,7 @@
                                         Data premiery: @book.Published
                                     </h1>
                                     <h1>
-                                        Ocena: @book.Rate
+                                        Ocena: @book.Rate / 5
                                     </h1>
 
 
@@ -79,13 +82,8 @@
 
 
 
-
-
-
-
-
-
                         }
+                       
                     </div>
                     </div>
 
