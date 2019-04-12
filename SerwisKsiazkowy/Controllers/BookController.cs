@@ -1,5 +1,6 @@
 ﻿using SerwisKsiazkowy.DAL;
 using SerwisKsiazkowy.Models;
+using SerwisKsiazkowy.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,17 @@ namespace SerwisKsiazkowy.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            var BookId = db.Books.Where(g => g.BookId == id);
+            var genres = db.Genres.ToList();
+            var books = BookId.ToList();
+
+            var vm = new HomeViewModel()
+            {
+                Genres = genres,
+                SelectedBook = BookId
+
+            };
+            return View(vm);
         }
 
         public ActionResult List(string genrename)

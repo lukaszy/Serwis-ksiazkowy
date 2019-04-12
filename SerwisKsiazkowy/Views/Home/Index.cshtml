@@ -60,7 +60,7 @@
                                 <div id="booklist-details-names">
 
                                     <h1>
-                                        Wydawnictwo:
+                                        Wydawnictwo: @book.Publisher
                                     </h1>
                                     <h1>
                                         Gatunek: @Model.Genres.Where(a => a.GenreId == book.GenreId).Single().Name
@@ -69,7 +69,7 @@
                                         Liczba stron: @book.Pages
                                     </h1>
                                     <h1>
-                                        Data premiery: @book.Published
+                                        Data premiery: @book.YearPublished
                                     </h1>
                                     <h1>
                                         Ocena: @book.Rate / 5

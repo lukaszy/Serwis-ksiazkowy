@@ -1,4 +1,4 @@
-﻿
+﻿@model SerwisKsiazkowy.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_BookLayout.cshtml";
@@ -7,59 +7,24 @@
 <div class="site">
 
     <div class="row">
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="site">
-
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" datatoggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">Serwis książkowy</a>
-                </div>
-
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/">Strona główna</a></li>
-                        <li><a href="/Home/About">O nas</a></li>
-                        <li><a href="/Home/Contact">Kontakt</a></li>
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/Account/Register" id="registerLink">Rejestracja</a></li>
-                        <li><a href="/Account/Login" id="loginLink">Logowanie</a></li>
-                    </ul>
-
-                </div>
-
-            </div>
-
-        </div>
 
         <div role="tabpanel" class="down">
-            <div class="col-sm-2">
+            @*<div class="col-sm-2">
                 <ul class="nav nav-pills brand-pills nav-stacked" role="tablist">
                     <li role="presentation" class="brand-nav "><a href="Main.html" aria-controls="tab1" role="tab" data-toggle="tab">Lorem ipsum</a></li>
                     <li role="presentation" class="brand-nav"><a href="Book-details.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
                     <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
                     <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>
                 </ul>
-            </div>
+            </div>*@
             <div id="book-right">
 
-                
-
+                @foreach (var book in Model.SelectedBook)
+                {
                 <section id="book-details-section">
                     <div id="book-details-left">
 
-                        <img src="../Content/Images/book1.jpg" />
-
-                        <div id="book-details-share">
-                            <a href="fbshare"></a>
-                            <div></div>
-                            <a href="twshare"></a>
-                        </div>
+                        <img src="@Url.Content("~/Content/Covers/" + book.CoverFileName)" />
 
                     </div>
 
@@ -67,26 +32,35 @@
                         <div id="book-details-names">
 
                             <h1>
-                                TYTUŁ Pacjentka
+                                @book.Title
                             </h1>
-
+                            <br />
                             <h2>
-                                Autor: Polovitas Kovalsky
+                                Autor: @book.Author
                             </h2>
 
                         </div>
 
-                        <div id="book-details">
+                        <div id="book-details-names">
 
-                            <h1>
-                                Wydawnictwo:  Wydawnictwo W.A.B.
-                            </h1>
-                            <h1>
-                                Liczba stron: 150
-                            </h1>
-                            <h1>
-                                Data premiery: 2019-03-13
-                            </h1>
+
+                            <h2>
+                                Wydawnictwo: @book.Publisher
+                            </h2>
+
+
+                            <h2>
+                                Gatunek: @Model.Genres.Where(a => a.GenreId == book.GenreId).Single().Name
+                            </h2>
+                            <h2>
+                                Liczba stron: @book.Pages
+                            </h2>
+                            <h2>
+                                Data premiery: @book.YearPublished
+                            </h2>
+                            <h2>
+                                Ocena: @book.Rate / 5
+                            </h2>
 
 
 
@@ -94,7 +68,37 @@
                     </div>
                     <div id="book-details-description">
                         <h1>
-                            OPIS
+                            Opis książki
+                        </h1>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    </div>
+
+                    <div id="book-details-comments">
+                        <h1>
+                            Recenzje
+                        </h1>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                    </div>
+
+                    <form>
+                        <div class="form-group" >
+                            
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Dodaj Komentarz</button>
+                    </form>
+
+                    <div id="book-details-comments">
+                        <h1>
+                            Komentarze
                         </h1>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
@@ -104,11 +108,11 @@
                     </div>
 
                 </section>
-
+                }
             </div>
 
 
-      
+
         </div>
     </div>
 </div>

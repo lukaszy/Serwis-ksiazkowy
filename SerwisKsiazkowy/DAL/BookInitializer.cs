@@ -30,8 +30,8 @@ namespace SerwisKsiazkowy.DAL
 
             var books = new List<Book>
             {
-                new Book() {BookId = 1, GenreId = 1, Title = "Pan Tadeusz", Author = "Adam Mickiewicz", Pages = 1000, Published = new DateTime(2005, 10, 4), Rate = 5, CoverFileName = "1.png"},
-                new Book() {BookId = 2, GenreId = 1, Title = "Dziady", Author = "Adam Mickiewicz", Pages = 1000, Published = new DateTime(2005, 10, 4), Rate = 5, CoverFileName = "2.png"}
+                new Book() {BookId = 1, GenreId = 1, Title = "Pan Tadeusz", Author = "Adam Mickiewicz", Pages = 1000, YearPublished = new DateTime(2005, 10, 4), Publisher = "Wydawnictwo Rea", Rate = 5, CoverFileName = "1.png"},
+                new Book() {BookId = 2, GenreId = 1, Title = "Dziady", Author = "Adam Mickiewicz", Pages = 1000, YearPublished = new DateTime(2005, 10, 4), Publisher = "Wydawnictwo Rea", Rate = 5, CoverFileName = "2.png"}
             };
             books.ForEach(b => context.Books.Add(b));
             context.SaveChanges();

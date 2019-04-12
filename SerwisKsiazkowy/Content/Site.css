@@ -47,7 +47,7 @@ textarea {
 #book-details-left {
     width: 335px;
     float: left;
-    margin-right: 28px;
+    /*margin-right: 28px;*/
 }
 
 #book-details-left img {
@@ -68,7 +68,7 @@ textarea {
     }
 
     #book-details-right #book-details-names > h1 {
-        margin-top: 20px;
+        margin-top: auto;
         font-family: 'Segoe UI Light';
         font-size: 38px;
         text-transform: uppercase;
@@ -80,7 +80,7 @@ textarea {
         #book-details-right #book-details-names > h2 {
             margin-top: 15px;
             margin-bottom: 20px;
-            font-size: 15px;
+            font-size: 20px;
             font-family: 'Segoe UI Light';
             text-transform: uppercase;
             font-weight: normal;
@@ -113,11 +113,21 @@ textarea {
     background-color: none;
 }
 #book-details-description {
-    margin-top: 550px;
+    margin-top: 500px;
     font-family: 'Segoe UI Light';
     width: 100%;
     background-color:lightgoldenrodyellow;
 }
+
+#book-details-comments {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-family: 'Segoe UI Light';
+    width: 100%;
+    background-color: gray;
+}
+
+
 
 /*booklist*/
 
