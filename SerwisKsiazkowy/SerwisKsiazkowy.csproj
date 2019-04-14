@@ -247,8 +247,9 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Kontakt.cshtml" />
     <Content Include="Views\Home\Regulamin.cshtml" />
-    <Content Include="Views\Book\List.cshtml" />
+    <Content Include="Views\Book\ListGenres.cshtml" />
     <Content Include="Views\Book\Details.cshtml" />
+    <Content Include="Views\Book\_GenresMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

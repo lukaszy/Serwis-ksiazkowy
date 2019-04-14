@@ -14,8 +14,8 @@ namespace SerwisKsiazkowy
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "BookDetails",
-                url: "ksiazka-{id}.html", //{id}
+                name: "{title}",
+                url: "ksiazka/{title},p{id}.html", //{id}
                 defaults: new { controller = "Book", action = "Details" }
             );
 
@@ -28,7 +28,7 @@ namespace SerwisKsiazkowy
             routes.MapRoute(
                 name: "BookList",
                 url: "gatunek/{genrename}",
-                defaults: new { controller = "Book", action = "List" },
+                defaults: new { controller = "Book", action = "ListGenres" },
                 constraints: new { genrename = @"[\w]+"}
             );
 

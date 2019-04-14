@@ -14,7 +14,7 @@
             @foreach (var genre in Model.Genres)
             {
                 <li>
-                    <a href="@Url.Action("List", "Book", new { genrename = genre.Name.ToLower() })">
+                    <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower() })">
                         @genre.Name
                     </a>
                 </li>
@@ -46,7 +46,7 @@
                                 <div id="booklist-details-names">
 
                                     <h2>
-                                        <a href="@Url.Action("Details", "Book", new { id = book.BookId })">
+                                        <a href="@Url.Action("Details", "Book", new { title = book.Title.Replace(" ","-").ToLower(), id = book.BookId })">
                                             @book.Title
                                         </a>
                                     </h2>

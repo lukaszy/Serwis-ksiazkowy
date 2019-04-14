@@ -21,6 +21,7 @@ namespace SerwisKsiazkowy.Controllers
         public ActionResult Details(int id)
         {
             var BookId = db.Books.Where(g => g.BookId == id);
+            //var BookTitle = db.Books.Where(g => g.Title.Replace(" ", "-").ToLower() == title);
             var genres = db.Genres.ToList();
             var books = BookId.ToList();
 
@@ -28,18 +29,26 @@ namespace SerwisKsiazkowy.Controllers
             {
                 Genres = genres,
                 SelectedBook = BookId
+                //SelectedBook = BookTitle
 
             };
             return View(vm);
         }
 
-        public ActionResult List(string genrename)
+        public ActionResult ListGenres(string genrename)
         {
-            var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
-            var books = genre.Books.ToList();
+            //var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
+           // var books = genre.Books.ToList();
             //var books = db.Books.OrderByDescending(b => b.Title).ToList();
 
-            return View(books);
+            return View();
+        }
+        [ChildActionOnly]
+        public ActionResult GenresMenu(string genrename)
+        {
+            var genres = db.Genres.ToList();
+
+            return PartialView("_GenresMenu", genres);
         }
     }
 }
