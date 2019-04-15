@@ -38,8 +38,8 @@ namespace SerwisKsiazkowy.DAL
 
             var comments = new List<Comment>
             {
-                new Comment() {CommentId = 1, Content = "fajna", BookId = 1},
-                new Comment() {CommentId = 2, Content = "nudna", BookId = 1}
+                new Comment() {CommentId = 1, Content = "fajna", BookId = 1, DateAdded = new DateTime(2019,04,15)}, 
+                new Comment() {CommentId = 2, Content = "nudna", BookId = 1, DateAdded = new DateTime(2019,04,14)}
             };
             comments.ForEach(c => context.Comments.Add(c));
             context.SaveChanges();

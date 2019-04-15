@@ -24,11 +24,13 @@ namespace SerwisKsiazkowy.Controllers
             //var BookTitle = db.Books.Where(g => g.Title.Replace(" ", "-").ToLower() == title);
             var genres = db.Genres.ToList();
             var books = BookId.ToList();
+            var comments = db.Comments.Include("Book").Where(c => c.BookId == id).ToList();
 
             var vm = new HomeViewModel()
             {
                 Genres = genres,
-                SelectedBook = BookId
+                SelectedBook = BookId,
+                Comments = comments
                 //SelectedBook = BookTitle
 
             };

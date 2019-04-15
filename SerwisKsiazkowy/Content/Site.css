@@ -124,8 +124,33 @@ textarea {
     margin-bottom: 50px;
     font-family: 'Segoe UI Light';
     width: 100%;
-    background-color: gray;
 }
+#book-details-comment {
+    margin-bottom: 20px;
+    font-family: 'Segoe UI Light';
+    width: 100%;
+    
+    border: 1px solid #7C7C7C;
+}
+    #book-details-comment #book-details-comment-content {
+        /*margin-bottom: 10px;*/
+        font-size: 20px;
+        
+        /*font-family: 'Segoe UI Light';*/
+        /*width: 100%;*/
+        /*background-color: lightgrey;*/
+        /*border: 5px solid #7C7C7C;*/
+    }
+    #book-details-comment #book-details-comment-details {
+        margin-bottom: 10px;
+        font-size: 15px;
+        border-bottom: none;
+        background-color: burlywood;
+        /*font-family: 'Segoe UI Light';*/
+        /*width: 100%;*/
+        /*background-color: lightgrey;*/
+        /*border: 5px solid #7C7C7C;*/
+    }
 
 
 
@@ -196,4 +221,8 @@ textarea {
 
 .checked {
     color: orange;
+}
+ #textarea-comment {
+    width: 800px;
+    height: 120px;
 }

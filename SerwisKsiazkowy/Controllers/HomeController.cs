@@ -15,7 +15,7 @@ namespace SerwisKsiazkowy.Controllers
 
         public ActionResult Index()
         {
-            //Genre newGenre = new Genre { Name = "Powieść" };
+            //Genre newGenre = new Genre { Name = "Biografie" };
             //db.Genres.Add(newGenre);
             //db.SaveChanges();
 

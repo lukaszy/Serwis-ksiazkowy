@@ -11,6 +11,7 @@ namespace SerwisKsiazkowy.ViewModels
         public IEnumerable<Book> LastBooks { get; set; }
         public IEnumerable<Genre> Genres { get; set; }
         public IEnumerable<Book> SelectedBook { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
 
     }
 }
