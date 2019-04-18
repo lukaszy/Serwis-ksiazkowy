@@ -1,0 +1,66 @@
+﻿@model IEnumerable<SerwisKsiazkowy.Models.Book>
+
+<div class="col-sm-10">
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="tab1">
+            <div id="booklist-details-right">
+                @foreach (var Book in Model)
+                {
+                    <div id="booklist-border">
+                        <div id="booklist-details-left">
+
+                            <img src="@Url.Content("~/Content/Covers/" + Book.CoverFileName)" />
+                        </div>
+
+                        @*<a href="@Url.Action("Details", "Book", new { id = book.BookId })">
+                                @book.Title
+                            </a>*@
+
+
+                        <div id="booklist-details-names">
+
+                            <h2>
+                                <a href="@Url.Action("Details", "Book", new { title = Book.Title.Replace(" ","-").ToLower(), id = Book.BookId })">
+                                    @Book.Title
+                                </a>
+                            </h2>
+
+                            <h1>
+                                Autor: @Book.Author
+                            </h1>
+
+                        </div>
+
+                        <div id="booklist-details-names">
+
+                            <h1>
+                                Wydawnictwo: @Book.Publisher
+                            </h1>
+                            <h1>
+
+                                Gatunek: @Book.Genre.Name
+                            </h1>
+                            <h1>
+                                Liczba stron: @Book.Pages
+                            </h1>
+                            <h1>
+                                Data premiery: @Book.YearPublished
+                            </h1>
+                            <h1>
+                                Ocena: @Book.Rate / 5
+                            </h1>
+
+
+
+                        </div>
+                    </div>
+
+
+
+                }
+
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -25,7 +25,7 @@ namespace SerwisKsiazkowy.Controllers
             var genres = db.Genres.ToList();
             var books = BookId.ToList();
             var comments = db.Comments.Include("Book").Where(c => c.BookId == id).ToList();
-
+            ViewBag.Title = BookId.Single().Title.ToString();
             var vm = new HomeViewModel()
             {
                 Genres = genres,
@@ -39,11 +39,13 @@ namespace SerwisKsiazkowy.Controllers
 
         public ActionResult ListGenres(string genrename)
         {
-            //var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
-           // var books = genre.Books.ToList();
+           
+            var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
+            var books = genre.Books.ToList();
+            ViewBag.Title = genre.Name.ToString();
             //var books = db.Books.OrderByDescending(b => b.Title).ToList();
 
-            return View();
+            return View(books);
         }
         [ChildActionOnly]
         public ActionResult GenresMenu(string genrename)

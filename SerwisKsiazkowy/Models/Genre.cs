@@ -14,6 +14,8 @@ namespace SerwisKsiazkowy.Models
         public int GenreId { get; set; }
         public string Name { get; set; }
 
+        //public virtual Book Book { get; set; }
+        //public virtual ICollection<Book> Books { get; set; }
         public virtual ICollection<Book> Books { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace SerwisKsiazkowy.Models
        
         
         public int BookId { get; set; }
-        public virtual Book Book { get; set; }
+        public virtual Book Books { get; set; }
 
 
     }

@@ -46,9 +46,13 @@
                                 <div id="booklist-details-names">
 
                                     <h2>
-                                        <a href="@Url.Action("Details", "Book", new { title = book.Title.Replace(" ","-").ToLower(), id = book.BookId })">
+                                        <a href="@Url.Action("Details", "Book", new { id = book.BookId,  title = book.Title.Replace(" ", "-").ToLower().ToString() } )">
                                             @book.Title
                                         </a>
+                                       
+
+                                       
+
                                     </h2>
 
                                     <h1>
@@ -63,7 +67,12 @@
                                         Wydawnictwo: @book.Publisher
                                     </h1>
                                     <h1>
-                                        Gatunek: @Model.Genres.Where(a => a.GenreId == book.GenreId).Single().Name
+                                        Gatunek: @book.Genre.Name
+                                        @*Gatunek: @book.Genres.Where(a => a.BookId == book.BookId).Single().Name*@
+                                       
+                                        
+
+
                                     </h1>
                                     <h1>
                                         Liczba stron: @book.Pages
