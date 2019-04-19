@@ -10,14 +10,15 @@
 
         <div role="tabpanel" class="down">
             @*<div class="col-sm-2">
-                    <ul class="nav nav-pills brand-pills nav-stacked" role="tablist">
-                        <li role="presentation" class="brand-nav "><a href="Main.html" aria-controls="tab1" role="tab" data-toggle="tab">Lorem ipsum</a></li>
-                        <li role="presentation" class="brand-nav"><a href="Book-details.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
-                        <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
-                        <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>
-                    </ul>
-                </div>*@
-            @Html.MvcSiteMap().SiteMapPath();
+            <ul class="nav nav-pills brand-pills nav-stacked" role="tablist">
+                <li role="presentation" class="brand-nav "><a href="Main.html" aria-controls="tab1" role="tab" data-toggle="tab">Lorem ipsum</a></li>
+                <li role="presentation" class="brand-nav"><a href="Book-details.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
+                <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
+                <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>
+            </ul>
+        </div>*@
+            @*@Html.MvcSiteMap().SiteMapPath()*@
+            @Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
             <div id="book-right">
 
                 @foreach (var book in Model.SelectedBook)

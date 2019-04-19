@@ -1,17 +1,21 @@
 ﻿@model IEnumerable<SerwisKsiazkowy.Models.Genre>
 
 
-<div class="col-sm-2">
-    <ul class="nav nav-pills brand-pills nav-stacked" role="tablist">
-        @foreach (var genre in Model)
-        {
-            <li>
-                <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToString() })">
-                    @genre.Name
-                </a>
-            </li>
-        }
-       
+    <div class="col-sm-2">
+        <div class="genresMenu">
+            <ul class="nav nav-tabs nav-stacked">
+                @foreach (var genre in Model)
+                {
+                    <li>
+                        <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToString() })">
+                            @genre.Name
+                        </a>
+                    </li>
+                }
 
-    </ul>
+
+            </ul>
+        </div>
 </div>
+
+@*<ul class="nav nav-pills brand-pills nav-stacked" role="tablist">*@

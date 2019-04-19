@@ -20,7 +20,7 @@
                         <div id="booklist-details-names">
 
                             <h2>
-                                <a href="@Url.Action("Details", "Book", new { title = Book.Title.Replace(" ","-").ToLower(), id = Book.BookId })">
+                                <a href="@Url.Action("Details", "Book", new { _title = Book.Title.Replace(" ","-").ToLower(), id = Book.BookId })">
                                     @Book.Title
                                 </a>
                             </h2>

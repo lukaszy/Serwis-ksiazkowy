@@ -21,7 +21,8 @@ namespace SerwisKsiazkowy.Infrastructure
                 d.Key = "Book_" + b.BookId;
                 d.ParentKey = "Genre_" + b.GenreId;
                 d.RouteValues.Add("id", b.BookId);
-                
+                d.RouteValues.Add("_title", b.Title.Replace(" ", "-").ToLower().ToString());
+
                 value.Add(d);
             }
             return value;

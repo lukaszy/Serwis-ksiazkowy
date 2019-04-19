@@ -8,10 +8,18 @@
 <div role="tabpanel" class="down">
     @Html.Action("GenresMenu")
 
-    @Html.MvcSiteMap().SiteMapPath();
 
-    @Html.Partial("_BookList")
-</div>
+    <div class="breadcrumbBar">
+        @Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
+    </div>
+
+
+        @*@Html.MvcSiteMap().SiteMapPath()*@
+
+
+        @Html.Partial("_BookList")
+
+    </div>
 
 
 

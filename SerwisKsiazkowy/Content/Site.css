@@ -32,6 +32,17 @@ textarea {
     
 }
 
+.breadcrumbBar {
+    width: 1050px;
+    margin-left: 232px;
+}
+
+.genresMenu {
+    background-color: #fcfcfc;
+    border-radius: 5px;
+    border: 1px solid #e0e0eb;
+}
+
 
 #book-details-section {
     width: 768px;

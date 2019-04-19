@@ -10,21 +10,23 @@
 
 <div role="tabpanel" class="down">
     <div class="col-sm-2">
-        <ul class="nav nav-pills brand-pills nav-stacked" role="tablist">
-            @foreach (var genre in Model.Genres)
-            {
-                <li>
-                    <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower() })">
-                        @genre.Name
-                    </a>
-                </li>
-            }
-            @*<li role="presentation" class="brand-nav "><a href="Book-details.html" aria-controls="tab1" role="tab" data-toggle="tab">Lorem ipsum</a></li>
-            <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
-            <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
-            <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>*@
+        <div class="genresMenu">
+            <ul class="nav nav-tabs nav-stacked" role="tablist">
+                @foreach (var genre in Model.Genres)
+                {
+                    <li>
+                        <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower() })">
+                            @genre.Name
+                        </a>
+                    </li>
+                }
+                @*<li role="presentation" class="brand-nav "><a href="Book-details.html" aria-controls="tab1" role="tab" data-toggle="tab">Lorem ipsum</a></li>
+                <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
+                <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
+                <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>*@
 
-        </ul>
+            </ul>
+         </div>
     </div>
         <div class="col-sm-10">
             <div class="tab-content">
@@ -39,19 +41,19 @@
                                 </div>
 
                                 @*<a href="@Url.Action("Details", "Book", new { id = book.BookId })">
-                    @book.Title
-                </a>*@
+                                    @book.Title
+                                </a>*@
 
 
                                 <div id="booklist-details-names">
 
                                     <h2>
-                                        <a href="@Url.Action("Details", "Book", new { id = book.BookId,  title = book.Title.Replace(" ", "-").ToLower().ToString() } )">
+                                        <a href="@Url.Action("Details", "Book", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() } )">
                                             @book.Title
                                         </a>
-                                       
 
-                                       
+
+
 
                                     </h2>
 
@@ -69,8 +71,8 @@
                                     <h1>
                                         Gatunek: @book.Genre.Name
                                         @*Gatunek: @book.Genres.Where(a => a.BookId == book.BookId).Single().Name*@
-                                       
-                                        
+
+
 
 
                                     </h1>
@@ -92,9 +94,9 @@
 
 
                         }
-                       
+
                     </div>
-                    </div>
+                </div>
 
             </div>
         </div>

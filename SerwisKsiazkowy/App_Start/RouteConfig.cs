@@ -15,7 +15,7 @@ namespace SerwisKsiazkowy
 
             routes.MapRoute(
                 name: "Ksiazka",
-                url: "ksiazka/{id}.html", //{id}
+                url: "ksiazka/{_title}-i{id}", //{id}
                 defaults: new { controller = "Book", action = "Details"  }
             );
 
