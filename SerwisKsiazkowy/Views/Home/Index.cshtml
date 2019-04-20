@@ -12,18 +12,22 @@
     <div class="col-sm-2">
         <div class="genresMenu">
             <ul class="nav nav-tabs nav-stacked" role="tablist">
-                @foreach (var genre in Model.Genres)
+                @if (Model.Genres != null)
                 {
-                    <li>
-                        <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower() })">
-                            @genre.Name
-                        </a>
-                    </li>
+                    foreach (var genre in Model.Genres)
+                    {
+                        <li>
+                            <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower() })">
+                                @genre.Name
+                            </a>
+                        </li>
+                    }
                 }
+
                 @*<li role="presentation" class="brand-nav "><a href="Book-details.html" aria-controls="tab1" role="tab" data-toggle="tab">Lorem ipsum</a></li>
-                <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
-                <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
-                <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>*@
+        <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
+        <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
+        <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>*@
 
             </ul>
          </div>

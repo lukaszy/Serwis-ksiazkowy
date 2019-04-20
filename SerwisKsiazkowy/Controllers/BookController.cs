@@ -3,7 +3,9 @@ using SerwisKsiazkowy.Models;
 using SerwisKsiazkowy.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,10 +15,8 @@ namespace SerwisKsiazkowy.Controllers
     {
         BookContext db = new BookContext();
         // GET: Book
-        public ActionResult Index()
-        {
-            return View();
-        }
+        
+
 
         public ActionResult Details(int id)
         {
@@ -54,5 +54,25 @@ namespace SerwisKsiazkowy.Controllers
 
             return PartialView("_GenresMenu", genres);
         }
+
+        public async Task<ActionResult> Index(string searchString, string genrename)
+        {
+            var books = from m in db.Books
+                        select m;
+            var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title.Contains(searchString));
+            }
+            var bookVM = new HomeViewModel
+            {
+               
+                LastBooks = await books.ToListAsync()
+            };
+
+            return View(books);
+        }
     }
+
+    
 }

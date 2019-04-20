@@ -43,6 +43,10 @@ textarea {
     border: 1px solid #e0e0eb;
 }
 
+.search {
+    margin-top: 8px;
+}
+
 
 #book-details-section {
     width: 768px;
