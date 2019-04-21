@@ -44,14 +44,18 @@ namespace SerwisKsiazkowy.Controllers
             var books = from m in db.Books
                         select m;
             var genres = db.Genres.ToList();
+            //var authors = from m in db.Books select m.Author;
+            var authors = db.Books.Include("Author").Distinct();
             if (!String.IsNullOrEmpty(searchString))
             {
                 books = books.Where(s => s.Title.Contains(searchString));
             }
             var bookVM = new HomeViewModel
             {
+                Authors = authors,
                 Genres = genres,
                 LastBooks = await books.ToListAsync()
+                
             };
 
             return View(bookVM);

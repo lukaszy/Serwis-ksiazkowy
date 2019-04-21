@@ -13,5 +13,7 @@ namespace SerwisKsiazkowy.ViewModels
         public IEnumerable<Book> SelectedBook { get; set; }
         public IEnumerable<Comment> Comments { get; set; }
 
+        public IEnumerable<Book> Authors { get; set; }
+
     }
 }

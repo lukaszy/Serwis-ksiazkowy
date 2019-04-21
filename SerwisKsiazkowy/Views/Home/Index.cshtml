@@ -3,7 +3,7 @@
 @{
 
     ViewBag.Title = "Witaj w świecie książek!";
-    
+
 }
 
 
@@ -22,86 +22,204 @@
                             </a>
                         </li>
                     }
+
                 }
 
                 @*<li role="presentation" class="brand-nav "><a href="Book-details.html" aria-controls="tab1" role="tab" data-toggle="tab">Lorem ipsum</a></li>
-        <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
-        <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
-        <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>*@
+                    <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
+                    <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
+                    <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>*@
 
             </ul>
-         </div>
+
+
+
+
+            <form>
+                <div class="menu-left">
+                    <p>Autor</p>
+                    
+                    <div id="summary">
+                        <p class="collapse" id="collapseExample">
+                            @foreach (var author in Model.Authors)
+                            {
+
+                                {
+
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="">
+                                        <span class="form-check-label">
+                                            @author.Author
+                                        </span>
+                                    </label>
+
+                                }
+
+                            }
+                        </p>
+                        @*<label class="form-check">
+            <input class="form-check-input" type="checkbox" value="">
+            <span class="form-check-label">
+                1ADAM MICKIEWICZ
+            </span>
+        </label>
+        <p class="collapse" id="collapseExample">
+            <label class="form-check">
+                <input class="form-check-input" type="checkbox" value="">
+                <span class="form-check-label">
+                    2ADAM MICKIEWICZ
+                </span>
+            </label>
+
+            <label class="form-check">
+                <input class="form-check-input" type="checkbox" value="">
+                <span class="form-check-label">
+                    3ADAM MICKIEWICZ
+                </span>
+            </label>
+
+        </p>*@
+                        @*<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Link with href
+        </a>*@
+                        <p><a class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseSummary"></a></p>
+                    </div>
+                </div>
+
+                <hr class="style1">
+                <div class="menu-left">
+                    <p>Ocena</p>
+
+                    <p>
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <span class="form-check-label">
+                                5 gwiazdek
+                            </span>
+                        </label>
+                    </p>
+
+
+                    <p>
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <span class="form-check-label">
+                                4 gwiazdki
+                            </span>
+                        </label>
+                    </p>
+                    <p>
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <span class="form-check-label">
+                                3 gwiazdki
+                            </span>
+                        </label>
+                    </p>
+                    <p>
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <span class="form-check-label">
+                                2 gwiazdki
+                            </span>
+                        </label>
+                    </p>
+
+                    <p>
+                        <label class="form-check">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <span class="form-check-label">
+                                1 gwiazdka
+                            </span>
+                        </label>
+                    </p>
+                </div>
+
+                <p><button type="submit" class="btn btn-primary  btn-block">Filtruj</button></p>
+            </form>
+        </div>
+        <a class="collapsed" data-toggle="collapse" href="#collapseSummary" aria-expanded="false" aria-controls="collapseSummary"></a>
     </div>
-        <div class="col-sm-10">
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="tab1">
-                    <div id="booklist-details-right">
-                        @foreach (var book in Model.LastBooks)
-                        {
-                            <div id="booklist-border">
-                                <div id="booklist-details-left">
 
-                                    <img src="@Url.Content("~/Content/Covers/" + book.CoverFileName)" />
-                                </div>
+    <div class="col-sm-10">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tab1">
+                <div id="booklist-details-right">
+                    @foreach (var book in Model.LastBooks)
+                    {
+                        <div id="booklist-border">
+                            <div id="booklist-details-left">
 
-                                @*<a href="@Url.Action("Details", "Book", new { id = book.BookId })">
+                                <img src="@Url.Content("~/Content/Covers/" + book.CoverFileName)" />
+                            </div>
+
+                            @*<a href="@Url.Action("Details", "Book", new { id = book.BookId })">
                                     @book.Title
                                 </a>*@
 
 
-                                <div id="booklist-details-names">
+                            <div id="booklist-details-names">
 
-                                    <h2>
-                                        <a href="@Url.Action("Details", "Book", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() } )">
-                                            @book.Title
-                                        </a>
-
-
-
-
-                                    </h2>
-
-                                    <h1>
-                                        Autor: @book.Author
-                                    </h1>
-
-                                </div>
-
-                                <div id="booklist-details-names">
-
-                                    <h1>
-                                        Wydawnictwo: @book.Publisher
-                                    </h1>
-                                    <h1>
-                                        Gatunek: @book.Genre.Name
-                                        @*Gatunek: @book.Genres.Where(a => a.BookId == book.BookId).Single().Name*@
+                                <h2>
+                                    <a href="@Url.Action("Details", "Book", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() } )">
+                                        @book.Title
+                                    </a>
 
 
 
 
-                                    </h1>
-                                    <h1>
-                                        Liczba stron: @book.Pages
-                                    </h1>
-                                    <h1>
-                                        Data premiery: @book.YearPublished
-                                    </h1>
-                                    <h1>
-                                        Ocena: @book.Rate / 5
-                                    </h1>
+                                </h2>
 
+                                <h1>
+                                    Autor: @book.Author
+                                </h1>
 
-
-                                </div>
                             </div>
 
+                            <div id="booklist-details-names">
+
+                                <h1>
+                                    Wydawnictwo: @book.Publisher
+                                </h1>
+                                <h1>
+                                    Gatunek: @book.Genre.Name
+                                    @*Gatunek: @book.Genres.Where(a => a.BookId == book.BookId).Single().Name*@
 
 
-                        }
 
-                    </div>
+
+                                </h1>
+                                <h1>
+                                    Liczba stron: @book.Pages
+                                </h1>
+                                <h1>
+                                    Data premiery: @book.YearPublished
+                                </h1>
+                                <h1>
+                                    Ocena: @book.Rate / 5
+                                </h1>
+
+                            </div>
+                        </div>
+
+                    }
+
                 </div>
-
             </div>
+
         </div>
     </div>
+</div>
+
+
+<p>
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Link with href
+    </a>
+   
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+    </div>
+</div>

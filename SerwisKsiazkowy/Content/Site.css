@@ -41,6 +41,13 @@ textarea {
     background-color: #fcfcfc;
     border-radius: 5px;
     border: 1px solid #e0e0eb;
+    
+}
+
+.menu-left {
+    margin-left: 15px;
+    margin-top: 15px;
+    
 }
 
 .search {
@@ -240,4 +247,14 @@ textarea {
  #textarea-comment {
     width: 800px;
     height: 120px;
+}
+#summary {
+    line-height: 1.5;
+}
+#summary a.collapsed:after {
+    content: '+ Więcej';
+}
+
+#summary a:not(.collapsed):after {
+    content: '- Mniej';
 }
