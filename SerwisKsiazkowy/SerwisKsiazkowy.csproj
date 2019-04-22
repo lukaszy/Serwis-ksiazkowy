@@ -189,6 +189,7 @@
     <Content Include="Content\Covers\8.png" />
     <Content Include="Content\Covers\9.png" />
     <Content Include="Content\Covers\aa9760ef-b6dc-4242-a788-2573cfc4732d.jpg" />
+    <Content Include="Content\Covers\no_image.png" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\Images\book1.jpg" />
     <Content Include="favicon.ico" />
@@ -279,6 +280,7 @@
     <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
+    <Content Include="Views\Book\_FilterMenu.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

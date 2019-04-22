@@ -43,7 +43,12 @@ textarea {
     border: 1px solid #e0e0eb;
     
 }
-
+.filter-menu {
+    background-color: #fcfcfc;
+    border-radius: 5px;
+    border: 1px solid #e0e0eb;
+    margin-left: 10px;
+}
 .menu-left {
     margin-left: 15px;
     margin-top: 15px;

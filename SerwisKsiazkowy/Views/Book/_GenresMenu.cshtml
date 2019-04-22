@@ -1,21 +1,116 @@
-﻿@model IEnumerable<SerwisKsiazkowy.Models.Genre>
+﻿@model SerwisKsiazkowy.ViewModels.HomeViewModel
 
 
-    <div class="col-sm-2">
-        <div class="genresMenu">
-            <ul class="nav nav-tabs nav-stacked">
-                @foreach (var genre in Model)
-                {
-                    <li>
-                        <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToString() })">
-                            @genre.Name
-                        </a>
-                    </li>
-                }
+<div class="col-sm-2">
+    <div class="genresMenu">
+        <ul class="nav nav-tabs nav-stacked">
+            @foreach (var genre in Model.Genres)
+            {
+                <li>
+                    <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToString() })">
+                        @genre.Name
+                    </a>
+                </li>
+            }
 
 
-            </ul>
-        </div>
+        </ul>
+        @using (Html.BeginForm())
+        {
+            @*@Html.HiddenFor(model =>model.Authors)*@
+            <div class="menu-left">
+                @Html.DropDownListFor(model => model.Author1, new MultiSelectList(Model.Authors, "BookId", "Author").GroupBy(x => x.Text).Select(x => x.First()), new { id = "MultiSelectDropDown", multiple= "multiple" })
+                @Html.CheckBox(Model.Authors.Select(o=>o.Author).Distinct().ToString(),false) <label>1</label>
+            </div>
+        }
+        <form>
+            <div class="menu-left">
+                <p>Autor</p>
+
+                <div id="summary">
+
+                    @foreach (var author in Model.Author)
+                    {
+
+                        <p class="collapse" id="collapseExample">
+                            {
+
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" id="@author.ToString()">
+                                <span class="form-check-label">
+                                    @author.ToString()
+                                </span>
+                            </label>
+
+                            }
+                        </p>
+                    }
+
+
+                    <p><a class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseSummary"></a></p>
+                </div>
+            </div>
+
+            <hr class="style1">
+            <div class="menu-left">
+                <p>Ocena</p>
+
+                <p>
+                    <label class="form-check">
+                        <input class="form-check-input" id="star_5" type="checkbox" value="">
+                        <span class="form-check-label">
+                            5 gwiazdek
+                        </span>
+                    </label>
+                </p>
+
+
+                <p>
+                    <label class="form-check">
+                        <input class="form-check-input" id="star_4" type="checkbox" value="">
+                        <span class="form-check-label">
+                            4 gwiazdki
+                        </span>
+                    </label>
+                </p>
+                <p>
+                    <label class="form-check">
+                        <input class="form-check-input" id="star_3" type="checkbox" value="">
+                        <span class="form-check-label">
+                            3 gwiazdki
+                        </span>
+                    </label>
+                </p>
+                <p>
+                    <label class="form-check">
+                        <input class="form-check-input" id="star_2" type="checkbox" value="">
+                        <span class="form-check-label">
+                            2 gwiazdki
+                        </span>
+                    </label>
+                </p>
+
+                <p>
+                    <label class="form-check">
+                        <input class="form-check-input" id="star_1" type="checkbox" value="">
+                        <span class="form-check-label">
+                            1 gwiazdka
+                        </span>
+                    </label>
+                </p>
+            </div>
+            <p>@*<a href="@Url.Action("Filtr", "Book", new { genrename =  })">Filtr</a>*@</p>
+            <p><button type="submit" class="btn btn-primary  btn-block">Filtruj</button></p>
+        </form>
+
+
+    </div>
 </div>
 
 @*<ul class="nav nav-pills brand-pills nav-stacked" role="tablist">*@
+
+<script>
+    $(function () {
+        $("#MultiSelectDropDown").chosen();
+    });
+</script>

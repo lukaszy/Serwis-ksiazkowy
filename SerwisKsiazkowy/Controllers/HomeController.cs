@@ -45,7 +45,10 @@ namespace SerwisKsiazkowy.Controllers
                         select m;
             var genres = db.Genres.ToList();
             //var authors = from m in db.Books select m.Author;
-            var authors = db.Books.Include("Author").Distinct();
+            var authors = db.Books.ToList();
+           
+
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 books = books.Where(s => s.Title.Contains(searchString));

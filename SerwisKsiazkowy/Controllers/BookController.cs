@@ -51,9 +51,32 @@ namespace SerwisKsiazkowy.Controllers
         public ActionResult GenresMenu(string genrename)
         {
             var genres = db.Genres.ToList();
+            var author = db.Books.Select(p => p.Author).Distinct();
+            var authors = db.Books.ToList();
+            var VM = new HomeViewModel
+            {
+                Authors = authors,
+                Author = author.ToList(),
+                Genres = genres
+            };
 
-            return PartialView("_GenresMenu", genres);
+            return PartialView("_GenresMenu", VM);
         }
+
+        //public ActionResult Filtr(string author)
+        //{
+        //    var genres = db.Genres.ToList();
+        //    var author = db.Books.Select(p => p.Author).Distinct();
+
+        //    var VM = new HomeViewModel
+        //    {
+
+        //        Author = author.ToList(),
+        //        Genres = genres
+        //    };
+
+        //    return PartialView("_GenresMenu", VM);
+        //}
 
         public async Task<ActionResult> Index(string searchString, string genrename)
         {
