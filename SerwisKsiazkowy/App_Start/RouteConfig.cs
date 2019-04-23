@@ -24,7 +24,7 @@ namespace SerwisKsiazkowy
                 url: "strona/{viewname}.html",
                 defaults: new { controller = "Home", action = "StaticContent" }
             );
-
+            
             routes.MapRoute(
                 name: "BookList",
                 url: "gatunek/{genrename}",
@@ -32,6 +32,12 @@ namespace SerwisKsiazkowy
                 constraints: new { genrename = @"[\w]+"}
             );
 
+            routes.MapRoute(
+                name: "Filterlist",
+                url: "gatunek/{genrename}/filter",
+                defaults: new { controller = "Book", action = "Filterlist" },
+                constraints: new { genrename = @"[\w]+" }
+            );
 
             routes.MapRoute(
                 name: "Default",

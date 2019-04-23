@@ -19,7 +19,7 @@ namespace SerwisKsiazkowy.Infrastructure
                 DynamicNode d = new DynamicNode();
                 d.Title = b.Name;
                 d.Key = "Genre_" + b.GenreId;
-                d.RouteValues.Add("genrename", b.Name);
+                d.RouteValues.Add("genrename", b.Name.ToLower());
                 value.Add(d);
             }
             return value;

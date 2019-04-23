@@ -1,0 +1,22 @@
+﻿
+@{
+    //ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_BookLayout.cshtml";
+}
+
+<div role="tabpanel" class="down">
+    @Html.Action("GenresMenu")
+
+
+    <div class="breadcrumbBar">
+        @Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
+    </div>
+
+
+    @*@Html.MvcSiteMap().SiteMapPath()*@
+
+
+    @Html.Partial("_BookList")
+
+
+</div>

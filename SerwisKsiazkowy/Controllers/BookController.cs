@@ -1,10 +1,13 @@
 ﻿using SerwisKsiazkowy.DAL;
 using SerwisKsiazkowy.Models;
 using SerwisKsiazkowy.ViewModels;
+using SerwisKsiazkowy.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -39,7 +42,6 @@ namespace SerwisKsiazkowy.Controllers
 
         public ActionResult ListGenres(string genrename)
         {
-           
             var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
             var books = genre.Books.ToList();
             ViewBag.Title = genre.Name.ToString();
@@ -63,20 +65,42 @@ namespace SerwisKsiazkowy.Controllers
             return PartialView("_GenresMenu", VM);
         }
 
-        //public ActionResult Filtr(string author)
-        //{
-        //    var genres = db.Genres.ToList();
-        //    var author = db.Books.Select(p => p.Author).Distinct();
+        public ActionResult FilterList(HomeViewModel author, string UrlPath)
+        {
+            var genres = db.Genres.ToList();
+            //var author = db.Books.Select(p => p.Author).Distinct();
+            string temp = null;
 
-        //    var VM = new HomeViewModel
-        //    {
 
-        //        Author = author.ToList(),
-        //        Genres = genres
-        //    };
+            //int genre_start = UrlPath.LastIndexOf("/") + 1;
+            //string genreName = UrlPath.Split('/').Last();
+            string genreName = UrlPath.Split('/').ElementAt(2);
 
-        //    return PartialView("_GenresMenu", VM);
-        //}
+
+            if (author.Author1 != null)
+            {
+                foreach(var item in author.Author1)
+                {
+                    temp += item;
+                }
+            }
+            IEnumerable<Book> selectedBook = null;
+            var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genreName.ToUpper()).Single();
+            if(genre != null)
+            {
+                selectedBook = genre.Books.Where(a => a.Author == temp);
+            }
+            
+            //var VM = new HomeViewModel
+            //{
+
+            //    //Author = author.ToList(),
+            //    SelectedBook = selectedBook,
+            //    Genres = genres
+            //};
+            ViewBag.selectedBooks = "selectedBook: "+temp+" "+ genreName;
+            return View("ListGenres",selectedBook);
+        }
 
         public async Task<ActionResult> Index(string searchString, string genrename)
         {
@@ -95,6 +119,9 @@ namespace SerwisKsiazkowy.Controllers
 
             return View(books);
         }
+
+
+        
     }
 
     

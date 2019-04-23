@@ -1,5 +1,7 @@
 ﻿
 @model SerwisKsiazkowy.ViewModels.HomeViewModel
+@using SerwisKsiazkowy.Infrastructure
+
 @{
 
     ViewBag.Title = "Witaj w świecie książek!";
@@ -17,7 +19,10 @@
                     foreach (var genre in Model.Genres)
                     {
                         <li>
-                            <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower() })">
+                            @*<a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower() })">
+                                    @genre.Name
+                                </a>*@
+                            <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower().ToString() })">
                                 @genre.Name
                             </a>
                         </li>
@@ -35,13 +40,13 @@
 
 
 
-            <form>
+            @*<form>
                 <div class="menu-left">
                     <p>Autor</p>
-                    
+
                     <div id="summary">
                         <p class="collapse" id="collapseExample">
-                            @foreach (var author in Model.Authors.Select(p =>p.Author).Distinct())
+                            @foreach (var author in Model.Authors.Select(p => p.Author).Distinct())
                             {
 
                                 {
@@ -57,7 +62,7 @@
 
                             }
                         </p>
-                       
+
                         <p><a class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseSummary"></a></p>
                     </div>
                 </div>
@@ -112,7 +117,7 @@
                 </div>
 
                 <p><button type="submit" class="btn btn-primary  btn-block">Filtruj</button></p>
-            </form>
+            </form>*@
         </div>
         <a class="collapsed" data-toggle="collapse" href="#collapseSummary" aria-expanded="false" aria-controls="collapseSummary"></a>
     </div>
@@ -192,7 +197,7 @@
     <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
         Link with href
     </a>
-   
+
 </p>
 <div class="collapse" id="collapseExample">
     <div class="card card-body">

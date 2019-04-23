@@ -1,30 +1,47 @@
 ﻿@model SerwisKsiazkowy.ViewModels.HomeViewModel
-
+@using SerwisKsiazkowy.Infrastructure
 
 <div class="col-sm-2">
     <div class="genresMenu">
+        
         <ul class="nav nav-tabs nav-stacked">
             @foreach (var genre in Model.Genres)
             {
-                <li>
-                    <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToString() })">
+                <li >
+                    @*<a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToString() })">
                         @genre.Name
-                    </a>
+                    </a>*@
+
+                    @if (HttpContext.Current.Request.Url.AbsolutePath.Split('/').ElementAt(2) == genre.Name.ToLower().ToString())
+                    {
+                        <a class="btn-success btn-block" href="@Url.Action("ListGenres", "Book", new { genrename =  genre.Name.ToLower().ToString() })">
+                            @genre.Name
+                        </a>
+                    }
+                    else
+                    {
+                        <a class=" nav-link btn-block" href="@Url.Action("ListGenres", "Book", new { genrename =  genre.Name.ToLower().ToString() })">
+                            @genre.Name
+                        </a>
+                    }
                 </li>
             }
 
 
         </ul>
-        @using (Html.BeginForm())
+
+        @using (Html.BeginForm("FilterList", "Book", new { UrlPath = HttpContext.Current.Request.Url.AbsolutePath }))
         {
             @*@Html.HiddenFor(model =>model.Authors)*@
-            <div class="menu-left">
-                @Html.DropDownListFor(model => model.Author1, new MultiSelectList(Model.Authors, "BookId", "Author").GroupBy(x => x.Text).Select(x => x.First()), new { id = "MultiSelectDropDown", multiple= "multiple" })
-                @Html.CheckBox(Model.Authors.Select(o=>o.Author).Distinct().ToString(),false) <label>1</label>
-            </div>
+        <div class="menu-left">
+            <p>Autor:</p>
+            @Html.ListBoxFor(model => model.Author1, new MultiSelectList(Model.Authors, "Author", "Author").GroupBy(x => x.Text).Select(x => x.First()), new { id = "MultiSelectDropDown", multiple = "multiple" })
+            @*@Html.CheckBox(Model.Authors.Select(o=>o.Author).Distinct().ToString(),false) <label>1</label>*@
+        </div>
+            <p><button type="submit" class="btn btn-primary  btn-block">Filtruj</button></p>
         }
         <form>
-            <div class="menu-left">
+            @*<div class="menu-left">
                 <p>Autor</p>
 
                 <div id="summary">
@@ -49,11 +66,11 @@
 
                     <p><a class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseSummary"></a></p>
                 </div>
-            </div>
+            </div>*@
 
             <hr class="style1">
             <div class="menu-left">
-                <p>Ocena</p>
+                <p>Ocena:</p>
 
                 <p>
                     <label class="form-check">

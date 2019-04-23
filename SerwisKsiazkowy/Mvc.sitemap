@@ -8,6 +8,7 @@
     <mvcSiteMapNode title="Gatunek" controller="Book" action="ListGenres" dynamicNodeProvider="SerwisKsiazkowy.Infrastructure.BookListDynamicNodeProvider, SerwisKsiazkowy">
       <mvcSiteMapNode title="Ksiazka" controller="Book" action="Details" dynamicNodeProvider="SerwisKsiazkowy.Infrastructure.BookDetailsDynamicNodeProvider, SerwisKsiazkowy"/>
     </mvcSiteMapNode>
+
   </mvcSiteMapNode>
 
 </mvcSiteMap>

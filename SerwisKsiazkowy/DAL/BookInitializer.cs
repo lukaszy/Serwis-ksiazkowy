@@ -25,7 +25,7 @@ namespace SerwisKsiazkowy.DAL
             {
                 new Genre() {GenreId = 1, Name = "Epos"},
                 new Genre() {GenreId = 2, Name = "Dramat"},
-                new Genre() {GenreId = 2, Name = "Powieść"}
+                new Genre() {GenreId = 2, Name = "Powiesc"}
             };
             genres.ForEach(g => context.Genres.Add(g));
             context.SaveChanges();
@@ -34,7 +34,8 @@ namespace SerwisKsiazkowy.DAL
             {
                 new Book() {BookId = 1, GenreId = 1, Title = "Pan Tadeusz", Author = "Adam Mickiewicz", Pages = 1000, YearPublished = new DateTime(2005, 10, 4), Publisher = "Wydawnictwo Rea", Rate = 5, CoverFileName = "1.png", Description = "Pan Tadeusz, czyli Ostatni zajazd na Litwie to epopeja narodowa z elementami gawędy szlacheckiej powstała w latach 1832–1834 w Paryżu. Składa się z dwunastu ksiąg pisanych wierszem, trzynastozgłoskowym aleksandrynem polskim. Czas akcji: pięć dni z roku 1811 i dwa dni z roku 1812."},
                 new Book() {BookId = 2, GenreId = 2, Title = "Dziady", Author = "Adam Mickiewicz", Pages = 1000, YearPublished = new DateTime(2005, 10, 4), Publisher = "Wydawnictwo Rea", Rate = 5, CoverFileName = "2.png", Description = "Trwa proces studentów – filomatów. Wileńskie więzienie jest pełne młodych ludzi, którzy otwarcie przyznają się do tego, że są Polakami. Jeden z nich, Konrad, staje się wcieleniem niepodległości własnej ojczyzny. Nadchodzą niespodziewane wydarzenia, w których ważną rolę odegrają siły pozaziemskie, a na ziemi po raz kolejny zetrą się szatan i Bóg."},
-                new Book() {BookId = 3, GenreId = 3, Title = "Krzyżacy", Author = "Henryk Sienkiewicz", Pages = 1000, YearPublished = new DateTime(2005, 10, 4), Publisher = "Wydawnictwo Rea", Rate = 5, CoverFileName = "no_image.png", Description = "Trwa proces studentów – filomatów. Wileńskie więzienie jest pełne młodych ludzi, którzy otwarcie przyznają się do tego, że są Polakami. Jeden z nich, Konrad, staje się wcieleniem niepodległości własnej ojczyzny. Nadchodzą niespodziewane wydarzenia, w których ważną rolę odegrają siły pozaziemskie, a na ziemi po raz kolejny zetrą się szatan i Bóg."}
+                new Book() {BookId = 3, GenreId = 3, Title = "Krzyżacy", Author = "Henryk Sienkiewicz", Pages = 1000, YearPublished = new DateTime(2005, 10, 4), Publisher = "Wydawnictwo Rea", Rate = 5, CoverFileName = "no_image.png", Description = "Trwa proces studentów – filomatów. Wileńskie więzienie jest pełne młodych ludzi, którzy otwarcie przyznają się do tego, że są Polakami. Jeden z nich, Konrad, staje się wcieleniem niepodległości własnej ojczyzny. Nadchodzą niespodziewane wydarzenia, w których ważną rolę odegrają siły pozaziemskie, a na ziemi po raz kolejny zetrą się szatan i Bóg."},
+                new Book() {BookId = 4, GenreId = 1, Title = "Odyseja", Author = "Homer", Pages = 800, YearPublished = new DateTime(2005, 10, 4), Publisher = "Wydawnictwo Rea", Rate = 5, CoverFileName = "no_image.png", Description = "Trwa proces studentów – filomatów. Wileńskie więzienie jest pełne młodych ludzi, którzy otwarcie przyznają się do tego, że są Polakami. Jeden z nich, Konrad, staje się wcieleniem niepodległości własnej ojczyzny. Nadchodzą niespodziewane wydarzenia, w których ważną rolę odegrają siły pozaziemskie, a na ziemi po raz kolejny zetrą się szatan i Bóg."}
 
             };
             books.ForEach(b => context.Books.Add(b));
