@@ -3,14 +3,14 @@
 
 <div class="col-sm-2">
     <div class="genresMenu">
-        
+
         <ul class="nav nav-tabs nav-stacked">
             @foreach (var genre in Model.Genres)
             {
-                <li >
+                <li>
                     @*<a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToString() })">
-                        @genre.Name
-                    </a>*@
+                            @genre.Name
+                        </a>*@
 
                     @if (HttpContext.Current.Request.Url.AbsolutePath.Split('/').ElementAt(2) == genre.Name.ToLower().ToString())
                     {
@@ -33,40 +33,41 @@
         @using (Html.BeginForm("FilterList", "Book", new { UrlPath = HttpContext.Current.Request.Url.AbsolutePath }))
         {
             @*@Html.HiddenFor(model =>model.Authors)*@
-        <div class="menu-left">
-            <p>Autor:</p>
-            @Html.ListBoxFor(model => model.Author1, new MultiSelectList(Model.Authors, "Author", "Author").GroupBy(x => x.Text).Select(x => x.First()), new { id = "MultiSelectDropDown", multiple = "multiple" })
-            @*@Html.CheckBox(Model.Authors.Select(o=>o.Author).Distinct().ToString(),false) <label>1</label>*@
-        </div>
+            <div class="menu-left">
+                <p>Autor:</p>
+                @*@Html.DropDownListFor(model => model.autor, new SelectList(Model.Authors, "Author", "Author").GroupBy(x => x.Text).Select(x => x.First()), new { id = "MultiSelectDropDown", @class= "chosen-select" })*@
+                @Html.ListBoxFor(model => model.Author1, new MultiSelectList(Model.Authors, "Author", "Author").GroupBy(x => x.Text).Select(x => x.First()), new { id = "MultiSelectDropDown", multiple = "multiple" })
+                @*@Html.CheckBox(Model.Authors.Select(o=>o.Author).Distinct().ToString(),false) <label>1</label>*@
+            </div>
             <p><button type="submit" class="btn btn-primary  btn-block">Filtruj</button></p>
         }
         <form>
             @*<div class="menu-left">
-                <p>Autor</p>
+                    <p>Autor</p>
 
-                <div id="summary">
+                    <div id="summary">
 
-                    @foreach (var author in Model.Author)
-                    {
+                        @foreach (var author in Model.Author)
+                        {
 
-                        <p class="collapse" id="collapseExample">
-                            {
+                            <p class="collapse" id="collapseExample">
+                                {
 
-                            <label class="form-check">
-                                <input class="form-check-input" type="checkbox" id="@author.ToString()">
-                                <span class="form-check-label">
-                                    @author.ToString()
-                                </span>
-                            </label>
+                                <label class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="@author.ToString()">
+                                    <span class="form-check-label">
+                                        @author.ToString()
+                                    </span>
+                                </label>
 
-                            }
-                        </p>
-                    }
+                                }
+                            </p>
+                        }
 
 
-                    <p><a class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseSummary"></a></p>
-                </div>
-            </div>*@
+                        <p><a class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseSummary"></a></p>
+                    </div>
+                </div>*@
 
             <hr class="style1">
             <div class="menu-left">
@@ -122,12 +123,20 @@
 
 
     </div>
+
 </div>
 
 @*<ul class="nav nav-pills brand-pills nav-stacked" role="tablist">*@
 
-<script>
-    $(function () {
-        $("#MultiSelectDropDown").chosen();
-    });
-</script>
+@section scripts {
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#MultiSelectDropDown").chosen();
+
+        });
+    </script>
+
+}

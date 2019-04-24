@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using SerwisKsiazkowy.Infrastructure;
 
+
 namespace SerwisKsiazkowy.ViewModels
 {
     public class HomeViewModel
@@ -16,6 +17,9 @@ namespace SerwisKsiazkowy.ViewModels
         public IEnumerable<Book> Authors { get; set; }
 
         public List<String> Author { get; set; }
-        public string[] Author1 { get; set; }
+        public string autor { get; set; }
+        //public string[] Author1 { get; set; }
+        public IEnumerable<String> Author1 { get; set; }
+
     }
 }
