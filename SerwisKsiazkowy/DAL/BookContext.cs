@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Data.Entity.Migrations;
 
 namespace SerwisKsiazkowy.DAL
 {
@@ -14,10 +15,10 @@ namespace SerwisKsiazkowy.DAL
 
         }
 
-        //static BookContext()
-        //{
-        //    Database.SetInitializer<BookContext>(new BookInitializer());
-        //}
+        static BookContext()
+        {
+            Database.SetInitializer<BookContext>(new BookInitializer());
+        }
         public DbSet<Book> Books { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Genre> Genres { get; set; }

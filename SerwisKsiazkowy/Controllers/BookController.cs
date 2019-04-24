@@ -69,28 +69,34 @@ namespace SerwisKsiazkowy.Controllers
         {
             var genres = db.Genres.ToList();
             //var author = db.Books.Select(p => p.Author).Distinct();
-            string temp = null;
+            //string[] temp = null;
 
+            List<String> temp = new List<string>();
 
             //int genre_start = UrlPath.LastIndexOf("/") + 1;
             //string genreName = UrlPath.Split('/').Last();
             string genreName = UrlPath.Split('/').ElementAt(2);
 
-
+            int i = 0;
             if (author.Author1 != null)
-            {
+            {      
                 foreach(var item in author.Author1)
-                {
-                    temp += item;
+                {            
+                     temp.Add(item);                                      
                 }
             }
             IEnumerable<Book> selectedBook = null;
+            //temp = "Adam Mickiewicz" + "," + "Homer";
             var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genreName.ToUpper()).Single();
+            
             if(genre != null)
             {
-                selectedBook = genre.Books.Where(a => a.Author == temp);
+                
+                //selectedBook = genre.Books.Where(a => a.Author == temp && temp.Contains(a.Author));
+                selectedBook = genre.Books.Where(a =>  temp.Contains(a.Author));
+                //selectedBook = db.Books.SqlQuery("select * from books where author in (" + temp + ")").ToList();
             }
-            
+
             //var VM = new HomeViewModel
             //{
 
@@ -98,7 +104,9 @@ namespace SerwisKsiazkowy.Controllers
             //    SelectedBook = selectedBook,
             //    Genres = genres
             //};
-            ViewBag.selectedBooks = "selectedBook: "+temp+" "+ genreName;
+            
+            //var data = db.Books.SqlQuery("select * from books where author in ("+temp+")").ToList();
+            ViewBag.selectedBooks = "selectedBook: "+temp+" "+ genreName+"data: ";
             return View("ListGenres",selectedBook);
         }
 

@@ -6,28 +6,31 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Data.Entity.Migrations;
+using SerwisKsiazkowy.Migrations;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SerwisKsiazkowy.DAL
 {
-    public class BookInitializer : DropCreateDatabaseAlways<BookContext>
+    public class BookInitializer : MigrateDatabaseToLatestVersion<BookContext, Configuration>
     {
-        protected override void Seed(BookContext context)
-        {
-            SeedBookData(context);
+        //protected override void Seed(BookContext context)
+        //{
+        //    SeedBookData(context);
 
-            base.Seed(context);
-        }
+        //    base.Seed(context);
+        //}
 
-        private void SeedBookData(BookContext context)
+        public static void SeedBookData(BookContext context)
         {
 
             var genres = new List<Genre>
             {
                 new Genre() {GenreId = 1, Name = "Epos"},
                 new Genre() {GenreId = 2, Name = "Dramat"},
-                new Genre() {GenreId = 2, Name = "Powiesc"}
+                new Genre() {GenreId = 3, Name = "Powiesc"}
             };
-            genres.ForEach(g => context.Genres.Add(g));
+            genres.ForEach(g => context.Genres.AddOrUpdate(g));
             context.SaveChanges();
 
             var books = new List<Book>
@@ -38,7 +41,7 @@ namespace SerwisKsiazkowy.DAL
                 new Book() {BookId = 4, GenreId = 1, Title = "Odyseja", Author = "Homer", Pages = 800, YearPublished = new DateTime(2005, 10, 4), Publisher = "Wydawnictwo Rea", Rate = 5, CoverFileName = "no_image.png", Description = "Trwa proces studentów – filomatów. Wileńskie więzienie jest pełne młodych ludzi, którzy otwarcie przyznają się do tego, że są Polakami. Jeden z nich, Konrad, staje się wcieleniem niepodległości własnej ojczyzny. Nadchodzą niespodziewane wydarzenia, w których ważną rolę odegrają siły pozaziemskie, a na ziemi po raz kolejny zetrą się szatan i Bóg."}
 
             };
-            books.ForEach(b => context.Books.Add(b));
+            books.ForEach(b => context.Books.AddOrUpdate(b));
             context.SaveChanges();
 
            
@@ -50,7 +53,7 @@ namespace SerwisKsiazkowy.DAL
                 new Comment() {CommentId = 1, Content = "fajna", BookId = 1, DateAdded = new DateTime(2019,04,15)}, 
                 new Comment() {CommentId = 2, Content = "nudna", BookId = 1, DateAdded = new DateTime(2019,04,14)}
             };
-            comments.ForEach(c => context.Comments.Add(c));
+            comments.ForEach(c => context.Comments.AddOrUpdate(c));
             context.SaveChanges();
 
             var reviews = new List<Review>
@@ -58,7 +61,7 @@ namespace SerwisKsiazkowy.DAL
                 new Review() {ReviewId = 1, Content = "jakas 1 recenzja", BookId = 1},
                 new Review() {ReviewId = 2, Content = "jakas 2 recenzja", BookId = 1 }
             };
-            reviews.ForEach(r => context.Reviews.Add(r));
+            reviews.ForEach(r => context.Reviews.AddOrUpdate(r));
             context.SaveChanges();
         }
     }

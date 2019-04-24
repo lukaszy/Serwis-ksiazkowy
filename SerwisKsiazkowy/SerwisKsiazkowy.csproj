@@ -163,6 +163,15 @@
     <Compile Include="Infrastructure\BookDetailsDynamicNodeProvider.cs" />
     <Compile Include="Infrastructure\BookListDynamicNodeProvider.cs" />
     <Compile Include="Infrastructure\RemoveDiacritics.cs" />
+    <Compile Include="Migrations\201904241030413_Initial.cs" />
+    <Compile Include="Migrations\201904241030413_Initial.Designer.cs">
+      <DependentUpon>201904241030413_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904241113580_InitialFix.cs" />
+    <Compile Include="Migrations\201904241113580_InitialFix.Designer.cs">
+      <DependentUpon>201904241113580_InitialFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -283,7 +292,14 @@
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
     <Content Include="Views\Book\FilterList.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201904241030413_Initial.resx">
+      <DependentUpon>201904241030413_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904241113580_InitialFix.resx">
+      <DependentUpon>201904241113580_InitialFix.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />

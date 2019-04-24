@@ -19,7 +19,7 @@ namespace SerwisKsiazkowy
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Database.SetInitializer<BookContext>(new BookInitializer());
+            //Database.SetInitializer<BookContext>(new BookInitializer());
         }
     }
 }
