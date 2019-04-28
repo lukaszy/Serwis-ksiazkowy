@@ -19,6 +19,11 @@ namespace SerwisKsiazkowy.DAL
         {
             Database.SetInitializer<BookContext>(new BookInitializer());
         }
+
+        public static BookContext Create()
+        {
+            return new BookContext();
+        }
         public DbSet<Book> Books { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Genre> Genres { get; set; }

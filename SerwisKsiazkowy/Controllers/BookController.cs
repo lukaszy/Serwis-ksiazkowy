@@ -77,7 +77,7 @@ namespace SerwisKsiazkowy.Controllers
             //string genreName = UrlPath.Split('/').Last();
             string genreName = UrlPath.Split('/').ElementAt(2);
 
-            int i = 0;
+           
             if (author.Author1 != null)
             {      
                 foreach(var item in author.Author1)

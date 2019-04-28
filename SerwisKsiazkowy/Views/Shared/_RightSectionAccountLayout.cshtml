@@ -1,0 +1,27 @@
+﻿
+@{
+    
+    Layout = "~/Views/Shared/_BookLayout.cshtml";
+}
+
+<div role="tabpanel" class="down">
+    @*@Html.Action("GenresMenu")*@
+
+
+    @*<div class="breadcrumbBar">
+        @Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
+    </div>*@
+    <section>
+        @RenderSection("SectionTitle", required: false)
+        @RenderBody()
+    </section>
+
+    @*@Html.MvcSiteMap().SiteMapPath()*@
+
+
+    @Html.Partial("_LoginPartial")
+
+
+</div>
+
+

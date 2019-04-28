@@ -32,6 +32,18 @@ textarea {
     
 }
 
+#login-panel {
+    /*width:30%;
+    top: 30%;
+    margin-left: 40%;*/
+    max-width: 30%;
+    margin: auto;
+}
+
+/*#login-panel >h2{
+    margin-left: 15%;
+}*/
+
 .breadcrumbBar {
     width: 1050px;
     margin-left: 232px;
