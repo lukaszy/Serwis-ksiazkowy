@@ -36,7 +36,7 @@
             <div class="menu-left">
                 <p>Autor:</p>
                 @*@Html.DropDownListFor(model => model.autor, new SelectList(Model.Authors, "Author", "Author").GroupBy(x => x.Text).Select(x => x.First()), new { id = "MultiSelectDropDown", @class= "chosen-select" })*@
-                @Html.ListBoxFor(model => model.Author1, new MultiSelectList(Model.Authors, "Author", "Author").GroupBy(x => x.Text).Select(x => x.First()), new { id = "MultiSelectDropDown", multiple = "multiple" })
+                @Html.ListBoxFor(model => model.Author1, new MultiSelectList(Model.Authors, "Author", "Author").GroupBy(x => x.Text).Select(x => x.First()), new { id = "MultiSelectDropDown", multiple = "multiple", data_placeholder = "Wybierz autora..." })
                 @*@Html.CheckBox(Model.Authors.Select(o=>o.Author).Distinct().ToString(),false) <label>1</label>*@
             </div>
             <p><button type="submit" class="btn btn-primary  btn-block">Filtruj</button></p>
@@ -129,17 +129,4 @@
 @*<ul class="nav nav-pills brand-pills nav-stacked" role="tablist">*@
 
 
-@section scripts {
 
-    <script>
-
-        $(function () {
-
-            $("#MultiSelectDropDown").chosen();
-
-        });
-
-       
-    </script>
-
-}

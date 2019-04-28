@@ -20,8 +20,8 @@
                     {
                         <li>
                             @*<a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower() })">
-                                    @genre.Name
-                                </a>*@
+                        @genre.Name
+                    </a>*@
                             <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower().ToString() })">
                                 @genre.Name
                             </a>
@@ -31,9 +31,9 @@
                 }
 
                 @*<li role="presentation" class="brand-nav "><a href="Book-details.html" aria-controls="tab1" role="tab" data-toggle="tab">Lorem ipsum</a></li>
-                    <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
-                    <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
-                    <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>*@
+        <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
+        <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
+        <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>*@
 
             </ul>
 
@@ -41,83 +41,83 @@
 
 
             @*<form>
-                <div class="menu-left">
-                    <p>Autor</p>
+                    <div class="menu-left">
+                        <p>Autor</p>
 
-                    <div id="summary">
-                        <p class="collapse" id="collapseExample">
-                            @foreach (var author in Model.Authors.Select(p => p.Author).Distinct())
-                            {
-
+                        <div id="summary">
+                            <p class="collapse" id="collapseExample">
+                                @foreach (var author in Model.Authors.Select(p => p.Author).Distinct())
                                 {
 
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="">
-                                        <span class="form-check-label">
-                                            @author.ToString()
-                                        </span>
-                                    </label>
+                                    {
+
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="">
+                                            <span class="form-check-label">
+                                                @author.ToString()
+                                            </span>
+                                        </label>
+
+                                    }
 
                                 }
+                            </p>
 
-                            }
+                            <p><a class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseSummary"></a></p>
+                        </div>
+                    </div>
+
+                    <hr class="style1">
+                    <div class="menu-left">
+                        <p>Ocena</p>
+
+                        <p>
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" value="">
+                                <span class="form-check-label">
+                                    5 gwiazdek
+                                </span>
+                            </label>
                         </p>
 
-                        <p><a class="collapsed" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseSummary"></a></p>
+
+                        <p>
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" value="">
+                                <span class="form-check-label">
+                                    4 gwiazdki
+                                </span>
+                            </label>
+                        </p>
+                        <p>
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" value="">
+                                <span class="form-check-label">
+                                    3 gwiazdki
+                                </span>
+                            </label>
+                        </p>
+                        <p>
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" value="">
+                                <span class="form-check-label">
+                                    2 gwiazdki
+                                </span>
+                            </label>
+                        </p>
+
+                        <p>
+                            <label class="form-check">
+                                <input class="form-check-input" type="checkbox" value="">
+                                <span class="form-check-label">
+                                    1 gwiazdka
+                                </span>
+                            </label>
+                        </p>
                     </div>
-                </div>
 
-                <hr class="style1">
-                <div class="menu-left">
-                    <p>Ocena</p>
-
-                    <p>
-                        <label class="form-check">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <span class="form-check-label">
-                                5 gwiazdek
-                            </span>
-                        </label>
-                    </p>
-
-
-                    <p>
-                        <label class="form-check">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <span class="form-check-label">
-                                4 gwiazdki
-                            </span>
-                        </label>
-                    </p>
-                    <p>
-                        <label class="form-check">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <span class="form-check-label">
-                                3 gwiazdki
-                            </span>
-                        </label>
-                    </p>
-                    <p>
-                        <label class="form-check">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <span class="form-check-label">
-                                2 gwiazdki
-                            </span>
-                        </label>
-                    </p>
-
-                    <p>
-                        <label class="form-check">
-                            <input class="form-check-input" type="checkbox" value="">
-                            <span class="form-check-label">
-                                1 gwiazdka
-                            </span>
-                        </label>
-                    </p>
-                </div>
-
-                <p><button type="submit" class="btn btn-primary  btn-block">Filtruj</button></p>
-            </form>*@
+                    <p><button type="submit" class="btn btn-primary  btn-block">Filtruj</button></p>
+                </form>*@
         </div>
         <a class="collapsed" data-toggle="collapse" href="#collapseSummary" aria-expanded="false" aria-controls="collapseSummary"></a>
     </div>
@@ -204,3 +204,18 @@
         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
     </div>
 </div>
+
+@section scripts {
+
+    <script>
+
+        $(function () {
+
+            $("#MultiSelectDropDown").chosen();
+
+        });
+
+
+    </script>
+
+}

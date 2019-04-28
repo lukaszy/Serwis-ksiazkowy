@@ -5,10 +5,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Data.Entity.Migrations;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SerwisKsiazkowy.DAL
 {
-    public class BookContext : DbContext
+    public class BookContext : IdentityDbContext<ApplicationUser>
     {
         public BookContext() : base("BookContext")
         {

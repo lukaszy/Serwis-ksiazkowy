@@ -8,7 +8,7 @@
 <div role="tabpanel" class="down">
     @Html.Action("GenresMenu")
 
-    
+
     <div class="breadcrumbBar">
         @Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
     </div>
@@ -22,5 +22,17 @@
 
 </div>
 
+@section scripts {
+
+    <script>
+
+        $(function () {
+
+            $("#MultiSelectDropDown").chosen(default_multiple_text="aa");
+
+        });
 
 
+    </script>
+
+}

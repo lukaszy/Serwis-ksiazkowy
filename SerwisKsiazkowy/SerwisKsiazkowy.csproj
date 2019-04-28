@@ -201,6 +201,10 @@
     <Compile Include="Migrations\201904241113580_InitialFix.Designer.cs">
       <DependentUpon>201904241113580_InitialFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904281845559_AddIdentity.cs" />
+    <Compile Include="Migrations\201904281845559_AddIdentity.Designer.cs">
+      <DependentUpon>201904281845559_AddIdentity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -331,6 +335,7 @@
     <Content Include="Views\Book\FilterList.cshtml" />
     <Content Include="Views\Shared\_RightSectionAccountLayout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904241030413_Initial.resx">
@@ -338,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904241113580_InitialFix.resx">
       <DependentUpon>201904241113580_InitialFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904281845559_AddIdentity.resx">
+      <DependentUpon>201904281845559_AddIdentity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

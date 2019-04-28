@@ -1,6 +1,6 @@
 ﻿
 @{
-    
+
     Layout = "~/Views/Shared/_BookLayout.cshtml";
 }
 
@@ -9,8 +9,8 @@
 
 
     @*<div class="breadcrumbBar">
-        @Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
-    </div>*@
+            @Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
+        </div>*@
     <section>
         @RenderSection("SectionTitle", required: false)
         @RenderBody()
@@ -24,4 +24,7 @@
 
 </div>
 
-
+@section scripts
+{
+    @RenderSection("scripts", required: false)
+}
