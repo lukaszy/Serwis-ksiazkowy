@@ -50,8 +50,8 @@ namespace SerwisKsiazkowy.DAL
 
             var comments = new List<Comment>
             {
-                new Comment() {CommentId = 1, Content = "fajna", BookId = 1, DateAdded = new DateTime(2019,04,15)}, 
-                new Comment() {CommentId = 2, Content = "nudna", BookId = 1, DateAdded = new DateTime(2019,04,14)}
+                new Comment() {CommentId = 1, Content = "fajna", BookId = 1, DateAdded = new DateTime(2019,04,15), UserId = "811fb950-b699-444c-a9b3-81254a8da378"}, 
+                new Comment() {CommentId = 2, Content = "nudna", BookId = 1, DateAdded = new DateTime(2019,04,14), UserId = "811fb950-b699-444c-a9b3-81254a8da378"}
             };
             comments.ForEach(c => context.Comments.AddOrUpdate(c));
             context.SaveChanges();

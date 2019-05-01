@@ -1,0 +1,78 @@
+﻿@model IEnumerable<SerwisKsiazkowy.Models.Comment>
+
+
+
+<div id="book-details-comments">
+    <h1>
+        Komentarze
+    </h1>
+    @if (Model.Count() == 0)
+    {
+        <div>Brak komenatrzy</div>
+    }
+    else
+    {
+        foreach (var comments in Model)
+        {
+            <div id="book-details-comment">
+                <div id="book-details-comment-details">
+                    Autor:
+                    @if (comments.UserId != null)
+                    {
+                        @comments.User.UserName
+
+                    }
+
+                    Data dodania: @comments.DateAdded.ToString("dd MMMM yyyy hh:mm")
+                </div>
+                <div id="book-details-comment-content">
+                    @*@comments.Content*@
+                    @Html.DisplayFor(modelItem => comments.Content)
+
+                </div>
+            </div>
+        }
+    }
+
+
+
+</div>
+
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        @*<tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookId)
+            </th>
+            <th></th>
+        </tr>*@
+
+@*@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookId)
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.CommentId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.CommentId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.CommentId })
+            </td>
+        </tr>
+    }
+*@
+@*</table>*@

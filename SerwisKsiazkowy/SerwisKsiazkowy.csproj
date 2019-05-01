@@ -183,6 +183,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAL\BookContext.cs" />
     <Compile Include="DAL\BookInitializer.cs" />
@@ -204,6 +205,10 @@
     <Compile Include="Migrations\201904281845559_AddIdentity.cs" />
     <Compile Include="Migrations\201904281845559_AddIdentity.Designer.cs">
       <DependentUpon>201904281845559_AddIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905011519255_userId_comments.cs" />
+    <Compile Include="Migrations\201905011519255_userId_comments.Designer.cs">
+      <DependentUpon>201905011519255_userId_comments.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
@@ -336,6 +341,9 @@
     <Content Include="Views\Shared\_RightSectionAccountLayout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Comment\Index.cshtml" />
+    <Content Include="Views\Book\_Comment.cshtml" />
+    <Content Include="Views\Comment\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904241030413_Initial.resx">
@@ -346,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904281845559_AddIdentity.resx">
       <DependentUpon>201904281845559_AddIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905011519255_userId_comments.resx">
+      <DependentUpon>201905011519255_userId_comments.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -359,6 +370,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

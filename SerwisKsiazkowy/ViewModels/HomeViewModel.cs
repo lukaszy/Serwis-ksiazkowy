@@ -10,10 +10,12 @@ namespace SerwisKsiazkowy.ViewModels
 {
     public class HomeViewModel
     {
+        
         public IEnumerable<Book> LastBooks { get; set; }
         public IEnumerable<Genre> Genres { get; set; }
         public IEnumerable<Book> SelectedBook { get; set; }
         public IEnumerable<Comment> Comments { get; set; }
+        public Comment NewComment { get; set; }
         public IEnumerable<Book> Authors { get; set; }
 
         public List<String> Author { get; set; }
@@ -21,5 +23,13 @@ namespace SerwisKsiazkowy.ViewModels
         //public string[] Author1 { get; set; }
         public IEnumerable<String> Author1 { get; set; }
 
+
     }
+    public class NewComment
+    {
+        public int BookId { get; set; }
+        public string Content { get; set; }
+        public DateTime DateAdded { get; set; }
+    }
+    
 }

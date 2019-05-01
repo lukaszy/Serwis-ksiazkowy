@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+using SerwisKsiazkowy.App_Start;
+
 namespace SerwisKsiazkowy.Controllers
 {
     public class BookController : Controller
@@ -27,13 +31,22 @@ namespace SerwisKsiazkowy.Controllers
             //var BookTitle = db.Books.Where(g => g.Title.Replace(" ", "-").ToLower() == title);
             var genres = db.Genres.ToList();
             var books = BookId.ToList();
-            var comments = db.Comments.Include("Book").Where(c => c.BookId == id).ToList();
+            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).ToList();
+            var newComment = new Comment();
+            newComment.BookId = id;
             ViewBag.Title = BookId.Single().Title.ToString();
+
+            var userId = User.Identity.GetUserId();
+            
+            ViewBag.user = userId;
+
             var vm = new HomeViewModel()
             {
+                NewComment = newComment,
                 Genres = genres,
                 SelectedBook = BookId,
                 Comments = comments
+
                 //SelectedBook = BookTitle
 
             };
