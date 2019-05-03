@@ -1,0 +1,76 @@
+﻿@model IEnumerable<SerwisKsiazkowy.Models.Book>
+
+
+<p>
+    @*@Html.ActionLink("Dodaj książkę", "Create", new { @class = "btn btn-primary btn-large" })*@
+    <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("Add", "Manage")'">
+        Dodaj
+    </button>
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Genre.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pages)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearPublished)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.Rate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoverFileName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre.Name)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pages)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.YearPublished)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Publisher)
+        </td>
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.CoverFileName)
+        </td>
+        <td>
+            @Html.ActionLink("Edycja", "Edit", new { bookId = item.BookId }) |
+            @*@Html.ActionLink("Details", "Details", new { bookId = item.BookId }) |*@
+            @Html.ActionLink("Usuń", "Delete", new { bookId = item.BookId })
+        </td>
+    </tr>
+    }
+
+</table>

@@ -12,6 +12,7 @@ namespace SerwisKsiazkowy.Models
     {
         [Key]
         public int GenreId { get; set; }
+        [Display(Name = "Gatunek")]
         public string Name { get; set; }
 
         //public virtual Book Book { get; set; }
