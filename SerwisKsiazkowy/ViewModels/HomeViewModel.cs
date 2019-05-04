@@ -23,6 +23,10 @@ namespace SerwisKsiazkowy.ViewModels
         //public string[] Author1 { get; set; }
         public IEnumerable<String> Author1 { get; set; }
 
+        public double? Ratings { get; set; }
+
+        public IEnumerable<Rate> UserRate { get; set; }
+
 
     }
     public class NewComment

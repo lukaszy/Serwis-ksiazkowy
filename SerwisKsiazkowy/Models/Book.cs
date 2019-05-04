@@ -45,5 +45,6 @@ namespace SerwisKsiazkowy.Models
 
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Rate> Ratings { get; set; }
     }
 }

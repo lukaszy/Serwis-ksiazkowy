@@ -1,4 +1,5 @@
-﻿using SerwisKsiazkowy.DAL;
+﻿using Microsoft.AspNet.Identity;
+using SerwisKsiazkowy.DAL;
 using SerwisKsiazkowy.Models;
 using SerwisKsiazkowy.ViewModels;
 using System;
@@ -46,8 +47,18 @@ namespace SerwisKsiazkowy.Controllers
             var genres = db.Genres.ToList();
             //var authors = from m in db.Books select m.Author;
             var authors = db.Books.ToList();
-           
 
+            double? rate = -1;
+            var userId = User.Identity.GetUserId();
+            try
+            {
+                rate = db.Ratings.Average(a => a.Value);
+
+            }
+            catch
+            {
+                rate = -1;
+            }
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -57,7 +68,9 @@ namespace SerwisKsiazkowy.Controllers
             {
                 Authors = authors,
                 Genres = genres,
-                LastBooks = await books.ToListAsync()
+                LastBooks = await books.ToListAsync(),
+                Ratings = rate
+               
                 
             };
 

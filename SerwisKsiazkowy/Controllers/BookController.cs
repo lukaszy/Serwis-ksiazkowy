@@ -36,16 +36,31 @@ namespace SerwisKsiazkowy.Controllers
             newComment.BookId = id;
             ViewBag.Title = BookId.Single().Title.ToString();
 
+            double? rate = -1;
             var userId = User.Identity.GetUserId();
+            try
+            {
+                rate = db.Ratings.Where(r => r.BookId == id).Average(a => a.Value);
+
+            }
+            catch
+            {
+                rate = -1;
+            }
             
+
+            var userRate = db.Ratings.Where(r => r.BookId == id && r.UserId == userId).ToList();
             ViewBag.user = userId;
 
-            var vm = new HomeViewModel()
+            //var vm = new HomeViewModel()
+            var vm = new DetailsViewModels()
             {
                 NewComment = newComment,
                 Genres = genres,
                 SelectedBook = BookId,
-                Comments = comments
+                Comments = comments,
+                Ratings = rate,
+                UserRate = userRate
 
                 //SelectedBook = BookTitle
 

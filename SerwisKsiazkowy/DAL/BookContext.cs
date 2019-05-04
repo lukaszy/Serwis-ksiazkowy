@@ -29,6 +29,7 @@ namespace SerwisKsiazkowy.DAL
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Rate> Ratings { get; set; }
 
     }
 }

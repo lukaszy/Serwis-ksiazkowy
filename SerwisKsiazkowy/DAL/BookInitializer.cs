@@ -56,12 +56,20 @@ namespace SerwisKsiazkowy.DAL
             comments.ForEach(c => context.Comments.AddOrUpdate(c));
             context.SaveChanges();
 
+
             var reviews = new List<Review>
             {
                 new Review() {ReviewId = 1, Content = "jakas 1 recenzja", BookId = 1},
                 new Review() {ReviewId = 2, Content = "jakas 2 recenzja", BookId = 1 }
             };
             reviews.ForEach(r => context.Reviews.AddOrUpdate(r));
+            context.SaveChanges();
+
+            var rate = new List<Rate>
+            {
+                new Rate() {RateId = 1, Value = 3, BookId = 1, UserId = "811fb950-b699-444c-a9b3-81254a8da378"}
+            };
+            rate.ForEach(c => context.Ratings.AddOrUpdate(c));
             context.SaveChanges();
         }
     }
