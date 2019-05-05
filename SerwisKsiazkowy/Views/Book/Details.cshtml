@@ -66,16 +66,17 @@
                                 Data premiery: @book.YearPublished
                             </h2>
                             <h2>
-                                Ocena: 
-                                @if (Model.Ratings == -1)
+                                Ocena:
+                                @Html.Action("GetRate", "Home", new { id = book.BookId })
+                                @*@if (Model.Ratings == -1)
                                 {
                                     @Html.Label("Brak")
                                 }
                                 else
                                 {
-                                    @Model.Ratings
-                                }
-                                / 5
+                                    <b>@Model.Ratings</b> @Html.Label("/ 5")
+                                }*@
+
                             </h2>
                             <h2>
                                 

@@ -60,6 +60,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Publisher)
         </td>
+        <td>
+            @Html.Action("GetRate", "Home", new { id = item.BookId })
+        </td>
 
 
         <td>

@@ -178,6 +178,7 @@
                                 </h1>
                                 <h1>
                                     Ocena:
+                                    @Html.Action("GetRate", "Home", new { id = book.BookId })
                                     @*@if (book.Ratings. == -1)
                                     {
                                         @Html.Label("Brak")
@@ -186,7 +187,7 @@
                                     {
                                         @Model.Ratings
                                     }*@
-                                    / 5
+                                    
                                 </h1>
 
                             </div>

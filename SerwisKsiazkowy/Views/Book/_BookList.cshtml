@@ -47,7 +47,8 @@
                                 Data premiery: @Book.YearPublished
                             </h1>
                             <h1>
-                                Ocena: @Book.Rate / 5
+                                Ocena:
+                                @Html.Action("GetRate", "Home", new { id = Book.BookId })
                             </h1>
 
 

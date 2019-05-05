@@ -4,6 +4,7 @@ using SerwisKsiazkowy.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -49,61 +50,61 @@ namespace SerwisKsiazkowy.Controllers
         [HttpPost]
         public ActionResult Edit(HttpPostedFileBase file, EditBookViewModel model)
         {
-            if (model.Book.BookId > 0)
+
+            if (file != null && file.ContentLength > 0)
             {
-                // Saving existing entry
+                var fileExt = Path.GetExtension(file.FileName);
+                var filename = Guid.NewGuid() + fileExt;
 
-                db.Entry(model.Book).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index", new { confirmSuccess = true });
+                var path = Path.Combine(Server.MapPath("~/Content/Covers/"), filename);
+                file.SaveAs(path);
+ 
+                model.Book.CoverFileName = filename;
+
             }
-            else
-            {
-                var f = Request.Form;
 
-                
+            db.Entry(model.Book).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", new { confirmSuccess = true });
 
-                db.Entry(model.Book).State = EntityState.Added;
-                db.SaveChanges();
-                return RedirectToAction("Index", new { confirmSuccess = true });
-            }
         }
         public ActionResult Add()
         {
-            //IEnumerable<SelectListItem> items = db.Genres.Select(c => new SelectListItem
-            //{
-            //    Value = c.GenreId.ToString(),
-            //    Text = c.Name
-
-            //});
             var addBook = new EditBookViewModel();
             var genres = db.Genres.ToArray();
             addBook.Genres = genres;
 
             return View(addBook);
         }
-
-        //public ActionResult Add()
-        //{
-        //    IEnumerable<SelectListItem> items = db.Genres.Select(c => new SelectListItem
-        //    {
-        //        Value = c.Name,
-        //        Text = c.Name
-
-        //    });
-        //    ViewBag.GenreName = items;
-        //    return View();
-        //}
+     
         [HttpPost]
         public ActionResult Add(HttpPostedFileBase file, EditBookViewModel model)
         {
             
             var f = Request.Form;
+            if (file != null && file.ContentLength > 0)
+            {
+               
+                var fileExt = Path.GetExtension(file.FileName);
+                var filename = Guid.NewGuid() + fileExt;
 
-            db.Entry(model.Book).State = EntityState.Added;
-            db.SaveChanges();
-            return RedirectToAction("Index", new { confirmSuccess = true });
+                var path = Path.Combine(Server.MapPath("~/Content/Covers/"), filename);
+                file.SaveAs(path);
+              
+                model.Book.CoverFileName = filename;
 
+                db.Entry(model.Book).State = EntityState.Added;
+                db.SaveChanges();
+
+                return RedirectToAction("Index", new { confirmSuccess = true });
+            }
+            else
+            {
+                ModelState.AddModelError("", "Nie wskazano pliku.");
+                var genres = db.Genres.ToArray();
+                model.Genres = genres;
+                return View(model);
+            }
         }
     }
 }

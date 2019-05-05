@@ -415,6 +415,7 @@
     <Content Include="Views\Shared\Date.cshtml" />
     <Content Include="Views\Manage\View.cshtml" />
     <Content Include="Views\Shared\DateTime.cshtml" />
+    <Content Include="Views\Shared\GetRate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904241030413_Initial.resx">

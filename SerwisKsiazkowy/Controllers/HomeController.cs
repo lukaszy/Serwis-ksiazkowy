@@ -81,6 +81,25 @@ namespace SerwisKsiazkowy.Controllers
         {
             return View(viewname);
         }
+        [ChildActionOnly]
+        public ActionResult GetRate(int id)
+        {
+            //double? rate = -1;
+            string rate = "";
+            var userId = User.Identity.GetUserId();
+            try
+            {
+                rate = db.Ratings.Where(r => r.BookId == id).Average(a => a.Value).ToString();
+
+            }
+            catch
+            {
+                rate = "Brak";
+            }
+            ViewBag.Value = rate;
+            return PartialView();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
