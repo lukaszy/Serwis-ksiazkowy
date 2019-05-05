@@ -65,11 +65,16 @@
             @Html.DisplayFor(modelItem => item.CoverFileName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BookId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BookId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BookId })
+            @Html.ActionLink("Edycja", "Edit", new { id = item.BookId }) |
+            @*@Html.ActionLink("Details", "Details", new { id=item.BookId }) |*@
+            <button type="button" data-toggle="modal" data-target="#modal">
+                Usun
+            </button>
+
+            @Html.ActionLink("Usuń", "Delete", new { id = item.BookId })
         </td>
     </tr>
 }
 
 </table>
+

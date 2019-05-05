@@ -106,5 +106,31 @@ namespace SerwisKsiazkowy.Controllers
                 return View(model);
             }
         }
+        [HttpGet]
+        public ActionResult Delete(int id, string title)
+        {
+            Book deleteBook = new Book();
+            deleteBook.BookId = id;
+            deleteBook.Title = title;
+            return View(deleteBook);
+
+        }
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            Book deleteBook = db.Books.Find(id);
+            db.Books.Remove(deleteBook);
+
+            var deleteComments = db.Comments.Where(c => c.BookId == id);
+            foreach(var el in deleteComments)
+            {
+                db.Comments.Remove(el);
+            }
+
+            //db.Entry(model.Book).State = EntityState.Deleted;
+            db.SaveChanges();
+            return RedirectToAction("Index", new { confirmSuccess = true });
+
+        }
     }
 }

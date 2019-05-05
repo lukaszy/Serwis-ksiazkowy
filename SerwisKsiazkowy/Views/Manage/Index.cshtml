@@ -28,7 +28,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Publisher)
         </th>
-       
+
         <th>
             @Html.DisplayNameFor(model => model.Rate)
         </th>
@@ -40,40 +40,107 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Genre.Name)
-        </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre.Name)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pages)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.YearPublished)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Publisher)
-        </td>
-        <td>
-            @Html.Action("GetRate", "Home", new { id = item.BookId })
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pages)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearPublished)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Publisher)
+            </td>
+            <td>
+                @Html.Action("GetRate", "Home", new { id = item.BookId })
+            </td>
 
 
-        <td>
-            @Html.DisplayFor(modelItem => item.CoverFileName)
-        </td>
-        <td>
-            @Html.ActionLink("Edycja", "Edit", new { bookId = item.BookId }) |
-            @*@Html.ActionLink("Details", "Details", new { bookId = item.BookId }) |*@
-            @Html.ActionLink("Usuń", "Delete", new { bookId = item.BookId })
-        </td>
-    </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CoverFileName)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edycja", "Edit", new { bookId = item.BookId })*@
+
+
+                @*@Html.ActionLink("Details", "Details", new { bookId = item.BookId }) |*@
+                @*@Html.ActionLink("Usuń", "Delete", new { bookId = item.BookId })*@
+
+
+                @*<button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Manage", new { id = item.BookId, title = item.Title  })'">
+            Usuń
+        </button>*@
+
+
+
+
+
+                @using (Html.BeginForm("Delete", "Manage", new { id = item.BookId }))
+                {
+                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Manage", new { bookId = item.BookId }) '">
+                        Edycja
+                    </button>
+                    var myModal = item.BookId;
+
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@myModal">Usuń</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="@myModal" tabindex="-1" role="dialog" data-keyboard="false" aria-labelledby="myModalLabel">
+
+
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Potwierdzenie usunięcia</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Czy napewno checesz usunąć książkę?
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                                    <input type="submit" value="Usuń" class="btn btn-danger" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+
+
+
+            </td>
+        </tr>
     }
 
 </table>
+
+@section scripts {
+
+    <script>
+
+        $(document).ready(function () {
+
+            
+
+        });
+
+        var ConfirmDelete = function (id) {
+            $("#modal").val(id);
+            $("#modal").modal('show');
+        }
+    </script>
+
+}

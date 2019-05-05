@@ -24,6 +24,40 @@
                     }
 
                     Data dodania: @comments.DateAdded.ToString("dd MMMM yyyy hh:mm")
+                    @using (@Html.BeginForm("Delete", "Comment", new { id = comments.CommentId, bookId = comments.BookId, bookTitle = comments.Book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        var myModal = comments.BookId+"-"+comments.CommentId;
+
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@myModal">Usuń</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="@myModal" tabindex="-1" role="dialog" data-keyboard="false" aria-labelledby="myModalLabel">
+
+
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Potwierdzenie usunięcia</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @myModal
+                                        Czy napewno checesz usunąć komentarz?
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
+                                        <input type="submit" value="Usuń" class="btn btn-danger" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
                 </div>
                 <div id="book-details-comment-content">
                     @*@comments.Content*@

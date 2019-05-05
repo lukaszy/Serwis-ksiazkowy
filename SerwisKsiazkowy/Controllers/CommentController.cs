@@ -44,5 +44,16 @@ namespace SerwisKsiazkowy.Controllers
             return RedirectToAction("Details", "Book",new { id = bookId, _title = bookTitle });
         }
 
+
+        [HttpPost]
+        public ActionResult Delete(int id, int bookId, string bookTitle)
+        {
+            Comment deleteComment = db.Comments.Find(id);
+            db.Comments.Remove(deleteComment);
+
+            db.SaveChanges();
+            
+            return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
+        }
     }
 }
