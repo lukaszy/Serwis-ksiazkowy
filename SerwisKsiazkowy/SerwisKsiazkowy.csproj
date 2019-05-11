@@ -186,6 +186,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="DAL\BookContext.cs" />
     <Compile Include="DAL\BookInitializer.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -219,6 +220,14 @@
     <Compile Include="Migrations\201905042101186_ratings.Designer.cs">
       <DependentUpon>201905042101186_ratings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905111844391_rate_review.cs" />
+    <Compile Include="Migrations\201905111844391_rate_review.Designer.cs">
+      <DependentUpon>201905111844391_rate_review.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905112022275_Review_addRateValue.cs" />
+    <Compile Include="Migrations\201905112022275_Review_addRateValue.Designer.cs">
+      <DependentUpon>201905112022275_Review_addRateValue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -233,6 +242,7 @@
     <Compile Include="ViewModels\DetailsViewModels.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
+    <Compile Include="ViewModels\ReviewViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\BookDB.mdf" />
@@ -417,6 +427,8 @@
     <Content Include="Views\Shared\DateTime.cshtml" />
     <Content Include="Views\Shared\GetRate.cshtml" />
     <Content Include="Views\Manage\Delete.cshtml" />
+    <Content Include="Views\Book\ListReview.cshtml" />
+    <Content Include="Views\Review\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904241030413_Initial.resx">
@@ -436,6 +448,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905042101186_ratings.resx">
       <DependentUpon>201905042101186_ratings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905111844391_rate_review.resx">
+      <DependentUpon>201905111844391_rate_review.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905112022275_Review_addRateValue.resx">
+      <DependentUpon>201905112022275_Review_addRateValue.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

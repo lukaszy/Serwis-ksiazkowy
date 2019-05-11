@@ -32,6 +32,7 @@ namespace SerwisKsiazkowy.Controllers
             var genres = db.Genres.ToList();
             var books = BookId.ToList();
             var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).ToList();
+            var reviews = db.Reviews.Include(p => p.User).Where(c => c.BookId == id).ToList();
             var newComment = new Comment();
             newComment.BookId = id;
             ViewBag.Title = BookId.Single().Title.ToString();
@@ -60,7 +61,8 @@ namespace SerwisKsiazkowy.Controllers
                 SelectedBook = BookId,
                 Comments = comments,
                 Ratings = rate,
-                UserRate = userRate
+                UserRate = userRate,
+                Reviews = reviews
 
                 //SelectedBook = BookTitle
 

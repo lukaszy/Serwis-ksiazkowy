@@ -28,9 +28,10 @@
                     {
                         @Html.AntiForgeryToken()
 
-                        var myModal = comments.BookId+"-"+comments.CommentId;
-
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@myModal">Usuń</button>
+                        var myModal = comments.BookId + "-" + comments.CommentId;
+                        <div id="button-delete">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@myModal">Usuń</button>
+                        </div>
                         <!-- Modal -->
                         <div class="modal fade" id="@myModal" tabindex="-1" role="dialog" data-keyboard="false" aria-labelledby="myModalLabel">
 
@@ -59,12 +60,12 @@
 
                     }
                 </div>
-                <div id="book-details-comment-content">
-                    @*@comments.Content*@
-                    @Html.DisplayFor(modelItem => comments.Content)
+                        <div id="book-details-comment-content">
+                            @*@comments.Content*@
+                            @Html.DisplayFor(modelItem => comments.Content)
 
-                </div>
-            </div>
+                        </div>
+                    </div>
         }
     }
 

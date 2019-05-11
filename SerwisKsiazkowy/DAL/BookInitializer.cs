@@ -56,21 +56,23 @@ namespace SerwisKsiazkowy.DAL
             comments.ForEach(c => context.Comments.AddOrUpdate(c));
             context.SaveChanges();
 
+            var rate = new List<Rate>
+            {
+                new Rate() {RateId = 1, Value = 3, BookId = 1, UserId = "811fb950-b699-444c-a9b3-81254a8da378"},
+                new Rate() {RateId = 4, Value = 5, BookId = 2, UserId = "811fb950-b699-444c-a9b3-81254a8da378"}
+            };
+            rate.ForEach(c => context.Ratings.AddOrUpdate(c));
+            context.SaveChanges();
 
             var reviews = new List<Review>
             {
-                new Review() {ReviewId = 1, Content = "jakas 1 recenzja", BookId = 1},
-                new Review() {ReviewId = 2, Content = "jakas 2 recenzja", BookId = 1 }
+                new Review() {ReviewId = 1, Content = "jakas 1 recenzja", BookId = 1, DateAdded = new DateTime(2019,04,14), UserId = "811fb950-b699-444c-a9b3-81254a8da378",RateValue = 3 },
+                new Review() {ReviewId = 2, Content = "jakas 2 recenzja", BookId = 1, DateAdded = new DateTime(2019,04,14), UserId = "811fb950-b699-444c-a9b3-81254a8da378", RateValue = 4 }
             };
             reviews.ForEach(r => context.Reviews.AddOrUpdate(r));
             context.SaveChanges();
 
-            var rate = new List<Rate>
-            {
-                new Rate() {RateId = 1, Value = 3, BookId = 1, UserId = "811fb950-b699-444c-a9b3-81254a8da378"}
-            };
-            rate.ForEach(c => context.Ratings.AddOrUpdate(c));
-            context.SaveChanges();
+            
         }
     }
 }

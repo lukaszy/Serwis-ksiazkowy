@@ -13,12 +13,19 @@ namespace SerwisKsiazkowy.Models
         [Key]
         public int ReviewId { get; set; }
         public string Content { get; set; }
+        public DateTime DateAdded { get; set; }
 
-       
-        
+
         public int BookId { get; set; }
         public virtual Book Books { get; set; }
 
+        public string UserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
+
+        
+        public int RateValue { get; set; }
+        
+        
 
     }
 }

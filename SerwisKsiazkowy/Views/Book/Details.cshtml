@@ -25,159 +25,158 @@
 
                 @foreach (var book in Model.SelectedBook)
                 {
-                <section id="book-details-section">
-                    <div id="book-details-left">
+                    <section id="book-details-section">
+                        <div id="book-details-left">
 
-                        <img src="@Url.Content("~/Content/Covers/" + book.CoverFileName)" />
+                            <img src="@Url.Content("~/Content/Covers/" + book.CoverFileName)" />
 
-                    </div>
+                        </div>
 
-                    <div id="book-details-right">
-                        <div id="book-details-names">
+                        <div id="book-details-right">
+                            <div id="book-details-names">
 
+                                <h1>
+                                    @book.Title
+                                </h1>
+                                <br />
+                                <h2>
+                                    Autor: @book.Author
+                                </h2>
+
+                            </div>
+
+                            <div id="book-details-names">
+
+
+                                <h2>
+                                    Wydawnictwo: @book.Publisher
+                                </h2>
+
+
+                                <h2>
+                                    Gatunek: @book.Genre.Name
+                                    @*@Model.Genres.Where(a => a.GenreId == book.GenreId).Single().Name*@
+
+                                    @*Gatunek: @book.Genres.Where(a => a.BookId == book.BookId)*@
+                                </h2>
+                                <h2>
+                                    Liczba stron: @book.Pages
+                                </h2>
+                                <h2>
+                                    Data premiery: @book.YearPublished
+                                </h2>
+                                <h2>
+                                    Ocena:
+                                    @Html.Action("GetRate", "Home", new { id = book.BookId })
+                                    @*@if (Model.Ratings == -1)
+                                        {
+                                            @Html.Label("Brak")
+                                        }
+                                        else
+                                        {
+                                            <b>@Model.Ratings</b> @Html.Label("/ 5")
+                                        }*@
+
+                                </h2>
+                                <h2>
+
+                                    Moja ocena:
+                                    @if (Model.UserRate.Count() > 0)
+                                    {
+                                        @Model.UserRate.Select(r => r.Value).Single()
+                                        @*@Html.DisplayFor(modelItem => modelItem.UserRate.Select(r => r.Value))*@
+                                    }
+                                    else
+                                    {
+                                        @Html.Label("Brak")
+                                    }
+
+                                </h2>
+
+
+
+                            </div>
+                        </div>
+                        <div id="book-details-description">
                             <h1>
-                                @book.Title
+                                Opis książki
                             </h1>
-                            <br />
-                            <h2>
-                                Autor: @book.Author
-                            </h2>
-
+                            @book.Description
                         </div>
 
-                        <div id="book-details-names">
+                        <div id="book-details-comments">
+                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Review", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }) '">
+                                Dodaj recenzje
+                            </button>
+                            
 
-
-                            <h2>
-                                Wydawnictwo: @book.Publisher
-                            </h2>
-
-
-                            <h2>
-                                Gatunek: @book.Genre.Name
-                                @*@Model.Genres.Where(a => a.GenreId == book.GenreId).Single().Name*@
-
-                                @*Gatunek: @book.Genres.Where(a => a.BookId == book.BookId)*@
-                            </h2>
-                            <h2>
-                                Liczba stron: @book.Pages
-                            </h2>
-                            <h2>
-                                Data premiery: @book.YearPublished
-                            </h2>
-                            <h2>
-                                Ocena:
-                                @Html.Action("GetRate", "Home", new { id = book.BookId })
-                                @*@if (Model.Ratings == -1)
-                                {
-                                    @Html.Label("Brak")
-                                }
-                                else
-                                {
-                                    <b>@Model.Ratings</b> @Html.Label("/ 5")
-                                }*@
-
-                            </h2>
-                            <h2>
-                                
-                                Moja ocena:
-                                @if (Model.UserRate.Count() > 0)
-                                {
-                                    @Model.UserRate.Select(r => r.Value).Single()
-                                    @*@Html.DisplayFor(modelItem => modelItem.UserRate.Select(r => r.Value))*@
-                                }
-                                else
-                                {
-                                    @Html.Label("Brak")
-                                }
-
-                            </h2>
-
-
-
+                            @Html.Partial("ListReview", Model.Reviews)
                         </div>
-                    </div>
-                    <div id="book-details-description">
-                        <h1>
-                            Opis książki
-                        </h1>
-                        @book.Description
-                    </div>
 
-                    <div id="book-details-comments">
-                        <h1>
-                            Recenzje
-                        </h1>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                    </div>
 
-                    
-                    @*@{ Html.RenderAction("Add", "Comment", new { bookId = book.BookId });}*@
-                    
-                    @using (@Html.BeginForm("Add", "Comment", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
+                        @*@{ Html.RenderAction("Add", "Comment", new { bookId = book.BookId });}*@
 
-                        @Html.HiddenFor(model => model.NewComment.BookId)
+                        @using (@Html.BeginForm("Add", "Comment", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
 
-                    <div class="form-group">
-                        @*@Html.DisplayFor(model => model.NewComment.BookId)*@
-                        @Html.TextAreaFor(model => model.NewComment.Content, new { @class = "form-control", rows = "5" })
+                            @Html.HiddenFor(model => model.NewComment.BookId)
 
-                        <input type="submit" value="Dodaj komentarz" class="btn btn-default" />
-                    </div>
-                     }
-                        
+                            <div class="form-group">
+                                @*@Html.DisplayFor(model => model.NewComment.BookId)*@
+                                @Html.TextAreaFor(model => model.NewComment.Content, new { @class = "form-control", rows = "5" })
+
+                                <input type="submit" value="Dodaj komentarz" class="btn btn-default" />
+                            </div>
+                        }
+
                         @* @ViewBag.user
-            @Html.Partial("_AddComment");*@
+                            @Html.Partial("_AddComment");*@
                         @*@using (@Html.BeginForm("Add", "Comments", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
+                            {
+                                @Html.AntiForgeryToken()
 
-                <div>
-                    @Html.ValidationMessage("loginerror", "")
-                </div>
+                                <div>
+                                    @Html.ValidationMessage("loginerror", "")
+                                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(o => o.Comments)
-                    @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", placeholder = "Wprowadź treść" } })
-                    @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
-                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(o => o.Comments)
+                                    @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", placeholder = "Wprowadź treść" } })
+                                    @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                                </div>
 
 
-                <input type="submit" value="Dodaj komentarz" class="btn btn-default" />
-            }*@
+                                <input type="submit" value="Dodaj komentarz" class="btn btn-default" />
+                            }*@
                         @*<div id="book-details-comments">
-                <h1>
-                    Komentarze
-                </h1>
-                @if (Model.Comments.Count() == 0)
-                {
-                    <div>Brak komenatrzy</div>
-                }
-                else
-                {
-                    foreach (var comments in Model.Comments)
-                    {
-                        <div id="book-details-comment">
-                            <div id="book-details-comment-details">
+                                <h1>
+                                    Komentarze
+                                </h1>
+                                @if (Model.Comments.Count() == 0)
+                                {
+                                    <div>Brak komenatrzy</div>
+                                }
+                                else
+                                {
+                                    foreach (var comments in Model.Comments)
+                                    {
+                                        <div id="book-details-comment">
+                                            <div id="book-details-comment-details">
 
-                                Autor: Data dodania: @comments.DateAdded.ToString("dd MMMM yyyy hh:mm")
-                            </div>
-                            <div id="book-details-comment-content">
-                                @comments.Content
-                            </div>
-                        </div>
-                    }
-                }
+                                                Autor: Data dodania: @comments.DateAdded.ToString("dd MMMM yyyy hh:mm")
+                                            </div>
+                                            <div id="book-details-comment-content">
+                                                @comments.Content
+                                            </div>
+                                        </div>
+                                    }
+                                }
 
 
 
-            </div>*@
+                            </div>*@
+
                         @Html.Partial("_Comment", Model.Comments)
 
                     </section>
