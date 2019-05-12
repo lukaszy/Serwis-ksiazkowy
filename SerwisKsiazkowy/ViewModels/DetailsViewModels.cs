@@ -20,6 +20,9 @@ namespace SerwisKsiazkowy.ViewModels
         public IEnumerable<Genre> Genres { get; set; }
 
         public Comment NewComment { get; set; }
+        public Rate NewRate { get; set; }
+        public int[] ValueRate = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        //public int Rate { get; set; }
        
     }
     public class New_Comment
@@ -27,5 +30,12 @@ namespace SerwisKsiazkowy.ViewModels
         public int BookId { get; set; }
         public string Content { get; set; }
         public DateTime DateAdded { get; set; }
+    }
+
+    public class NewRate
+    {
+        public int Value { get; set; }
+        public int BookId { get; set; }
+        public string UserId { get; set; }
     }
 }

@@ -132,5 +132,49 @@ namespace SerwisKsiazkowy.Controllers
             return RedirectToAction("Index", new { confirmSuccess = true });
 
         }
+
+        public ActionResult AddGenre()
+        {
+            
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddGenre(Genre genreModel)
+        {
+            //Genre addGenre = db.Genres.Find();
+
+            var genre = from m in db.Genres
+                        select m;
+            
+
+            if (!String.IsNullOrEmpty(genreModel.Name))
+            {
+                genre = genre.Where(s => s.Name.Contains(genreModel.Name));
+                if(genre.Count()>0)
+                {
+                    return RedirectToAction("Index", new { confirmSuccess = false });
+                }else
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.Genres.Add(genreModel);
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction("Index", new { confirmSuccess = true });
+                }
+                
+            }
+            else
+            {
+                return RedirectToAction("Index", new { confirmSuccess = false });
+            }
+            
+            
+            //db.Entry(model.Book).State = EntityState.Deleted;
+           // db.SaveChanges();
+            
+
+        }
     }
 }

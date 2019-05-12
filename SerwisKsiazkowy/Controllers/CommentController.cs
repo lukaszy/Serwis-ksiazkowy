@@ -55,5 +55,7 @@ namespace SerwisKsiazkowy.Controllers
             
             return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
         }
+
+        
     }
 }

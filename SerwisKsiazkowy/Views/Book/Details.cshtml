@@ -80,15 +80,29 @@
                                 </h2>
                                 <h2>
 
+
                                     Moja ocena:
                                     @if (Model.UserRate.Count() > 0)
                                     {
                                         @Model.UserRate.Select(r => r.Value).Single()
                                         @*@Html.DisplayFor(modelItem => modelItem.UserRate.Select(r => r.Value))*@
                                     }
-                                    else
+                                    else if (User.Identity.IsAuthenticated)
                                     {
-                                        @Html.Label("Brak")
+                                        @Html.Label("Nie oceniłeś tej książeki")
+                                        using (@Html.BeginForm("AddRate", "Book", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+
+                                            @Html.HiddenFor(m => m.NewRate.BookId)
+
+                                            @*@Html.DisplayFor(model => model.NewComment.BookId)*@
+                                            @Html.DropDownListFor(m => m.NewRate.Value, new SelectList(Model.ValueRate), "Wybierz ocene")
+
+                                            <input type="submit" value="Dodaj ocene" class="btn btn-default" />
+                                            
+                                        }
+
                                     }
 
                                 </h2>
@@ -114,7 +128,7 @@
                         </div>
 
 
-                        @*@{ Html.RenderAction("Add", "Comment", new { bookId = book.BookId });}*@
+                        
 
                         @using (@Html.BeginForm("Add", "Comment", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))
                         {

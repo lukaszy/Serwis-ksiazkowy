@@ -35,6 +35,8 @@ namespace SerwisKsiazkowy.Controllers
             var reviews = db.Reviews.Include(p => p.User).Where(c => c.BookId == id).ToList();
             var newComment = new Comment();
             newComment.BookId = id;
+            var newRate = new Rate();
+            newRate.BookId = id;
             ViewBag.Title = BookId.Single().Title.ToString();
 
             double? rate = -1;
@@ -62,7 +64,8 @@ namespace SerwisKsiazkowy.Controllers
                 Comments = comments,
                 Ratings = rate,
                 UserRate = userRate,
-                Reviews = reviews
+                Reviews = reviews,
+                NewRate = newRate
 
                 //SelectedBook = BookTitle
 
@@ -158,8 +161,33 @@ namespace SerwisKsiazkowy.Controllers
             return View(books);
         }
 
+        //public ActionResult AddRate(int bookId)
+        //{
+        //    var newRate = new Rate();
+        //    newRate.BookId = bookId;
+        //    return View(newRate);
+        //}
+        [HttpPost]
+        public ActionResult AddRate(DetailsViewModels model, int bookId, string bookTitle)
+        {
+            //model.NewRate.DateAdded = DateTime.Now;
+            //model.NewRate.BookId = bookId;
+            //model.NewRate.Value = 4;
+            model.NewRate.UserId = User.Identity.GetUserId();
+            //var errors = ModelState.Values.SelectMany(v => v.Errors);
+            //ViewBag.error = errors;
+            if (ModelState.IsValid)
+            {
+                
 
-        
+                db.Ratings.Add(model.NewRate);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
+        }
+
+
+
     }
 
     

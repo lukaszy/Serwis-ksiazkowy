@@ -4,9 +4,13 @@
 <p>
     @*@Html.ActionLink("Dodaj książkę", "Create", new { @class = "btn btn-primary btn-large" })*@
     <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("Add", "Manage")'">
-        Dodaj
+        Dodaj książke
     </button>
+    
 </p>
+<button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("AddGenre", "Manage")'">
+    Dodaj kategorie
+</button>
 <table class="table">
     <tr>
 

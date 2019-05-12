@@ -228,6 +228,10 @@
     <Compile Include="Migrations\201905112022275_Review_addRateValue.Designer.cs">
       <DependentUpon>201905112022275_Review_addRateValue.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905121958086_rate.cs" />
+    <Compile Include="Migrations\201905121958086_rate.Designer.cs">
+      <DependentUpon>201905121958086_rate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -418,7 +422,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Book\_Comment.cshtml" />
-    <Content Include="Views\Comment\Add.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\Edit.cshtml" />
     <Content Include="Views\Manage\Add.cshtml" />
@@ -429,6 +432,7 @@
     <Content Include="Views\Manage\Delete.cshtml" />
     <Content Include="Views\Book\ListReview.cshtml" />
     <Content Include="Views\Review\Index.cshtml" />
+    <Content Include="Views\Manage\AddGenre.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904241030413_Initial.resx">
@@ -454,6 +458,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905112022275_Review_addRateValue.resx">
       <DependentUpon>201905112022275_Review_addRateValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905121958086_rate.resx">
+      <DependentUpon>201905121958086_rate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
