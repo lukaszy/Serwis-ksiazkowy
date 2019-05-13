@@ -3,10 +3,12 @@ using SerwisKsiazkowy.DAL;
 using SerwisKsiazkowy.Models;
 using SerwisKsiazkowy.ViewModels;
 using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace SerwisKsiazkowy.Controllers
 {
@@ -23,6 +25,16 @@ namespace SerwisKsiazkowy.Controllers
         //    }
         //    return HttpNotFound();
         //}
+        public ActionResult ListComments(int id, string _title, int? page)
+        {
+            ViewBag.countComments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).Count();
+            ViewBag.BookTitle = _title.ToUpper();
+            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).OrderByDescending(d => d.DateAdded).ToList();
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(comments.ToPagedList(pageNumber, pageSize));
+            //return View(comments);
+        }
         public ActionResult Add(int bookId)
         {
             var newComment = new Comment();
@@ -55,6 +67,8 @@ namespace SerwisKsiazkowy.Controllers
             
             return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
         }
+
+
 
         
     }

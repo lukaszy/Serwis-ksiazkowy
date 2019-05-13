@@ -4,9 +4,20 @@
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0 MvcSiteMapSchema.xsd"
             enableLocalization="true">
 
+  <!--<mvcSiteMapNode title="Start" controller="Home" action="Index">
+    <mvcSiteMapNode title="Gatunek" controller="Book" action="ListGenres" dynamicNodeProvider="SerwisKsiazkowy.Infrastructure.BookListDynamicNodeProvider, SerwisKsiazkowy">
+      <mvcSiteMapNode title="Ksiazka" controller="Book" action="Details" dynamicNodeProvider="SerwisKsiazkowy.Infrastructure.BookDetailsDynamicNodeProvider, SerwisKsiazkowy"/>
+      <mvcSiteMapNode title="Komentarze" controller="Comment" action="ListComments"/>
+    </mvcSiteMapNode>
+    
+
+  </mvcSiteMapNode>-->
+
   <mvcSiteMapNode title="Start" controller="Home" action="Index">
     <mvcSiteMapNode title="Gatunek" controller="Book" action="ListGenres" dynamicNodeProvider="SerwisKsiazkowy.Infrastructure.BookListDynamicNodeProvider, SerwisKsiazkowy">
       <mvcSiteMapNode title="Ksiazka" controller="Book" action="Details" dynamicNodeProvider="SerwisKsiazkowy.Infrastructure.BookDetailsDynamicNodeProvider, SerwisKsiazkowy"/>
+      <mvcSiteMapNode title="Komentarze" controller="Comment" action="ListComments"/>
+
     </mvcSiteMapNode>
 
   </mvcSiteMapNode>

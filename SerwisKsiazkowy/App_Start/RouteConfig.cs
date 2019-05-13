@@ -43,7 +43,11 @@ namespace SerwisKsiazkowy
                 constraints: new { genrename = @"[\w]+" }
             );
 
-
+            routes.MapRoute(
+                name: "Komentarze",
+                url: "ksiazka/{_title}-i{id}/komentarze", //{id}
+                defaults: new { controller = "Comment", action = "ListComments" }
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

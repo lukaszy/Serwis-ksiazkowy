@@ -31,7 +31,8 @@ namespace SerwisKsiazkowy.Controllers
             //var BookTitle = db.Books.Where(g => g.Title.Replace(" ", "-").ToLower() == title);
             var genres = db.Genres.ToList();
             var books = BookId.ToList();
-            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).ToList();
+            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).OrderByDescending(d=>d.DateAdded).Take(4).ToList();
+            ViewBag.countComments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).Count();
             var reviews = db.Reviews.Include(p => p.User).Where(c => c.BookId == id).ToList();
             var newComment = new Comment();
             newComment.BookId = id;

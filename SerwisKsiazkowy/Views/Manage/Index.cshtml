@@ -1,43 +1,62 @@
-﻿@model IEnumerable<SerwisKsiazkowy.Models.Book>
-
+﻿@model PagedList.IPagedList<SerwisKsiazkowy.Models.Book>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 <p>
     @*@Html.ActionLink("Dodaj książkę", "Create", new { @class = "btn btn-primary btn-large" })*@
     <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("Add", "Manage")'">
         Dodaj książke
     </button>
-    
+    <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("AddGenre", "Manage")'">
+        Dodaj kategorie
+    </button>
 </p>
-<button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("AddGenre", "Manage")'">
-    Dodaj kategorie
-</button>
+
+<br />
+@using (Html.BeginForm())
+{
+    <p>
+        Znajdź tytuł: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
 
         <th>
-            @Html.DisplayNameFor(model => model.Genre.Name)
+            @*@Html.DisplayNameFor(model => model.Genre.Name)*@
+            @Html.ActionLink("Gatunek", "Index", new { sortOrder = ViewBag.GenreSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @*@Html.DisplayNameFor(model => model.Title)*@
+            @Html.ActionLink("Tytuł", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Author)
+            @*@Html.DisplayNameFor(model => model.Author)*@
+            @Html.ActionLink("Autor", "Index", new { sortOrder = ViewBag.AuthorSortParm, currentFilter = ViewBag.CurrentFilter })
+
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Pages)
+            
+            Liczba stron
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.YearPublished)
+            
+            Rok wydania
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Publisher)
+            
+            Wydawnictwo
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.Rate)
+            
+            @Html.ActionLink("Ocena", "Index", new { sortOrder = ViewBag.RateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CoverFileName)
+            
+            Okładka
         </th>
         <th></th>
     </tr>
@@ -81,8 +100,8 @@
 
 
                 @*<button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Manage", new { id = item.BookId, title = item.Title  })'">
-            Usuń
-        </button>*@
+                        Usuń
+                    </button>*@
 
 
 
@@ -110,7 +129,7 @@
                                 </div>
                                 <div class="modal-body">
                                     Czy napewno checesz usunąć książkę?
-                                    
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
@@ -130,14 +149,18 @@
     }
 
 </table>
+<br />
+Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 @section scripts {
 
     <script>
 
         $(document).ready(function () {
 
-            
+
 
         });
 

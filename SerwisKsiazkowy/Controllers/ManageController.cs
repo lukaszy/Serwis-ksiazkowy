@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+
 
 namespace SerwisKsiazkowy.Controllers
 {
@@ -15,10 +17,66 @@ namespace SerwisKsiazkowy.Controllers
     {
         BookContext db = new BookContext();
         // GET: Manage
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
-            var books = db.Books.ToList();
-            return View(books);
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.AuthorSortParm = sortOrder == "author" ? "author_desc" : "author";
+            ViewBag.GenreSortParm = sortOrder == "genre_name" ? "genre_name_desc" : "genre_name";
+            ViewBag.RateSortParm = sortOrder == "rate" ? "rate_desc" : "rate";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+
+            var books = from b in db.Books
+                           select b;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title.Contains(searchString));
+            }
+            switch (sortOrder)
+            { 
+                case "title_desc":
+                    books = books.OrderByDescending(s => s.Title);
+                    break;
+                case "author_desc":
+                    books = books.OrderByDescending(s => s.Author);
+                    break;
+                case "author":
+                    books = books.OrderBy(s => s.Author);
+                    break;
+                case "genre_name":
+                    books = books.OrderBy(s => s.Genre.Name);
+                    break;
+                case "genre_name_desc":
+                    books = books.OrderByDescending(s => s.Genre.Name);
+                    break;
+                case "rate":
+                    books = books.OrderBy(s => s.Rate);
+                    break;
+                case "rate_desc":
+                    books = books.OrderByDescending(s => s.Rate);
+                    break;
+                default:
+                    books = books.OrderBy(s => s.Title);
+                    break;
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(books.ToPagedList(pageNumber, pageSize));
+            //return View(books.ToList());
+            //var books = db.Books.ToList();
+            //return View(books);
         }
 
         public ActionResult Edit(int? bookId, bool? confirmSuccess)
