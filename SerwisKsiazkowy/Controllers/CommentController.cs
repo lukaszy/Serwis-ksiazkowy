@@ -53,6 +53,11 @@ namespace SerwisKsiazkowy.Controllers
                 db.Comments.Add(model.NewComment);
                 db.SaveChanges();
             }
+            //else
+            //{
+            //    ModelState.AddModelError("ErrorMessage", "Błąd");
+            //}
+
             return RedirectToAction("Details", "Book",new { id = bookId, _title = bookTitle });
         }
 

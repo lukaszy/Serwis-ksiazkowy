@@ -12,6 +12,10 @@ namespace SerwisKsiazkowy.Models
     {
         [Key]
         public int CommentId { get; set; }
+
+        [Required(ErrorMessage = "Treść jest wymagana")]
+        [StringLength(1000, MinimumLength = 5, ErrorMessage = "Treść musi zawierać co najmniej {2} znaków")]
+        [Display(Name = "Treść")]
         public string Content { get; set; }
         public DateTime DateAdded { get; set; }
 

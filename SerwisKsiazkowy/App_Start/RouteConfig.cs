@@ -49,6 +49,11 @@ namespace SerwisKsiazkowy
                 defaults: new { controller = "Comment", action = "ListComments" }
             );
             routes.MapRoute(
+               name: "Recenzje",
+               url: "ksiazka/{_title}-i{id}/recenzje", //{id}
+               defaults: new { controller = "Review", action = "ListReviews" }
+           );
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

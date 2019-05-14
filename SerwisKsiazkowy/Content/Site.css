@@ -153,9 +153,9 @@ textarea {
 }
 #book-details-description {
     margin-top: 500px;
-    font-family: 'Segoe UI Light';
+    font-family: 'inherit';
     width: 100%;
-    background-color:lightgoldenrodyellow;
+    /*background-color:lightgoldenrodyellow;*/
 }
 
 #book-details-comments {
@@ -285,4 +285,9 @@ textarea {
 
 hr.style1 {
     box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+hr.style2 {
+    overflow: visible; /* For IE */
+    border-top: 1px solid #8c8b8b;
 }

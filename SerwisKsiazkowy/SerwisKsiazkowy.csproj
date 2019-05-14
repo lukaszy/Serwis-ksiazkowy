@@ -238,6 +238,26 @@
     <Compile Include="Migrations\201905121958086_rate.Designer.cs">
       <DependentUpon>201905121958086_rate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905140924349_DataAnnotations.cs" />
+    <Compile Include="Migrations\201905140924349_DataAnnotations.Designer.cs">
+      <DependentUpon>201905140924349_DataAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905140929198_DataAnnotationsMinLength.cs" />
+    <Compile Include="Migrations\201905140929198_DataAnnotationsMinLength.Designer.cs">
+      <DependentUpon>201905140929198_DataAnnotationsMinLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905140951072_dataAnnFix.cs" />
+    <Compile Include="Migrations\201905140951072_dataAnnFix.Designer.cs">
+      <DependentUpon>201905140951072_dataAnnFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905140956419_dataAnnFix2.cs" />
+    <Compile Include="Migrations\201905140956419_dataAnnFix2.Designer.cs">
+      <DependentUpon>201905140956419_dataAnnFix2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905140957345_dataAnnFix22.cs" />
+    <Compile Include="Migrations\201905140957345_dataAnnFix22.Designer.cs">
+      <DependentUpon>201905140957345_dataAnnFix22.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -442,6 +462,7 @@
     <Content Include="Views\Manage\AddGenre.cshtml" />
     <Content Include="Views\Comment\ListComments.cshtml" />
     <Content Include="Views\Book\_Comment.cshtml" />
+    <Content Include="Views\Review\ListReviews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904241030413_Initial.resx">
@@ -470,6 +491,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905121958086_rate.resx">
       <DependentUpon>201905121958086_rate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905140924349_DataAnnotations.resx">
+      <DependentUpon>201905140924349_DataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905140929198_DataAnnotationsMinLength.resx">
+      <DependentUpon>201905140929198_DataAnnotationsMinLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905140951072_dataAnnFix.resx">
+      <DependentUpon>201905140951072_dataAnnFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905140956419_dataAnnFix2.resx">
+      <DependentUpon>201905140956419_dataAnnFix2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905140957345_dataAnnFix22.resx">
+      <DependentUpon>201905140957345_dataAnnFix22.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

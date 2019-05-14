@@ -5,6 +5,7 @@
 @using (Html.BeginForm("Add", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
+    @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
     @Html.HiddenFor(model => model.Book.CoverFileName)
     <div class="form-horizontal">
         <h4>Dodaj Książkę</h4>
@@ -48,7 +49,7 @@
             @Html.LabelFor(model => model.Book.YearPublished, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @*@Html.EditorFor(model => model.Book.YearPublished, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.EditorFor(model => model.Book.YearPublished, new { htmlAttributes = new { id = "datepicker", @class = "form-control", @Value = "15/10/1990" } })
+                @Html.EditorFor(model => model.Book.YearPublished, new { htmlAttributes = new { id = "datepicker", @class = "form-control", @Value = "15-10-1990" } })
                 @Html.ValidationMessageFor(model => model.Book.YearPublished, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -71,12 +72,12 @@
         </div>
 
         @*<div class="form-group">
-            @Html.LabelFor(model => model.Book.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Book.Rate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Book.Rate, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+                @Html.LabelFor(model => model.Book.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Book.Rate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Book.Rate, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Book.CoverFileName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -101,6 +102,9 @@
 
 <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 @section scripts {
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     <script>
 

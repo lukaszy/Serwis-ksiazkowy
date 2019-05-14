@@ -11,6 +11,8 @@ namespace SerwisKsiazkowy.Models
     {
         [Key]
         public int RateId { get; set; }
+
+        [Range(0, 10, ErrorMessage = "Wartość {0} musi być miedzy {1} a {2}.")]
         public int Value { get; set; }
 
         public int BookId { get; set; }

@@ -12,6 +12,10 @@ namespace SerwisKsiazkowy.Models
     {
         [Key]
         public int ReviewId { get; set; }
+
+        [Required(ErrorMessage = "Treść jest wymagana")]
+        [StringLength(2000, MinimumLength = 5, ErrorMessage = "Treść musi zawierać co najmniej {1} znaków")]
+        [Display(Name = "Treść")]
         public string Content { get; set; }
         public DateTime DateAdded { get; set; }
 
@@ -22,7 +26,8 @@ namespace SerwisKsiazkowy.Models
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
 
-        
+        [Display(Name = "Ocena")]
+        [Range(0, 10, ErrorMessage = "Wartość {0} musi być między {1} a {2}.")]
         public int RateValue { get; set; }
         
         
