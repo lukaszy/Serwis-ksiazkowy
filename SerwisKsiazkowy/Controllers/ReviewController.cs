@@ -29,7 +29,7 @@ namespace SerwisKsiazkowy.Controllers
         {
             ViewBag.countReviews = db.Reviews.Include(p => p.User).Where(c => c.BookId == id).Count();
             ViewBag.BookTitle = _title.ToUpper();
-            var reviews = db.Reviews.Include(p => p.User).Where(c => c.BookId == id).OrderByDescending(d => d.DateAdded).ToList();
+            var reviews = db.Reviews.Include(p => p.User).Include(p=>p.Books).Where(c => c.BookId == id).OrderByDescending(d => d.DateAdded).ToList();
             int pageSize = 7;
             int pageNumber = (page ?? 1);
             return View(reviews.ToPagedList(pageNumber, pageSize));

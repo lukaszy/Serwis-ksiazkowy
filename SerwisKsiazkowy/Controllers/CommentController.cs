@@ -29,7 +29,7 @@ namespace SerwisKsiazkowy.Controllers
         {
             ViewBag.countComments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).Count();
             ViewBag.BookTitle = _title.ToUpper();
-            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).OrderByDescending(d => d.DateAdded).ToList();
+            var comments = db.Comments.Include(p => p.User).Include(p => p.Book).Where(c => c.BookId == id).OrderByDescending(d => d.DateAdded).ToList();
             int pageSize = 3;
             int pageNumber = (page ?? 1);
             return View(comments.ToPagedList(pageNumber, pageSize));
@@ -59,6 +59,35 @@ namespace SerwisKsiazkowy.Controllers
             //}
 
             return RedirectToAction("Details", "Book",new { id = bookId, _title = bookTitle });
+        }
+
+
+
+
+        public ActionResult AddInAll(int bookId, string bookTitle)
+        {
+            ViewBag.bookId = bookId;
+            ViewBag.bookTitle = bookTitle;
+            
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddInAll(Comment model, int bookId, string bookTitle)
+        {
+            model.DateAdded = DateTime.Now;
+            model.UserId = User.Identity.GetUserId();
+
+            if (ModelState.IsValid)
+            {
+                db.Comments.Add(model);
+                db.SaveChanges();
+            }
+            //else
+            //{
+            //    ModelState.AddModelError("ErrorMessage", "Błąd");
+            //}
+
+            return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
         }
 
 

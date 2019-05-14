@@ -463,6 +463,7 @@
     <Content Include="Views\Comment\ListComments.cshtml" />
     <Content Include="Views\Book\_Comment.cshtml" />
     <Content Include="Views\Review\ListReviews.cshtml" />
+    <Content Include="Views\Comment\AddInAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904241030413_Initial.resx">
