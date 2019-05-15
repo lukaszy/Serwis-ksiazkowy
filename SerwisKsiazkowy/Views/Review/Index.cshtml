@@ -1,6 +1,6 @@
 ﻿@model SerwisKsiazkowy.Models.Review
 
-@using (Html.BeginForm("Add", "Review", FormMethod.Post, new { bookId = ViewBag.bookId, bookTitle = (string)ViewBag.bookTitle }))
+@using (Html.BeginForm("Add", "Review", new { bookId = ViewBag.bookId, bookTitle = ViewBag.bookTitle }, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     

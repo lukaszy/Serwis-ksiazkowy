@@ -10,5 +10,6 @@ namespace SerwisKsiazkowy.ViewModels
     {
         public IEnumerable<Review> ReviewsVM { get; set; }
         public IEnumerable<Rate> RatingsVM { get; set; }
+        public Review Review { get; set; }
     }
 }

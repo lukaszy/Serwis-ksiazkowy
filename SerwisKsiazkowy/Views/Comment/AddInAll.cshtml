@@ -4,7 +4,7 @@
 @{
     string name = ViewBag.bookTitle.ToString();
 }
-@using (Html.BeginForm("AddInAll", "Comment", FormMethod.Post, new { bookId = @ViewBag.bookId, bookTitle = name }))
+@using (Html.BeginForm("AddInAll", "Comment",  new { bookId = @ViewBag.bookId, bookTitle = @ViewBag.bookTitle },FormMethod.Post))
 {
     @ViewBag.bookTitle
 

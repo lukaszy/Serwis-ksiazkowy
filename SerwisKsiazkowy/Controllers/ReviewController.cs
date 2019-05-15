@@ -35,6 +35,7 @@ namespace SerwisKsiazkowy.Controllers
             return View(reviews.ToPagedList(pageNumber, pageSize));
             //return View(comments);
         }
+
         [HttpPost]
         public ActionResult Add(Review model, int bookId, string bookTitle)
         {
@@ -59,6 +60,36 @@ namespace SerwisKsiazkowy.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
+        }
+
+        
+        public ActionResult Edit(int reviewId, string bookTitle)
+        {
+            var editReview = new ReviewViewModel();
+            var ratings = db.Ratings.ToArray();
+            editReview.RatingsVM = ratings;
+            //editBook.ConfirmSuccess = confirmSuccess;
+
+            Review b = db.Reviews.Find(reviewId);
+           
+            
+        
+
+            editReview.Review = b;
+
+            return View(editReview);
+            
+        }
+
+        [HttpPost]
+        public ActionResult Edit(ReviewViewModel model)
+        {
+
+            model.Review.DateAdded = DateTime.Now;
+            db.Entry(model.Review).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index","Home", new { confirmSuccess = true });
+
         }
     }
 }

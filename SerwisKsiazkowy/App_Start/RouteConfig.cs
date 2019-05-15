@@ -19,6 +19,11 @@ namespace SerwisKsiazkowy
                 defaults: new { controller = "Book", action = "Details"  }
             );
             routes.MapRoute(
+                name: "Ksiazka1",
+                url: "ksiazka/{bookTitle}-i{bookId}", //{id}
+                defaults: new { controller = "Book", action = "Details" }
+            );
+            routes.MapRoute(
                 name: "Recenzja",
                 url: "recenzja/{bookTitle}-i{bookId}",
                 defaults: new { controller = "Review", action = "Index" }

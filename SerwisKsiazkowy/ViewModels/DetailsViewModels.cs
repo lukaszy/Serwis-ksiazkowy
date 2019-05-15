@@ -19,6 +19,8 @@ namespace SerwisKsiazkowy.ViewModels
         public IEnumerable<Rate> UserRate { get; set; }
         public IEnumerable<Genre> Genres { get; set; }
 
+        public Review userReview { get; set; }
+
         public Comment NewComment { get; set; }
         public Rate NewRate { get; set; }
         public int[] ValueRate = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };

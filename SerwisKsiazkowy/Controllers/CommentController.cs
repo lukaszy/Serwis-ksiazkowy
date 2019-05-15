@@ -69,6 +69,7 @@ namespace SerwisKsiazkowy.Controllers
             ViewBag.bookId = bookId;
             ViewBag.bookTitle = bookTitle;
             
+            
             return View();
         }
         [HttpPost]
@@ -76,7 +77,7 @@ namespace SerwisKsiazkowy.Controllers
         {
             model.DateAdded = DateTime.Now;
             model.UserId = User.Identity.GetUserId();
-
+            
             if (ModelState.IsValid)
             {
                 db.Comments.Add(model);

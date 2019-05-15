@@ -27,6 +27,7 @@ namespace SerwisKsiazkowy.Controllers
 
         public ActionResult Details(int id)
         {
+            var userId = User.Identity.GetUserId();
             var BookId = db.Books.Where(g => g.BookId == id);
             //var BookTitle = db.Books.Where(g => g.Title.Replace(" ", "-").ToLower() == title);
             var genres = db.Genres.ToList();
@@ -34,6 +35,9 @@ namespace SerwisKsiazkowy.Controllers
             var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).OrderByDescending(d=>d.DateAdded).Take(5).ToList();
             ViewBag.countComments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).Count();
             ViewBag.countReviews = db.Reviews.Include(p => p.User).Where(c => c.BookId == id).Count();
+
+            var userReview = db.Reviews.Include(p => p.User).Where(c => c.BookId == id && c.UserId == userId).SingleOrDefault();
+
             var reviews = db.Reviews.Include(p => p.User).Where(c => c.BookId == id).OrderByDescending(d => d.DateAdded).Take(5).ToList();
             var newComment = new Comment();
             newComment.BookId = id;
@@ -42,7 +46,7 @@ namespace SerwisKsiazkowy.Controllers
             ViewBag.Title = BookId.Single().Title.ToString();
 
             double? rate = -1;
-            var userId = User.Identity.GetUserId();
+            
             try
             {
                 rate = db.Ratings.Where(r => r.BookId == id).Average(a => a.Value);
@@ -67,7 +71,8 @@ namespace SerwisKsiazkowy.Controllers
                 Ratings = rate,
                 UserRate = userRate,
                 Reviews = reviews,
-                NewRate = newRate
+                NewRate = newRate,
+                userReview = userReview
 
                 //SelectedBook = BookTitle
 
