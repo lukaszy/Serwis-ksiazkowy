@@ -103,8 +103,102 @@ namespace SerwisKsiazkowy.Controllers
             return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
         }
 
+        public Comment AddComment(Comment comment)
+        {
+            var _comment = new Comment()
+            {
+                ParentId = comment.ParentId,
+                Content = comment.Content,
+                UserId = User.Identity.GetUserId(),
+                DateAdded = DateTime.Now,
+                BookId = 1
+            };
+
+            db.Comments.Add(_comment);
+            db.SaveChanges();
+            return db.Comments.Where(x => x.CommentId == _comment.CommentId)
+                    .Select(x => new Comment
+                    {
+                        CommentId = x.CommentId,
+                        Content = x.Content,
+                        ParentId = x.ParentId,
+                        DateAdded = x.DateAdded,
+                        BookId = x.BookId
+                        
+                        //username = x.Username
+
+                    }).FirstOrDefault();
+        }
+        public JsonResult testAdd()
+        {
+            var dane = db.Comments.Where(x => x.ParentId != 0).Select(p=>new
+            {
+                CommentId=p.CommentId,
+               
+                Content = p.Content
+            }).ToList();
+
+            List<Comment> ObjEmp = new List<Comment>()
+            {
+                //Adding records to list
+                new Comment {CommentId=1,Content="Vithal Wadje" },
+                new Comment {CommentId=1,Content="Vithal Wadje" }
+            };
+            return Json(dane, JsonRequestBehavior.AllowGet);
+            //return Json("hello", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult addNewComment(Comment comment)
+        {
+            //try
+            //{
+                var _comment = new Comment()
+                {
+                    ParentId = comment.ParentId,
+                    Content = comment.Content,
+                    UserId = User.Identity.GetUserId(),
+                    DateAdded = DateTime.Now,
+                    BookId = comment.BookId
+                };
+            try
+            {
+            db.Comments.Add(_comment);
+                db.SaveChanges();
+            }
 
 
-        
+            catch
+            {
+                return Json(new { error = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            //var model = AddComment(comment);
+            //var model = db.Comments.Where(x => x.CommentId == _comment.CommentId)
+            //    .Select(x => new Comment
+            //    {
+            //        CommentId = x.CommentId,
+            //        Content = x.Content,
+            //        ParentId = x.ParentId,
+            //        DateAdded = x.DateAdded,
+            //        BookId = x.BookId
+
+            //        //username = x.Username
+
+            //    }).FirstOrDefault();
+            //var model = db.Comments.Where(x => x.CommentId == _comment.CommentId).ToList();
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+
+            //}
+            //catch (Exception)
+            //{
+            //    //Handle Error here..
+            //}
+
+            //return Json(new { error = true }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
     }
 }

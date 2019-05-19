@@ -258,6 +258,10 @@
     <Compile Include="Migrations\201905140957345_dataAnnFix22.Designer.cs">
       <DependentUpon>201905140957345_dataAnnFix22.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905172028209_ParentId.cs" />
+    <Compile Include="Migrations\201905172028209_ParentId.Designer.cs">
+      <DependentUpon>201905172028209_ParentId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -376,10 +380,21 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Mvc.sitemap" />
+    <Content Include="App_Readme\Handlebarsjs_release-notes.md" />
+    <Content Include="App_Readme\Handlebarsjs_README.md" />
+    <Content Include="App_Readme\Handlebarsjs_LICENSE" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\handlebars.amd.js" />
+    <Content Include="Scripts\handlebars.amd.min.js" />
+    <Content Include="Scripts\handlebars.js" />
+    <Content Include="Scripts\handlebars.min.js" />
+    <Content Include="Scripts\handlebars.runtime.amd.js" />
+    <Content Include="Scripts\handlebars.runtime.amd.min.js" />
+    <Content Include="Scripts\handlebars.runtime.js" />
+    <Content Include="Scripts\handlebars.runtime.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -465,6 +480,7 @@
     <Content Include="Views\Review\ListReviews.cshtml" />
     <Content Include="Views\Comment\AddInAll.cshtml" />
     <Content Include="Views\Review\Edit.cshtml" />
+    <Content Include="Views\Shared\_CommentPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904241030413_Initial.resx">
@@ -508,6 +524,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905140957345_dataAnnFix22.resx">
       <DependentUpon>201905140957345_dataAnnFix22.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905172028209_ParentId.resx">
+      <DependentUpon>201905172028209_ParentId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

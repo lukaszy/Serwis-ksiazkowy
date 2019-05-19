@@ -22,8 +22,12 @@ namespace SerwisKsiazkowy.Controllers
     {
         BookContext db = new BookContext();
         // GET: Book
-        
 
+        public PartialViewResult CommentPartial(int id)
+        {
+            var comments = db.Comments.Include(p => p.User).Include(p=>p.Book).Where(p=>p.BookId == id).OrderByDescending(d => d.DateAdded).Take(5).ToList();
+            return PartialView("_CommentPartial", comments);
+        }
 
         public ActionResult Details(int id)
         {

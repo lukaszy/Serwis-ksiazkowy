@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SerwisKsiazkowy.Models.Comment>
+
+@helper RenderComment(IEnumerable<SerwisKsiazkowy.Models.Comment> comments)
+{
+    foreach (var comment in comments)
+    {
+
+        <li class="comment" data-id="@comment.CommentId">
+            <div class="avatar">
+                <a href="javascript:void(0);">
+                    <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="55" height="55">
+                </a>
+            </div>
+            <div data-id="@comment.CommentId" class="comment-body">
+                <header><a href="javascript:void(0);" class="userlink">_partial</a> - <span class="pubdate">posted @comment.DateAdded.ToString("dd-MM-yyyy")</span></header>
+                <p>
+                    @comment.Content
+                </p>
+                <footer>
+                    <a  class="reply-link" href="@comment.CommentId">Odpowiedz</a>
+                    @{
+                        var children = Model.Where(x => x.ParentId == comment.CommentId).ToList();
+                        if (children.Count() > 0)
+                        {
+                            @*<a id="displayReply" href="#collapseExample">odpowiedzi</a>*@
+                            @*<a href="#demo">odpowiedzi</a>
+                <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#demo">
+                    <span class="glyphicon glyphicon-collapse-down"></span> Open
+                </button>*@
+                           
+
+
+                                <ul class="replies" data-parentid="@comment.CommentId">
+                                    @RenderComment(children)
+
+                                </ul>
+                           
+                        }
+                    }
+
+
+
+                </footer>
+            </div>
+
+            @*@{
+                    //var children = Model.Where(x => x.ParentId == comment.CommentId).ToList();
+                    if (children.Count() > 0)
+                    {
+                        <ul data-parentid="@comment.CommentId" class="replies">
+                            @RenderComment(children);
+                        </ul>
+                    }
+                }*@
+
+        </li>
+
+    }
+
+}
+
+<script>
+    $(document).ready(function () {
+        $("#demo").on("hide.bs.collapse", function () {
+            $(".btn").html('<span class="glyphicon glyphicon-collapse-down"></span> Open');
+        });
+        $("#demo").on("show.bs.collapse", function () {
+            $(".btn").html('<span class="glyphicon glyphicon-collapse-up"></span> Close');
+        });
+    });
+</script>
+
+<div id="comment-section" class="row">
+    <div class="col-sm-7">
+        <ul class="comments">
+            @RenderComment(Model.Where(x => x.ParentId == 0 && x.BookId == Model.Select(p=>p.BookId).First()))
+        </ul>
+    </div>
+
+</div>
+

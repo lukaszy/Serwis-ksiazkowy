@@ -25,219 +25,219 @@
 
                 @foreach (var book in Model.SelectedBook)
                 {
-                <section id="book-details-section">
-                    <div id="book-details-left">
+                    <section id="book-details-section">
+                        <div id="book-details-left">
 
-                        <img src="@Url.Content("~/Content/Covers/" + book.CoverFileName)" />
-
-                    </div>
-
-                    <div id="book-details-right">
-                        <div id="book-details-names">
-
-                            <h1>
-                                @book.Title
-                            </h1>
-                            <br />
-                            <h2>
-                                Autor: @book.Author
-                            </h2>
+                            <img src="@Url.Content("~/Content/Covers/" + book.CoverFileName)" />
 
                         </div>
 
-                        <div id="book-details-names">
+                        <div id="book-details-right">
+                            <div id="book-details-names">
+
+                                <h1>
+                                    @book.Title
+                                </h1>
+                                <br />
+                                <h2>
+                                    Autor: @book.Author
+                                </h2>
+
+                            </div>
+
+                            <div id="book-details-names">
 
 
-                            <h2>
-                                Wydawnictwo: @book.Publisher
-                            </h2>
+                                <h2>
+                                    Wydawnictwo: @book.Publisher
+                                </h2>
 
 
-                            <h2>
-                                Gatunek: @book.Genre.Name
-                                @*@Model.Genres.Where(a => a.GenreId == book.GenreId).Single().Name*@
+                                <h2>
+                                    Gatunek: @book.Genre.Name
+                                    @*@Model.Genres.Where(a => a.GenreId == book.GenreId).Single().Name*@
 
-                                @*Gatunek: @book.Genres.Where(a => a.BookId == book.BookId)*@
-                            </h2>
-                            <h2>
-                                Liczba stron: @book.Pages
-                            </h2>
-                            <h2>
-                                Data premiery: @book.YearPublished
-                            </h2>
-                            <h2>
-                                Ocena:
-                                @Html.Action("GetRate", "Home", new { id = book.BookId })
-                                @*@if (Model.Ratings == -1)
-                    {
-                        @Html.Label("Brak")
-                    }
-                    else
-                    {
-                        <b>@Model.Ratings</b> @Html.Label("/ 5")
-                    }*@
+                                    @*Gatunek: @book.Genres.Where(a => a.BookId == book.BookId)*@
+                                </h2>
+                                <h2>
+                                    Liczba stron: @book.Pages
+                                </h2>
+                                <h2>
+                                    Data premiery: @book.YearPublished
+                                </h2>
+                                <h2>
+                                    Ocena:
+                                    @Html.Action("GetRate", "Home", new { id = book.BookId })
+                                    @*@if (Model.Ratings == -1)
+                                        {
+                                            @Html.Label("Brak")
+                                        }
+                                        else
+                                        {
+                                            <b>@Model.Ratings</b> @Html.Label("/ 5")
+                                        }*@
 
-                            </h2>
-                            <h2>
+                                </h2>
+                                <h2>
 
 
-                                Moja ocena:
-                                @if (Model.UserRate.Count() > 0)
-                                {
-                                    @Model.UserRate.Select(r => r.Value).Single()
-                                    @*@Html.DisplayFor(modelItem => modelItem.UserRate.Select(r => r.Value))*@
-                                }
-                                else if (User.Identity.IsAuthenticated)
-                                {
-                                    @Html.Label("Nie oceniłeś tej książeki")
-                                    using (@Html.BeginForm("AddRate", "Book", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))
+                                    Moja ocena:
+                                    @if (Model.UserRate.Count() > 0)
                                     {
-                                        @Html.AntiForgeryToken()
+                                        @Model.UserRate.Select(r => r.Value).Single()
+                                        @*@Html.DisplayFor(modelItem => modelItem.UserRate.Select(r => r.Value))*@
+                                    }
+                                    else if (User.Identity.IsAuthenticated)
+                                    {
+                                        @Html.Label("Nie oceniłeś tej książeki")
+                                        using (@Html.BeginForm("AddRate", "Book", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
 
-                                        @Html.HiddenFor(m => m.NewRate.BookId)
+                                            @Html.HiddenFor(m => m.NewRate.BookId)
 
-                                        @*@Html.DisplayFor(model => model.NewComment.BookId)*@
-                                        @Html.DropDownListFor(m => m.NewRate.Value, new SelectList(Model.ValueRate), "Wybierz ocene")
+                                            @*@Html.DisplayFor(model => model.NewComment.BookId)*@
+                                            @Html.DropDownListFor(m => m.NewRate.Value, new SelectList(Model.ValueRate), "Wybierz ocene")
 
-                                        <input type="submit" value="Dodaj ocene" class="btn btn-default" />
+                                            <input type="submit" value="Dodaj ocene" class="btn btn-default" />
+
+                                        }
 
                                     }
 
+                                </h2>
+
+
+
+                            </div>
+                        </div>
+                        <div id="book-details-description">
+                            <h1>
+                                Opis książki
+                            </h1>
+                            <hr class="style1">
+                            @book.Description
+                            <hr class="style2">
+                        </div>
+                        <h2>
+                            Recenzje (@ViewBag.countReviews)
+
+                        </h2>
+                        <hr class="style1">
+                        <div id="book-details-comments">
+
+                            @if (Model.userReview == null)
+                            {
+                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Review", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }) '">
+                                    Dodaj recenzje
+                                </button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Review", new { reviewId = Model.userReview.ReviewId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }) '">
+                                    Edytuj recenzje
+                                </button>
+
+
+                            }
+
+                            <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListReviews", "Review", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
+                                zobacz wszytskie recenzje
+                            </button>
+
+                            @Html.Partial("ListReview", Model.Reviews)
+                        </div>
+
+                        <h2>
+                            Komentarze (@ViewBag.countComments)
+
+                        </h2>
+                        <hr class="style1">
+                        <p>
+                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Dodaj komentarz
+                            </a>
+                            <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListComments", "Comment", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
+                                zobacz wszytskie komentarze
+                            </button>
+
+                        </p>
+                        <div class="collapse" id="collapseExample">
+
+
+
+                            @using (@Html.BeginForm("Add", "Comment", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
+
+
+
+                                @Html.HiddenFor(model => model.NewComment.BookId)
+
+                                <div class="form-group">
+                                    @*@Html.DisplayFor(model => model.NewComment.BookId)*@
+                                    @Html.TextAreaFor(model => model.NewComment.Content, new { @class = "form-control", rows = "5", @placeholder = "Wprowadź tekst.." })
+                                    @Html.ValidationMessageFor(model => model.NewComment.Content, "", new { @class = "text-danger" })
+
+                                </div><input type="submit" value="Dodaj komentarz" class="btn btn-default" />
+                            }
+                        </div>
+
+                        @* @ViewBag.user
+                            @Html.Partial("_AddComment");*@
+                        @*@using (@Html.BeginForm("Add", "Comments", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div>
+                                    @Html.ValidationMessage("loginerror", "")
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(o => o.Comments)
+                                    @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", placeholder = "Wprowadź treść" } })
+                                    @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                                </div>
+
+
+                                <input type="submit" value="Dodaj komentarz" class="btn btn-default" />
+                            }*@
+                        @*<div id="book-details-comments">
+                                <h1>
+                                    Komentarze
+                                </h1>
+                                @if (Model.Comments.Count() == 0)
+                                {
+                                    <div>Brak komenatrzy</div>
+                                }
+                                else
+                                {
+                                    foreach (var comments in Model.Comments)
+                                    {
+                                        <div id="book-details-comment">
+                                            <div id="book-details-comment-details">
+
+                                                Autor: Data dodania: @comments.DateAdded.ToString("dd MMMM yyyy hh:mm")
+                                            </div>
+                                            <div id="book-details-comment-content">
+                                                @comments.Content
+                                            </div>
+                                        </div>
+                                    }
                                 }
 
-                            </h2>
 
 
+                            </div>*@
 
-                        </div>
-                    </div>
-                    <div id="book-details-description">
-                        <h1>
-                            Opis książki
-                        </h1>
-                        <hr class="style1">
-                        @book.Description
-                        <hr class="style2">
-                    </div>
-                    <h2>
-                        Recenzje (@ViewBag.countReviews)
+                        @Html.Partial("_Comment", Model.Comments)
 
-                    </h2>
-                    <hr class="style1">
-                    <div id="book-details-comments">
-                        
-                        @if (Model.userReview == null)
-                        {
-                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Review", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }) '">
-                                Dodaj recenzje
-                            </button>
-                        }
-                        else
-                        {
-                            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Review", new { reviewId = Model.userReview.ReviewId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }) '">
-                                Edytuj recenzje
-                            </button>
-
-
-                        }
-
-                        <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListReviews", "Review", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
-                            zobacz wszytskie recenzje
-                        </button>
-
-                        @Html.Partial("ListReview", Model.Reviews)
-                    </div>
-
-                    <h2>
-                        Komentarze (@ViewBag.countComments)
-                        
-                    </h2>
-                    <hr class="style1">
-                    <p>
-                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            Dodaj komentarz
-                        </a>
                         <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListComments", "Comment", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
                             zobacz wszytskie komentarze
                         </button>
 
-                    </p>
-                    <div class="collapse" id="collapseExample">
-
-
-
-                        @using (@Html.BeginForm("Add", "Comment", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))
-                        {
-                            @Html.AntiForgeryToken()
-                            @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
-
-
-
-                            @Html.HiddenFor(model => model.NewComment.BookId)
-
-                            <div class="form-group">
-                                @*@Html.DisplayFor(model => model.NewComment.BookId)*@
-                                @Html.TextAreaFor(model => model.NewComment.Content, new { @class = "form-control", rows = "5", @placeholder = "Wprowadź tekst.." })
-                                @Html.ValidationMessageFor(model => model.NewComment.Content, "", new { @class = "text-danger" })
-
-                            </div><input type="submit" value="Dodaj komentarz" class="btn btn-default" />
-                        }
-                    </div>
-
-                    @* @ViewBag.user
-        @Html.Partial("_AddComment");*@
-                    @*@using (@Html.BeginForm("Add", "Comments", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-
-            <div>
-                @Html.ValidationMessage("loginerror", "")
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(o => o.Comments)
-                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", placeholder = "Wprowadź treść" } })
-                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
-            </div>
-
-
-            <input type="submit" value="Dodaj komentarz" class="btn btn-default" />
-        }*@
-                    @*<div id="book-details-comments">
-            <h1>
-                Komentarze
-            </h1>
-            @if (Model.Comments.Count() == 0)
-            {
-                <div>Brak komenatrzy</div>
-            }
-            else
-            {
-                foreach (var comments in Model.Comments)
-                {
-                    <div id="book-details-comment">
-                        <div id="book-details-comment-details">
-
-                            Autor: Data dodania: @comments.DateAdded.ToString("dd MMMM yyyy hh:mm")
-                        </div>
-                        <div id="book-details-comment-content">
-                            @comments.Content
-                        </div>
-                    </div>
-                }
-            }
-
-
-
-        </div>*@
-
-                    @Html.Partial("_Comment", Model.Comments)
-
-                    <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListComments", "Comment", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
-                        zobacz wszytskie komentarze
-                    </button>
-
-                </section>
+                    </section>
                 }
             </div>
 
@@ -248,10 +248,245 @@
 
 </div>
 
+
+<div class="row">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="page-title">User Comment</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="thumbnail">
+                    <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <textarea cols="15" id="commentInput" class="form-control" placeholder="Join the conversation.."></textarea>
+                    </div>
+                    <div class="panel-heading comment-action">
+                        <div class="submit-comment">
+                            <a id="addNewCommentBtn" href="#">Submit</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+<div id="refresh">
+
+    @Html.Action("CommentPartial", new { id=Model.SelectedBook.Select(p=>p.BookId).First()})
+
+</div>
+
+<button class="button test-ajax" type="button">Kliknij i zobacz w konsoli debugera</button>
+<div id="test"></div>
+
+<script id="comment-template" type="text/x-handlebars-template">
+    <li class="comment" data-id="{{CommentId}}">
+        <div class="avatar">
+            <a href="javascript:void(0);">
+                <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" width="55" height="55">
+            </a>
+        </div>
+        <div class="comment-body">
+            <header>
+                <a href="javascript:void(0);" class="userlink"> a</a> - <span class="pubdate">
+                    posted {{DateAdded}}
+                </span>
+            </header>
+            <p>
+                {{Content}} 
+            </p>
+            <footer>
+                <a class="reply-link" href="{{CommentId}}">Odpowiedz1111</a>     
+                <a id="displayReply" href="#">odp</a>
+            </footer>
+            
+        </div>
+
+    </li>
+</script>
+
+<script id="reply-template" type="text/template">
+    <div style="padding-top:10px" class="row reply-form">
+        <div class="col-sm-2">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+            </div>
+        </div>
+        <div class="col-sm-10">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <textarea cols="15" id="replyInput" class="form-control" placeholder="Reply to conversation111111.."></textarea>
+                </div>
+                <div class="panel-heading comment-action">
+                    <div class="submit-comment">
+                        <a class="addReplyBtn" href="#">Submit</a>
+                        <input type="hidden" name="hidParentId" class="hidParentId" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="display-reply" type="text/x-handlebars-template">
+    <p> {{Content}}</p>
+</script>
 @section scripts{
 
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/handlebars.js"></script>
+    
 
-}
+
+
+    <script>
+        @*$(document).ready(function () {
+            //Call EmpDetails jsonResult Method
+            $.getJSON('@Url.Action("testAdd", "Comment")',
+                function (data) {
+                    
+                    $('#test').append(data[0].ParentId);
+                    //Append each row to html table
+                    
+                });
+        });*@
+        $(document).ready(function () {
+            var source = document.getElementById("display-reply").innerHTML;
+            var template = Handlebars.compile(source);
+            
+            $('.test-ajax').on('click', function () {
+                $('#test').empty();
+                $.getJSON('@Url.Action("testAdd", "Comment")', function (data) {
+                    $.each(data, function (i, item) {
+                        $('#test').append(template(item));
+                    })
+                    
+                })
+
+            })
+        })
+        function addNewComment(data) {
+            return $.ajax({
+                type: "POST",
+                url: '@Url.Action("addNewComment", "Comment")',
+                data: data,
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                success: function () {
+                    // alert("Data has been added successfully.");
+                    //$("#reload").load(location.href + " #reload");
+                    $('#refresh').load('@Url.Action("CommentPartial", new { id = Model.SelectedBook.Select(p => p.BookId).First() })');
+
+
+                    //location.reload();
+
+                }
+            });
+        }
+
+
+
+    $(function () {
+
+        var source = document.getElementById("comment-template").innerHTML;
+        var template = Handlebars.compile(source);
+
+
+        $("#addNewCommentBtn").click(function (e) {
+            e.preventDefault();
+            var data = JSON.stringify({
+                ParentId: 0,
+                Content: $("#commentInput").val(),
+                BookId: '@Model.SelectedBook.Select(p => p.BookId).First()'
+            });
+
+
+            $.when(addNewComment(data)).then(function (response) {
+                if (response.error == false) {
+                    var $commentHtml = template(response.result);
+                    $(".comments").append($commentHtml);
+                    $("#commentInput").val('');
+                } else {
+                    console.log("An error has occured");
+                }
+            }).fail(function (err) {
+                console.log(err);
+            })
+        });
+
+
+        $(document).on("click", ".reply-link", function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            var $commentListItem = $self.parents(".comment-body");
+            var replySource = document.getElementById("reply-template").innerHTML;
+            $commentListItem.after(replySource);
+
+            $(document).find(".hidParentId").val($self.attr("href"));
+
+        });
+
+
+
+        $(document).on("click", ".addReplyBtn", function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            var $replyInput = $(document).find("#replyInput");
+            var parentId = $(document).find(".hidParentId").val();
+            var $repliesUL = $(document).find("ul[data-parentid='" + parentId + "']");
+            var $commentBody = $(document).find("[data-id='" + parentId + "']");
+            var replyULCount = $repliesUL.length;
+
+
+
+            var data = JSON.stringify({
+                ParentId: parentId,
+                Content: $replyInput.val()
+                //username: Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 5)
+            });
+
+            $.when(addNewComment(data)).then(function (response) {
+                if (response.error == false) {
+                    var commentHtml = template(response.result);
+
+                    if (replyULCount > 0) {
+
+                        $repliesUL.append(commentHtml);
+                    } else {
+
+                        $commentBody.append("<ul class='replies'></ul>")
+                            .append(commentHtml);
+                    }
+
+                    $(document).find(".reply-form").remove();
+
+                } else {
+                    console.log("An error has occured");
+                }
+            }).fail(function (err) {
+                console.log(err);
+            })
+
+        });
+
+
+
+    });
+    </script>
+
+
+    }
