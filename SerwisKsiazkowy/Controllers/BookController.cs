@@ -25,7 +25,7 @@ namespace SerwisKsiazkowy.Controllers
 
         public PartialViewResult CommentPartial(int id)
         {
-            var comments = db.Comments.Include(p => p.User).Include(p=>p.Book).Where(p=>p.BookId == id).OrderByDescending(d => d.DateAdded).Take(5).ToList();
+            var comments = db.Comments.Include(p => p.User).Include(p=>p.Book).Where(p=>p.BookId == id).OrderByDescending(d => d.DateAdded).Take(20).ToList();
             return PartialView("_CommentPartial", comments);
         }
 
@@ -36,7 +36,7 @@ namespace SerwisKsiazkowy.Controllers
             //var BookTitle = db.Books.Where(g => g.Title.Replace(" ", "-").ToLower() == title);
             var genres = db.Genres.ToList();
             var books = BookId.ToList();
-            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).OrderByDescending(d=>d.DateAdded).Take(5).ToList();
+            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == id && c.ParentId == 0).OrderByDescending(d=>d.DateAdded).Take(20).ToList();
             ViewBag.countComments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).Count();
             ViewBag.countReviews = db.Reviews.Include(p => p.User).Where(c => c.BookId == id).Count();
 

@@ -166,7 +166,8 @@
 
 
 
-                            @using (@Html.BeginForm("Add", "Comment", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))
+                            @*@using (@Html.BeginForm("Add", "Comment", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))*@
+                            @using (Ajax.BeginForm("Add", "Comment", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "RefreshComment", InsertionMode = InsertionMode.Replace }))
                             {
                                 @Html.AntiForgeryToken()
                                 @*@Html.ValidationSummary(false, "", new { @class = "text-danger" })*@
@@ -230,9 +231,10 @@
 
 
                             </div>*@
-
-                        @Html.Partial("_Comment", Model.Comments)
-
+                        <div id="RefreshComment">
+                            @*@Html.Partial("_Comment", Model.Comments)*@
+                            @Html.Action("GetComments","Comment", new { bookId = book.BookId})
+                        </div>
                         <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListComments", "Comment", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
                             zobacz wszytskie komentarze
                         </button>
@@ -272,7 +274,7 @@
                         <div class="submit-comment">
                             <a id="addNewCommentBtn" href="#">Submit</a>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -282,11 +284,29 @@
 
     </div>
 </div>
+BOOOK ID @Model.SelectedBook.Select(p => p.BookId).First()
 <div id="refresh">
 
-    @Html.Action("CommentPartial", new { id=Model.SelectedBook.Select(p=>p.BookId).First()})
+    @Html.Action("CommentPartial", new { id = Model.SelectedBook.Select(p => p.BookId).First() })
 
 </div>
+
+@Ajax.ActionLink("Link Text", "testowy", "Comment", new AjaxOptions()
+{
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "Panel"
+}, htmlAttributes: new { @class = "btn btn-primary", role = "button", data_toggle = "collapse", href = "#Panel", aria_expanded = "false", aria_controls = "collapseExample" })
+
+<div id="testy">
+
+</div>
+
+
+
+<div id="Panel" class="collapse">
+    aa
+</div>
+
 
 <button class="button test-ajax" type="button">Kliknij i zobacz w konsoli debugera</button>
 <div id="test"></div>
@@ -300,18 +320,19 @@
         </div>
         <div class="comment-body">
             <header>
+                {{UserId}}
                 <a href="javascript:void(0);" class="userlink"> a</a> - <span class="pubdate">
                     posted {{DateAdded}}
                 </span>
             </header>
             <p>
-                {{Content}} 
+                {{Content}}
             </p>
             <footer>
-                <a class="reply-link" href="{{CommentId}}">Odpowiedz1111</a>     
+                <a class="reply-link" href="{{CommentId}}">Odpowiedz1111</a>
                 <a id="displayReply" href="#">odp</a>
             </footer>
-            
+
         </div>
 
     </li>
@@ -331,7 +352,7 @@
                 </div>
                 <div class="panel-heading comment-action">
                     <div class="submit-comment">
-                        <a class="addReplyBtn" href="#">Submit</a>
+                        <a class="addReplyBtn" href="#">Submit1</a>
                         <input type="hidden" name="hidParentId" class="hidParentId" />
                     </div>
                 </div>
@@ -349,32 +370,35 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/handlebars.js"></script>
-    
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
 
 
 
     <script>
+
         @*$(document).ready(function () {
             //Call EmpDetails jsonResult Method
             $.getJSON('@Url.Action("testAdd", "Comment")',
                 function (data) {
-                    
+
                     $('#test').append(data[0].ParentId);
                     //Append each row to html table
-                    
+
                 });
         });*@
         $(document).ready(function () {
             var source = document.getElementById("display-reply").innerHTML;
             var template = Handlebars.compile(source);
-            
+
             $('.test-ajax').on('click', function () {
                 $('#test').empty();
                 $.getJSON('@Url.Action("testAdd", "Comment")', function (data) {
                     $.each(data, function (i, item) {
                         $('#test').append(template(item));
                     })
-                    
+
                 })
 
             })
@@ -427,9 +451,45 @@
                 console.log(err);
             })
         });
+        $(document).on("click", ".odpowiedz", function (e) {
+            e.preventDefault();
+            var id = $(this).data("id");
+            //alert(id);
+            $.get("@Url.Action("DajOdpowiedzi", "Comment")", { id: id }, function(data)
+           {
+               //var dane = $(this).data("Content");
+               
+                var div = $('div').find("#pola");
+                div.empty();
+                var htmlText = "";
+               
+               $.each(data, function (items, item) {
+                   //    htmlText += ("<tr>" +
+                   //                "<td>" +
+                   //                    "</td>" +
+                   //        "<td>" +
+                   //        "<a href='/Card/CardType/" + item.Content + "'>View</a>" +
+                   //                "</td>" +
+                   //            "</tr>");
+                   //});
+                   //alert(htmlText);
+                   div.append("<table class=table>" +
+                       "<tr>" +
+                       "<th>" +
+                       "Name" +
+                       "</th>" +
+                       "<th>" +
+                       "View" +
+                       "</th>" +
+                       "</tr>" +
+                       item.Content +
+                       "</table>");
+               });
+               });
 
+        });
 
-        $(document).on("click", ".reply-link", function (e) {
+        $(document).on("click", ".reply-linkTest", function (e) {
             e.preventDefault();
             var $self = $(this);
             var $commentListItem = $self.parents(".comment-body");
@@ -438,9 +498,48 @@
 
             $(document).find(".hidParentId").val($self.attr("href"));
 
+
         });
 
+        $(document).on("click", ".reply-link", function (e) {
+            e.preventDefault();
 
+            var $self = $(this);
+            var $commentListItem = $self.parents(".comment-body");
+            var replySource = document.getElementById("reply-template").innerHTML;
+            $commentListItem.after(replySource);
+
+            $(document).find(".hidParentId").val($self.attr("href"));
+            //$('#reply-template').empty();
+
+        });
+
+        $('#accordion a').click(function () {
+
+            if ($(this).hasClass("panelisopen")) {
+                $(this).removeClass("panelisopen");
+            } else {
+                var href = this.hash;
+
+                //var depId = href.replace("#collapse", "");
+                var parentId = $(this).data("parentid");
+                var depUsers = "#depUsers152";
+                $(this).addClass("panelisopen");
+                var depId = '#depUsers' + parentId;
+                $(depId).empty();
+
+                //alert(depId);
+                var url = '@Url.Action("Reply", "Comment")'
+
+                $.getJSON(url, { id: parentId }, function (data) {
+                    //$('#depUsers').html(data);
+                    $.each(data, function (i, item) {
+                        $(depId).append(template(item));
+                    })
+                });
+            }
+
+        })
 
         $(document).on("click", ".addReplyBtn", function (e) {
             e.preventDefault();
@@ -455,7 +554,8 @@
 
             var data = JSON.stringify({
                 ParentId: parentId,
-                Content: $replyInput.val()
+                Content: $replyInput.val(),
+                BookId: '@Model.SelectedBook.Select(p => p.BookId).First()'
                 //username: Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 5)
             });
 
@@ -489,4 +589,4 @@
     </script>
 
 
-    }
+}

@@ -18,6 +18,7 @@
 
 
 @Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
+
 <div id="comments-reviews">
     <img src="@Url.Content("~/Content/Covers/" + Model.Select(p => p.Book.CoverFileName).First())" />
     <h1>@Model.Select(p => p.Book.Title).First()</h1>
@@ -105,41 +106,54 @@
 Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("ListComments", new { page }))
+@section scripts{
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        @*<tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAdded)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookId)
-            </th>
-            <th></th>
-        </tr>*@
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/handlebars.js"></script>
 
-@*@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateAdded)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BookId)
-            </td>
-            @*<td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.CommentId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.CommentId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.CommentId })
-            </td>
-        </tr>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
     }
-*@
-@*</table>*@
+
+
+
+
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            @*<tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Content)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateAdded)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookId)
+                </th>
+                <th></th>
+            </tr>*@
+
+    @*@foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookId)
+                </td>
+                @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.CommentId }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.CommentId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.CommentId })
+                </td>
+            </tr>
+        }
+    *@
+    @*</table>*@

@@ -1,5 +1,28 @@
 ﻿@model IEnumerable<SerwisKsiazkowy.Models.Comment>
+@helper RenderReply(IEnumerable<SerwisKsiazkowy.Models.Comment> comments)
+{
+    foreach (var comment in comments)
+    {
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    @{
+                        var commentId = "#collapse" + @comment.CommentId.ToString();
+                        var commentId_ = "collapse" + @comment.CommentId.ToString();
+                        var depId = "depUsers" + @comment.CommentId.ToString();
+                    }
+                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" data-parentid="@comment.CommentId" href="@commentId">Rozwiń</a></h4>
+                </div>
+                <div id="@commentId_" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div id="@depId"><!-- ajax --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 
+}
 @helper RenderComment(IEnumerable<SerwisKsiazkowy.Models.Comment> comments)
 {
     foreach (var comment in comments)
@@ -17,7 +40,7 @@
                     @comment.Content
                 </p>
                 <footer>
-                    <a  class="reply-link" href="@comment.CommentId">Odpowiedz</a>
+                    <a class="reply-link" href="@comment.CommentId">Odpowiedz</a>aaa
                     @{
                         var children = Model.Where(x => x.ParentId == comment.CommentId).ToList();
                         if (children.Count() > 0)
@@ -27,14 +50,36 @@
                 <button type="button" class="btn btn-success" data-toggle="collapse" data-target="#demo">
                     <span class="glyphicon glyphicon-collapse-down"></span> Open
                 </button>*@
-                           
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        @{
+                                            var commentId = "#collapse" + @comment.CommentId.ToString();
+                                            var commentId_ = "collapse" + @comment.CommentId.ToString();
+                                            var depId = "depUsers" + @comment.CommentId.ToString();
+                                        }
+                                        <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" data-parentid="@comment.CommentId" href="@commentId">Odpowiedzi(@children.Count())</a></h4>
+                                    </div>
+                                    <div id="@commentId_" class="panel-collapse collapse">
+                                       
+                                        <div class="panel-body">
+                                            
+                                            <div id="@depId">
+                                                <!-- ajax reply -->
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            //@RenderComment(children)
 
+                            @*<ul class="replies" data-parentid="@comment.CommentId">
+                    @RenderComment(children)
 
-                                <ul class="replies" data-parentid="@comment.CommentId">
-                                    @RenderComment(children)
+                </ul>*@
 
-                                </ul>
-                           
                         }
                     }
 
@@ -55,6 +100,7 @@
 
         </li>
 
+
     }
 
 }
@@ -73,9 +119,31 @@
 <div id="comment-section" class="row">
     <div class="col-sm-7">
         <ul class="comments">
-            @RenderComment(Model.Where(x => x.ParentId == 0 && x.BookId == Model.Select(p=>p.BookId).First()))
+            @RenderComment(Model.Where(x => x.ParentId == 0 && x.BookId == Model.Select(p => p.BookId).First()))
         </ul>
     </div>
 
 </div>
 
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1">First panel</a></h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div id="depUsers511"><!-- here users will be loaded through ajax --></div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Second panel</a></h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+                <div id="depUsers511"><!-- here users will be loaded through ajax --></div>
+            </div>
+        </div>
+    </div>
+</div>

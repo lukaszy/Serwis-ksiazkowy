@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using Newtonsoft.Json;
 
 namespace SerwisKsiazkowy.Controllers
 {
@@ -53,12 +54,15 @@ namespace SerwisKsiazkowy.Controllers
                 db.Comments.Add(model.NewComment);
                 db.SaveChanges();
             }
+            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == bookId && c.ParentId == 0).OrderByDescending(d => d.DateAdded).Take(10).ToList();
+
             //else
             //{
             //    ModelState.AddModelError("ErrorMessage", "Błąd");
             //}
 
-            return RedirectToAction("Details", "Book",new { id = bookId, _title = bookTitle });
+            //return RedirectToAction("Details", "Book",new { id = bookId, _title = bookTitle });
+            return PartialView("_Comment",comments);
         }
 
 
@@ -93,14 +97,18 @@ namespace SerwisKsiazkowy.Controllers
 
 
         [HttpPost]
-        public ActionResult Delete(int id, int bookId, string bookTitle)
+        //public ActionResult Delete(int id, int bookId, string bookTitle)
+        public ActionResult Delete(int id, int bookId)
         {
             Comment deleteComment = db.Comments.Find(id);
             db.Comments.Remove(deleteComment);
 
             db.SaveChanges();
-            
-            return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
+            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == bookId && c.ParentId == 0).OrderByDescending(d => d.DateAdded).Take(10).ToList();
+
+            // return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
+            return PartialView("_Comment", comments);
+            //return Json(new { success = true });
         }
 
         public Comment AddComment(Comment comment)
@@ -146,6 +154,20 @@ namespace SerwisKsiazkowy.Controllers
             };
             return Json(dane, JsonRequestBehavior.AllowGet);
             //return Json("hello", JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Reply(int id)
+        {
+            var dane = db.Comments.Include(p=>p.User).Where(x => x.ParentId == id).Select(p => new
+            {
+                CommentId = p.CommentId,
+
+                Content = p.Content,
+                DateAdded = p.DateAdded,
+                UserId = p.User.UserName
+            }).ToList();
+
+            
+            return Json(dane, JsonRequestBehavior.AllowGet);
         }
         public JsonResult addNewComment(Comment comment)
         {
@@ -195,6 +217,45 @@ namespace SerwisKsiazkowy.Controllers
             //}
 
             //return Json(new { error = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public PartialViewResult testowy()
+        {
+            var dane = db.Comments.Include(p => p.User).ToList();
+
+
+            return PartialView("_Reply",dane);
+        }
+
+        public JsonResult DajOdpowiedzi(int id)
+        {
+            var dane = db.Comments.Where(x => x.CommentId == id).Select(x=> new
+            {
+                Content = x.Content
+            }).ToList();
+            return Json(dane,JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetChildren(int id)
+        {
+            //double? rate = -1;
+            
+            var userId = User.Identity.GetUserId();
+
+            var children = db.Comments.Where(r => r.ParentId == id).Count();
+            var childrens = db.Comments.Where(r => r.ParentId == id).ToList();
+
+
+            ViewBag.ValueChildren = children;
+            return PartialView(childrens);
+        }
+
+        public ActionResult GetComments(int bookId)
+        {
+            //double? rate = -1;
+            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == bookId && c.ParentId == 0).OrderByDescending(d => d.DateAdded).Take(10).ToList();
+
+            return PartialView("_Comment",comments);
         }
 
 
