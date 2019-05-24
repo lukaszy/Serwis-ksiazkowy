@@ -54,9 +54,19 @@ namespace SerwisKsiazkowy
                 defaults: new { controller = "Comment", action = "ListComments" }
             );
             routes.MapRoute(
+                name: "Komentarze1",
+                url: "ksiazka/i{bookId}/komentarze", //{id}
+                defaults: new { controller = "Comment", action = "GetAllComments" }
+            );
+            routes.MapRoute(
                name: "Recenzje",
                url: "ksiazka/{_title}-i{id}/recenzje", //{id}
                defaults: new { controller = "Review", action = "ListReviews" }
+           );
+            routes.MapRoute(
+               name: "Usun",
+               url: "ksiazka-{bookId}/komentarz-{id}/usun", //{id}
+               defaults: new { controller = "Comment", action = "DeleteComment" }
            );
             routes.MapRoute(
                 name: "Default",

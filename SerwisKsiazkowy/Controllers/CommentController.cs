@@ -26,10 +26,12 @@ namespace SerwisKsiazkowy.Controllers
         //    }
         //    return HttpNotFound();
         //}
-        public ActionResult ListComments(int id, string _title, int? page)
+        public ActionResult ListComments(int id,  int? page)
         {
             ViewBag.countComments = db.Comments.Include(p => p.User).Where(c => c.BookId == id).Count();
-            ViewBag.BookTitle = _title.ToUpper();
+            var bookTitle = db.Comments.Include(p => p.Book).Where(p => p.BookId == id).Select(p => p.Book.Title);
+            //ViewBag.BookTitle = _title.ToUpper();
+            //ViewBag.BookTitle = bookTitle;
             var comments = db.Comments.Include(p => p.User).Include(p => p.Book).Where(c => c.BookId == id).OrderByDescending(d => d.DateAdded).ToList();
             int pageSize = 3;
             int pageNumber = (page ?? 1);
@@ -258,6 +260,30 @@ namespace SerwisKsiazkowy.Controllers
             return PartialView("_Comment",comments);
         }
 
+        public ActionResult GetAllComments(int bookId, int? page)
+        {
+            //double? rate = -1;
+            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == bookId && c.ParentId == 0).OrderByDescending(d => d.DateAdded).ToList();
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View("_AllComments",comments.ToPagedList(pageNumber, pageSize));
+            //return PartialView("_AllComments", comments);
+        }
+        [HttpPost]
+        //public ActionResult Delete(int id, int bookId, string bookTitle)
+        public ActionResult DeleteComment(int id, int bookId, int? page)
+        {
+            Comment deleteComment = db.Comments.Find(id);
+            db.Comments.Remove(deleteComment);
+
+            db.SaveChanges();
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == bookId && c.ParentId == 0).OrderByDescending(d => d.DateAdded).ToList();
+            // return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
+            return View("_AllComments", comments.ToPagedList(pageNumber, pageSize));
+            //return Json(new { success = true });
+        }
 
 
 

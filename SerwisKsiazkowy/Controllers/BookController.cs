@@ -42,7 +42,7 @@ namespace SerwisKsiazkowy.Controllers
 
             var userReview = db.Reviews.Include(p => p.User).Where(c => c.BookId == id && c.UserId == userId).SingleOrDefault();
 
-            var reviews = db.Reviews.Include(p => p.User).Where(c => c.BookId == id).OrderByDescending(d => d.DateAdded).Take(5).ToList();
+            var reviews = db.Reviews.Include(p => p.User).Include(p=>p.Rate).Where(c => c.BookId == id).OrderByDescending(d => d.DateAdded).Take(5).ToList();
             var newComment = new Comment();
             newComment.BookId = id;
             var newRate = new Rate();
@@ -179,13 +179,16 @@ namespace SerwisKsiazkowy.Controllers
         //    return View(newRate);
         //}
         [HttpPost]
-        public ActionResult AddRate(DetailsViewModels model, int bookId, string bookTitle)
+        //public ActionResult AddRate(DetailsViewModels model, int bookId, string bookTitle)
+        public ActionResult AddRate(DetailsViewModels model)
         {
             //model.NewRate.DateAdded = DateTime.Now;
             //model.NewRate.BookId = bookId;
             //model.NewRate.Value = 4;
             model.NewRate.UserId = User.Identity.GetUserId();
             //var errors = ModelState.Values.SelectMany(v => v.Errors);
+            var bookTitle = db.Books.Where(p => p.BookId == model.NewRate.BookId).First().Title.Replace(" ", "-").ToLower().ToString();
+           
             //ViewBag.error = errors;
             if (ModelState.IsValid)
             {
@@ -194,7 +197,7 @@ namespace SerwisKsiazkowy.Controllers
                 db.Ratings.Add(model.NewRate);
                 db.SaveChanges();
             }
-            return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
+            return RedirectToAction("Details", "Book", new { id = model.NewRate.BookId, _title = bookTitle });
         }
 
 

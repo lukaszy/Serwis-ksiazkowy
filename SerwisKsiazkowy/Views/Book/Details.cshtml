@@ -85,12 +85,13 @@
                                     @if (Model.UserRate.Count() > 0)
                                     {
                                         @Model.UserRate.Select(r => r.Value).Single()
+                                        
                                         @*@Html.DisplayFor(modelItem => modelItem.UserRate.Select(r => r.Value))*@
                                     }
                                     else if (User.Identity.IsAuthenticated)
                                     {
                                         @Html.Label("Nie oceniłeś tej książeki")
-                                        using (@Html.BeginForm("AddRate", "Book", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))
+                                        using (@Html.BeginForm("AddRate", "Book", FormMethod.Post))
                                         {
                                             @Html.AntiForgeryToken()
 
@@ -149,7 +150,8 @@
                         </div>
 
                         <h2>
-                            Komentarze (@ViewBag.countComments)
+                            @*Komentarze (@ViewBag.countComments)*@
+                            Komentarze
 
                         </h2>
                         <hr class="style1">
@@ -157,12 +159,15 @@
                             <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                 Dodaj komentarz
                             </a>
-                            <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListComments", "Comment", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
-                                zobacz wszytskie komentarze
+                            @*<button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListComments", "Comment", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
+            zobacz wszytskie komentarze
+        </button>*@
+                            <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("GetAllComments", "Comment", new { bookId = book.BookId})'">
+                                zobacz wszystkie komentarze
                             </button>
 
                         </p>
-                        <div class="collapse" id="collapseExample">
+                        <div class="collapse"  id="collapseExample">
 
 
 
@@ -235,8 +240,11 @@
                             @*@Html.Partial("_Comment", Model.Comments)*@
                             @Html.Action("GetComments","Comment", new { bookId = book.BookId})
                         </div>
-                        <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListComments", "Comment", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
+                        @*<button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListComments", "Comment", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
                             zobacz wszytskie komentarze
+                        </button>*@
+                        <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("GetAllComments", "Comment", new { bookId = book.BookId})'">
+                            zobacz wszystkie komentarze
                         </button>
 
                     </section>

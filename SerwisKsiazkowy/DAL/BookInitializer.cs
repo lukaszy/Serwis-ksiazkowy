@@ -56,13 +56,13 @@ namespace SerwisKsiazkowy.DAL
             comments.ForEach(c => context.Comments.AddOrUpdate(c));
             context.SaveChanges();
 
-            var rate = new List<Rate>
-            {
-                new Rate() {RateId = 1, Value = 3, BookId = 1, UserId = "811fb950-b699-444c-a9b3-81254a8da378"}
-                //new Rate() {RateId = 2, Value = 5, BookId = 2, UserId = "811fb950-b699-444c-a9b3-81254a8da378"}
-            };
-            rate.ForEach(c => context.Ratings.AddOrUpdate(c));
-            context.SaveChanges();
+            //var rate = new List<Rate>
+            //{
+            //    new Rate() {RateId = 1, Value = 3, BookId = 1, UserId = "811fb950-b699-444c-a9b3-81254a8da378"}
+            //    //new Rate() {RateId = 2, Value = 5, BookId = 2, UserId = "811fb950-b699-444c-a9b3-81254a8da378"}
+            //};
+            //rate.ForEach(c => context.Ratings.AddOrUpdate(c));
+            //context.SaveChanges();
 
             //var reviews = new List<Review>
             //{

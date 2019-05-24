@@ -16,13 +16,37 @@ namespace SerwisKsiazkowy.Controllers
     {
         BookContext db = new BookContext();
         // GET: Review
-        public ActionResult Index(int bookId, string bookTitle)
+        public ActionResult Index(int bookId)
         {
+            var bookTitle = db.Books.Where(p => p.BookId == bookId).First().Title.Replace(" ", "-").ToLower().ToString();
+            var userId = User.Identity.GetUserId();
             ViewBag.bookId = bookId;
             ViewBag.bookTitle = bookTitle.Replace(" ", "-").ToLower().ToString();
+            Rate userRate = new Rate();
+            Review review = new Review();
+            review.BookId = bookId;
+            bool isValue;
+            
+            try
+            {
+                userRate = db.Ratings.Where(r => r.BookId == bookId && r.UserId == userId).Single();
+                isValue = true;
+            }
+            catch
+            {
+                userRate.BookId = bookId;
+                isValue = false;
+            }
+            
+            ReviewViewModel VM = new ReviewViewModel()
+            {
+                isValueRate = isValue,
+                Rate = userRate,
+                Review = review
+            };
             
 
-            return View();
+            return View(VM);
         }
 
         public ActionResult ListReviews(int id, string _title, int? page)
@@ -37,18 +61,51 @@ namespace SerwisKsiazkowy.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(Review model, int bookId, string bookTitle)
+        public ActionResult Add(ReviewViewModel model)
         {
+            var bookTitle = db.Books.Where(p => p.BookId == model.Review.BookId).First().Title.Replace(" ", "-").ToLower().ToString();
+            model.Review.DateAdded = DateTime.Now;
+            model.Review.UserId = User.Identity.GetUserId();
+            bool isRate = false;
+
+            if (model.Rate == null)
+            {
+                model.Rate.BookId = model.Review.BookId;
+                
+                isRate = false;
+            }
+            else
+            {
+                //model.Review.Rate = model.Rate;
+                isRate = true;
+            }
+           
+            model.Rate.UserId = User.Identity.GetUserId();
             
-            model.DateAdded = DateTime.Now;
-            model.UserId = User.Identity.GetUserId();
+
+            
 
             if (ModelState.IsValid)
             {
-                db.Reviews.Add(model);
+                
+                if (isRate == false)
+                {
+                    
+                    db.Ratings.Add(model.Rate);
+                    db.Reviews.Add(model.Review);
+                } else
+                {
+                    db.Reviews.Add(model.Review);
+                    db.Reviews.Attach(model.Review);
+                    model.Review.Rate = model.Rate;
+                    //db.Reviews.Attach(model.Review);
+                    // model.Review.Rate = model.Rate;
+                    //db.Entry(model.Review).State = EntityState.Modified;
+                }
+                
                 db.SaveChanges();
             }
-            return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
+            return RedirectToAction("Details", "Book", new { id = model.Review.BookId, _title = bookTitle });
         }
 
         [HttpPost]
@@ -65,14 +122,19 @@ namespace SerwisKsiazkowy.Controllers
         
         public ActionResult Edit(int reviewId, string bookTitle)
         {
+            ViewBag.bookId = db.Reviews.Where(p =>p.ReviewId == reviewId).Select(p=>p.BookId).Single();
+            ViewBag.bookTitle = bookTitle.Replace(" ", "-").ToLower().ToString();
             var editReview = new ReviewViewModel();
             var ratings = db.Ratings.ToArray();
             editReview.RatingsVM = ratings;
             //editBook.ConfirmSuccess = confirmSuccess;
 
             Review b = db.Reviews.Find(reviewId);
-           
-            
+            var userRate = db.Ratings.Where(p => p.RateId == reviewId).Count();
+            if(b.Rate == null && userRate>0)
+            {
+                editReview.isValueRate = false;
+            }
         
 
             editReview.Review = b;

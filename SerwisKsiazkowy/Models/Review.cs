@@ -26,6 +26,8 @@ namespace SerwisKsiazkowy.Models
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
 
+        public virtual Rate Rate { get; set; }
+       
         [Display(Name = "Ocena")]
         [Range(0, 10, ErrorMessage = "Wartość {0} musi być między {1} a {2}.")]
         public int RateValue { get; set; }

@@ -1,22 +1,25 @@
-﻿@model SerwisKsiazkowy.Models.Review
+﻿@*@model SerwisKsiazkowy.Models.Review*@
+@model SerwisKsiazkowy.ViewModels.ReviewViewModel
 
-@using (Html.BeginForm("Add", "Review", new { bookId = ViewBag.bookId, bookTitle = ViewBag.bookTitle }, FormMethod.Post))
+@using (Html.BeginForm("Add", "Review", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
     <h4>Dodaj recenzje</h4>
     <hr />
-    @Html.HiddenFor(model => model.BookId)
-    @Html.HiddenFor(model => model.UserId)
+    @Html.HiddenFor(model => model.Review.BookId)
+    @Html.HiddenFor(model => model.Review.UserId)
+    @Html.HiddenFor(model => model.Rate.UserId)
+    @Html.HiddenFor(model => model.Rate.BookId)
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Review.Content, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @*@Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })*@
-            @Html.TextAreaFor(model => model.Content, new { @class = "form-control", rows = "5" })
-            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+            @Html.TextAreaFor(model => model.Review.Content, new { @class = "form-control", rows = "5" })
+            @Html.ValidationMessageFor(model => model.Review.Content, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -45,13 +48,30 @@
         </div>*@
 
     <div class="form-group">
-        @Html.LabelFor(model => model.RateValue, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.RateValue, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.RateValue, "", new { @class = "text-danger" })
-        </div>
-    </div>
+        @Html.LabelFor(model => model.Rate.Value, htmlAttributes: new { @class = "control-label col-md-2" })
+        @*<div class="col-md-10">
+                @Html.EditorFor(model => model.Rate.Value, new { htmlAttributes = new { @class = "form-control" } })
+                 @Html.ValidationMessageFor(model => model.Rate.Value, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(m => m.Rate.Value, new SelectList(Model.ValueRate), "Wybierz ocene")
+            </div>*@
 
+        @if (Model.isValueRate == true)
+        {
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Rate.Value, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                @Html.ValidationMessageFor(model => model.Review.Rate.Value, "", new { @class = "text-danger" })
+            </div>
+        }
+        else
+        {
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Rate.Value, new SelectList(Model.ValueRate), new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Review.Rate.Value, "", new { @class = "text-danger" })
+            </div>
+        }
+    </div>
+    @Html.HiddenFor(model => model.Rate.Value)
+    @Html.HiddenFor(model => model.Rate.RateId)
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Dodaj recenzje" class="btn btn-default" />
@@ -61,6 +81,6 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Details","Book", new { id = ViewBag.bookId, _title = ViewBag.bookTitle })
-    
+    @Html.ActionLink("Back to List", "Details", "Book", new { id = ViewBag.bookId},null)
+
 </div>

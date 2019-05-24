@@ -7,6 +7,7 @@ using System.Web;
 
 namespace SerwisKsiazkowy.Models
 {
+    [Table("Ratings")]
     public class Rate
     {
         [Key]
@@ -20,6 +21,8 @@ namespace SerwisKsiazkowy.Models
 
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
+
+        public virtual Review Review { get; set; }
 
        
     }

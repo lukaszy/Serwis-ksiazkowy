@@ -3,12 +3,14 @@
 
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
+<center><div id="result"></div></center>
 
 <div id="book-details-comments">
-    @*<h1>
-            Komentarze (@ViewBag.countComments)
-        </h1>*@
+
+            Wszystkich komenatrzy (@Model.Count())
+
+
+
     @if (Model.Count() == 0)
     {
         <div>Brak komenatrzy</div>
@@ -46,6 +48,7 @@
                         HttpMethod = "POST",
                         UpdateTargetId = "RefreshComment",
                         InsertionMode = InsertionMode.Replace,
+                        OnSuccess = "Alert",
                         Confirm = "Czy napewno chcesz usunąć komentarz?  "+comments.Content
                     }
                     ))
@@ -97,5 +100,10 @@
             alert(data.Content);
            
             //$('#myModal').modal('hide');
+        };
+
+        function Alert() {
+            $('.alert-success').alert();
+
         };
     </script>
