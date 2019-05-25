@@ -41,26 +41,29 @@
                         var myModalId = comments.CommentId;
                     }
 
-
-
-                    @using (Ajax.BeginForm("Delete", "Comment", new { id = comments.CommentId, bookId = comments.BookId }, new AjaxOptions
+                    @if (ViewBag.IsAdmin)
                     {
-                        HttpMethod = "POST",
-                        UpdateTargetId = "RefreshComment",
-                        InsertionMode = InsertionMode.Replace,
-                        OnSuccess = "Alert",
-                        Confirm = "Czy napewno chcesz usunąć komentarz?  "+comments.Content
-                    }
-                    ))
-                    {
-                        @Html.AntiForgeryToken()
-                       
-                        <div id="button-delete">
-                            <input type="submit" value="Usuń" class="btn btn-danger" />
-                          
-                        </div>
+                        using (Ajax.BeginForm("Delete", "Comment", new { id = comments.CommentId, bookId = comments.BookId }, new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            UpdateTargetId = "RefreshComment",
+                            InsertionMode = InsertionMode.Replace,
+                            OnSuccess = "Alert",
+                            Confirm = "Czy napewno chcesz usunąć komentarz?  " + comments.Content
+                        }
+                                            ))
+                        {
+                            @Html.AntiForgeryToken()
 
+                            <div id="button-delete">
+                                <input type="submit" value="Usuń" class="btn btn-danger" />
+
+                            </div>
+
+                        }
                     }
+
+
 
                 </div>
                 <div id="book-details-comment-content">

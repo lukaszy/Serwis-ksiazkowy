@@ -9,6 +9,8 @@ using System.Data.Entity.Migrations;
 using SerwisKsiazkowy.Migrations;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SerwisKsiazkowy.DAL
 {
@@ -73,5 +75,7 @@ namespace SerwisKsiazkowy.DAL
 
             
         }
+
+       
     }
 }

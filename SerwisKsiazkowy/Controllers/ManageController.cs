@@ -17,8 +17,11 @@ namespace SerwisKsiazkowy.Controllers
     {
         BookContext db = new BookContext();
         // GET: Manage
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
+            bool isAdmin = User.IsInRole("Admin");
+            ViewBag.IsAdmin = isAdmin;
             ViewBag.CurrentSort = sortOrder;
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.AuthorSortParm = sortOrder == "author" ? "author_desc" : "author";
@@ -37,8 +40,9 @@ namespace SerwisKsiazkowy.Controllers
             ViewBag.CurrentFilter = searchString;
 
 
-            var books = from b in db.Books
-                           select b;
+             var books = from b in db.Books
+                    select b;
+            
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -62,10 +66,10 @@ namespace SerwisKsiazkowy.Controllers
                     books = books.OrderByDescending(s => s.Genre.Name);
                     break;
                 case "rate":
-                    books = books.OrderBy(s => s.Rate);
+                    books = books.OrderBy(s => s.Ratings.Average(a => a.Value));
                     break;
                 case "rate_desc":
-                    books = books.OrderByDescending(s => s.Rate);
+                    books = books.OrderByDescending(s => s.Ratings.Average(a => a.Value));
                     break;
                 default:
                     books = books.OrderBy(s => s.Title);
@@ -78,7 +82,7 @@ namespace SerwisKsiazkowy.Controllers
             //var books = db.Books.ToList();
             //return View(books);
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? bookId, bool? confirmSuccess)
         {
             //Book books = db.Books.Find(id);
@@ -106,6 +110,7 @@ namespace SerwisKsiazkowy.Controllers
             return View(editBook);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(HttpPostedFileBase file, EditBookViewModel model)
         {
 
@@ -126,6 +131,7 @@ namespace SerwisKsiazkowy.Controllers
             return RedirectToAction("Index", new { confirmSuccess = true });
 
         }
+        [Authorize(Roles = "Admin")]
         public ActionResult Add()
         {
             var addBook = new EditBookViewModel();
@@ -136,6 +142,7 @@ namespace SerwisKsiazkowy.Controllers
         }
      
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Add(HttpPostedFileBase file, EditBookViewModel model)
         {
             
@@ -165,6 +172,7 @@ namespace SerwisKsiazkowy.Controllers
             }
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id, string title)
         {
             Book deleteBook = new Book();
@@ -173,7 +181,9 @@ namespace SerwisKsiazkowy.Controllers
             return View(deleteBook);
 
         }
+
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             Book deleteBook = db.Books.Find(id);
@@ -190,7 +200,7 @@ namespace SerwisKsiazkowy.Controllers
             return RedirectToAction("Index", new { confirmSuccess = true });
 
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult AddGenre()
         {
             
@@ -198,6 +208,7 @@ namespace SerwisKsiazkowy.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddGenre(Genre genreModel)
         {
             //Genre addGenre = db.Genres.Find();

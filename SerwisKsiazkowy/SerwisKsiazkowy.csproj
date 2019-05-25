@@ -266,9 +266,9 @@
     <Compile Include="Migrations\201905240724164_AddRatings.Designer.cs">
       <DependentUpon>201905240724164_AddRatings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905240850152_AddRateToReview.cs" />
-    <Compile Include="Migrations\201905240850152_AddRateToReview.Designer.cs">
-      <DependentUpon>201905240850152_AddRateToReview.cs</DependentUpon>
+    <Compile Include="Migrations\201905241223180_AddRe1.cs" />
+    <Compile Include="Migrations\201905241223180_AddRe1.Designer.cs">
+      <DependentUpon>201905241223180_AddRe1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
@@ -524,9 +524,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905112022275_Review_addRateValue.resx">
       <DependentUpon>201905112022275_Review_addRateValue.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905121958086_rate.resx">
       <DependentUpon>201905121958086_rate.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905140924349_DataAnnotations.resx">
       <DependentUpon>201905140924349_DataAnnotations.cs</DependentUpon>
@@ -549,8 +551,8 @@
     <EmbeddedResource Include="Migrations\201905240724164_AddRatings.resx">
       <DependentUpon>201905240724164_AddRatings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905240850152_AddRateToReview.resx">
-      <DependentUpon>201905240850152_AddRateToReview.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905241223180_AddRe1.resx">
+      <DependentUpon>201905241223180_AddRe1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

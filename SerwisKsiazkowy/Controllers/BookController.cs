@@ -31,6 +31,8 @@ namespace SerwisKsiazkowy.Controllers
 
         public ActionResult Details(int id)
         {
+            bool isAdmin = User.IsInRole("Admin");
+            ViewBag.IsAdmin = isAdmin;
             var userId = User.Identity.GetUserId();
             var BookId = db.Books.Where(g => g.BookId == id);
             //var BookTitle = db.Books.Where(g => g.Title.Replace(" ", "-").ToLower() == title);

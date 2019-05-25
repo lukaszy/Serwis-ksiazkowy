@@ -1,9 +1,7 @@
 ﻿@model SerwisKsiazkowy.Models.Comment
 
 
-@{
-    string name = ViewBag.bookTitle.ToString();
-}
+
 @using (Html.BeginForm("AddInAll", "Comment",  new { bookId = @ViewBag.bookId, bookTitle = @ViewBag.bookTitle },FormMethod.Post))
 {
     @ViewBag.bookTitle

@@ -50,7 +50,8 @@ namespace SerwisKsiazkowy.Controllers
         {
             model.NewComment.DateAdded = DateTime.Now;
             model.NewComment.UserId = User.Identity.GetUserId();
-
+            bool isAdmin = User.IsInRole("Admin");
+            ViewBag.IsAdmin = isAdmin;
             if (ModelState.IsValid)
             {
                 db.Comments.Add(model.NewComment);
@@ -99,9 +100,12 @@ namespace SerwisKsiazkowy.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         //public ActionResult Delete(int id, int bookId, string bookTitle)
         public ActionResult Delete(int id, int bookId)
         {
+            bool isAdmin = User.IsInRole("Admin");
+            ViewBag.IsAdmin = isAdmin;
             Comment deleteComment = db.Comments.Find(id);
             db.Comments.Remove(deleteComment);
 
@@ -255,6 +259,8 @@ namespace SerwisKsiazkowy.Controllers
         public ActionResult GetComments(int bookId)
         {
             //double? rate = -1;
+            bool isAdmin = User.IsInRole("Admin");
+            ViewBag.IsAdmin = isAdmin;
             var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == bookId && c.ParentId == 0).OrderByDescending(d => d.DateAdded).Take(10).ToList();
 
             return PartialView("_Comment",comments);
@@ -270,9 +276,13 @@ namespace SerwisKsiazkowy.Controllers
             //return PartialView("_AllComments", comments);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         //public ActionResult Delete(int id, int bookId, string bookTitle)
         public ActionResult DeleteComment(int id, int bookId, int? page)
         {
+            bool isAdmin = User.IsInRole("Admin");
+            ViewBag.IsAdmin = isAdmin;
+
             Comment deleteComment = db.Comments.Find(id);
             db.Comments.Remove(deleteComment);
 

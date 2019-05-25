@@ -5,7 +5,7 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>Review</h4>
+    <h4>Edycja recenzji</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Review.ReviewId)
@@ -74,5 +74,5 @@
 }
 
     <div>
-        @Html.ActionLink("Back to List", "Details", "Book", new { id = ViewBag.bookId, _title = ViewBag.bookTitle })
+        @Html.ActionLink("Powrót", "Details", "Book", new { id = ViewBag.bookId, _title = ViewBag.bookTitle },null)
     </div>

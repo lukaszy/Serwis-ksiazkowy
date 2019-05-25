@@ -16,7 +16,7 @@ namespace SerwisKsiazkowy.Controllers
     {
         private BookContext db = new BookContext();
 
-        
+       
 
         //public ActionResult Index()
         //{
@@ -42,6 +42,8 @@ namespace SerwisKsiazkowy.Controllers
 
         public async Task<ActionResult> Index(string searchString)
         {
+            bool isAdmin = User.IsInRole("Admin");
+            ViewBag.IsAdmin = isAdmin;
             var books = from m in db.Books
                         select m;
             var genres = db.Genres.ToList();
@@ -79,6 +81,8 @@ namespace SerwisKsiazkowy.Controllers
 
         public ActionResult StaticContent(string viewname)
         {
+            bool isAdmin = User.IsInRole("Admin");
+            ViewBag.IsAdmin = isAdmin;
             return View(viewname);
         }
         [ChildActionOnly]
@@ -86,10 +90,13 @@ namespace SerwisKsiazkowy.Controllers
         {
             //double? rate = -1;
             string rate = "";
+            double rateDouble;
             var userId = User.Identity.GetUserId();
             try
             {
-                rate = db.Ratings.Where(r => r.BookId == id).Average(a => a.Value).ToString();
+                //rate = db.Ratings.Where(r => r.BookId == id).Average(a => a.Value).ToString();
+                rateDouble = Math.Round(db.Ratings.Where(r => r.BookId == id).Average(a => a.Value),2);
+                rate = rateDouble.ToString();
 
             }
             catch
@@ -102,6 +109,8 @@ namespace SerwisKsiazkowy.Controllers
 
         public ActionResult About()
         {
+            bool isAdmin = User.IsInRole("Admin");
+            ViewBag.IsAdmin = isAdmin;
             ViewBag.Message = "Your application description page.";
 
             return View();
@@ -109,6 +118,8 @@ namespace SerwisKsiazkowy.Controllers
 
         public ActionResult Contact()
         {
+            bool isAdmin = User.IsInRole("Admin");
+            ViewBag.IsAdmin = isAdmin;
             ViewBag.Message = "Your contact page.";
 
             return View();
