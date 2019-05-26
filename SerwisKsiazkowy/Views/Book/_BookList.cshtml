@@ -1,4 +1,6 @@
-﻿@model IEnumerable<SerwisKsiazkowy.Models.Book>
+﻿@model PagedList.IPagedList<SerwisKsiazkowy.Models.Book>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 <div class="col-sm-10">
     <div class="tab-content">
@@ -13,8 +15,8 @@
                         </div>
 
                         @*<a href="@Url.Action("Details", "Book", new { id = book.BookId })">
-                                @book.Title
-                            </a>*@
+                    @book.Title
+                </a>*@
 
 
                         <div id="booklist-details-names">
@@ -59,10 +61,26 @@
 
 
                 }
+                @if (ViewBag.listAuthor!=null)
+                {
+                    foreach (var mode in ViewBag.listAuthor)
+                        {
+                            
+                                @mode
+                           
+                        } 
+                }
 
+                Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+                @Html.PagedListPager(Model, page => Url.Action("ListGenres",
+                    new { page, genrename = ViewBag.Title, listAuthor=ViewBag.listAuthor }))
             </div>
         </div>
 
     </div>
 </div>
+
+
+    @*new { page, genrename = ViewBag.Title, currentFilter = ViewBag.CurrentFilter }))*@
 <p>@*@ViewBag.selectedBooks*@</p>

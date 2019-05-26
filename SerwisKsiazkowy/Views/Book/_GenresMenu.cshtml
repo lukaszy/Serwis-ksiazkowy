@@ -30,8 +30,9 @@
 
         </ul>
 
-        @using (Html.BeginForm("FilterList", "Book", new { UrlPath = HttpContext.Current.Request.Url.AbsolutePath }))
+        @using (Html.BeginForm("FilterList", "Book", new { UrlPath = HttpContext.Current.Request.Url.AbsolutePath, page=1 }))
         {
+            
             @*@Html.HiddenFor(model =>model.Authors)*@
             <div class="menu-left">
                 <p>Autor:</p>

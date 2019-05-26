@@ -1,5 +1,8 @@
-﻿
+﻿@*@model SerwisKsiazkowy.ViewModels.HomeViewModel*@
 @model SerwisKsiazkowy.ViewModels.HomeViewModel
+
+@using PagedList.Mvc
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @using SerwisKsiazkowy.Infrastructure
 
 @{
@@ -20,8 +23,8 @@
                     {
                         <li>
                             @*<a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower() })">
-                        @genre.Name
-                    </a>*@
+                                    @genre.Name
+                                </a>*@
                             <a href="@Url.Action("ListGenres", "Book", new { genrename = genre.Name.ToLower().ToString() })">
                                 @genre.Name
                             </a>
@@ -31,9 +34,9 @@
                 }
 
                 @*<li role="presentation" class="brand-nav "><a href="Book-details.html" aria-controls="tab1" role="tab" data-toggle="tab">Lorem ipsum</a></li>
-        <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
-        <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
-        <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>*@
+                    <li role="presentation" class="brand-nav"><a href="Main.html" aria-controls="tab2" role="tab" data-toggle="tab">Zombie ipsum</a></li>
+                    <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Gansta ipsum</a></li>
+                    <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Corporate ipsum</a></li>*@
 
             </ul>
 
@@ -135,8 +138,8 @@
                             </div>
 
                             @*<a href="@Url.Action("Details", "Book", new { id = book.BookId })">
-                                    @book.Title
-                                </a>*@
+                    @book.Title
+                </a>*@
 
 
                             <div id="booklist-details-names">
@@ -180,52 +183,64 @@
                                     Ocena:
                                     @Html.Action("GetRate", "Home", new { id = book.BookId })
                                     @*@if (book.Ratings. == -1)
-                                    {
-                                        @Html.Label("Brak")
-                                    }
-                                    else
-                                    {
-                                        @Model.Ratings
-                                    }*@
-                                    
+                        {
+                            @Html.Label("Brak")
+                        }
+                        else
+                        {
+                            @Model.Ratings
+                        }*@
+
                                 </h1>
 
                             </div>
                         </div>
 
                     }
-
+                    @Html.PagedListPager(Model.LastBooks, page => Url.Action("Index", new { page = page }))
                 </div>
             </div>
 
         </div>
+
     </div>
-</div>
+
+                
+            
+            </div>
+
+    
 
 
-<p>
-    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Link with href
-    </a>
+            @*<p>
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    Link with href
+                </a>
 
-</p>
-<div class="collapse" id="collapseExample">
-    <div class="card card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-    </div>
-</div>
-
-@section scripts {
-
-    <script>
-
-        $(function () {
-
-            $("#MultiSelectDropDown").chosen();
-
-        });
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+            </div>*@
 
 
-    </script>
 
-}
+
+
+
+
+            @section scripts {
+
+                <script>
+
+                    $(function () {
+
+                        $("#MultiSelectDropDown").chosen();
+
+                    });
+
+
+                </script>
+
+            }

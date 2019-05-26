@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace SerwisKsiazkowy.Controllers
 {
@@ -40,15 +41,19 @@ namespace SerwisKsiazkowy.Controllers
         //    return View(vm);
         //}
 
-        public async Task<ActionResult> Index(string searchString)
+        public ActionResult Index(string searchString, int? page)
         {
             bool isAdmin = User.IsInRole("Admin");
             ViewBag.IsAdmin = isAdmin;
-            var books = from m in db.Books
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
+            var books = from m in db.Books.OrderBy(d=>d.Title)
                         select m;
             var genres = db.Genres.ToList();
             //var authors = from m in db.Books select m.Author;
-            var authors = db.Books.ToList();
+            var authors = db.Books.ToList().OrderByDescending(d => d.Title);
 
             double? rate = -1;
             var userId = User.Identity.GetUserId();
@@ -64,18 +69,18 @@ namespace SerwisKsiazkowy.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                books = books.Where(s => s.Title.Contains(searchString));
+                books = books.Where(s => s.Title.Contains(searchString)).OrderByDescending(d => d.Title);
             }
             var bookVM = new HomeViewModel
             {
-                Authors = authors,
+                Authors = authors.ToPagedList(pageNumber, pageSize),
                 Genres = genres,
-                LastBooks = await books.ToListAsync(),
-                Ratings = rate
+                LastBooks =  books.ToPagedList(pageNumber, pageSize)
+                //Ratings = rate
                
                 
             };
-
+           
             return View(bookVM);
         }
 

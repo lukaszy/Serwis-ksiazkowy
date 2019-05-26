@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SerwisKsiazkowy.Infrastructure;
-
+using PagedList;
 
 namespace SerwisKsiazkowy.ViewModels
 {
     public class HomeViewModel
     {
         
-        public IEnumerable<Book> LastBooks { get; set; }
+        public IPagedList<Book> LastBooks { get; set; }
         public IEnumerable<Genre> Genres { get; set; }
-        public IEnumerable<Book> SelectedBook { get; set; }
+        public IPagedList<Book> SelectedBook { get; set; }
         public IEnumerable<Comment> Comments { get; set; }
         public Comment NewComment { get; set; }
         public IEnumerable<Book> Authors { get; set; }

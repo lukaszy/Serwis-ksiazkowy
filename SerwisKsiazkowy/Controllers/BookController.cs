@@ -15,6 +15,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using SerwisKsiazkowy.App_Start;
+using PagedList;
 
 namespace SerwisKsiazkowy.Controllers
 {
@@ -86,21 +87,28 @@ namespace SerwisKsiazkowy.Controllers
             return View(vm);
         }
 
-        public ActionResult ListGenres(string genrename)
+        public ActionResult ListGenres(string genrename, int? page)
         {
             var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
             var books = genre.Books.ToList();
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+
             ViewBag.Title = genre.Name.ToString();
             //var books = db.Books.OrderByDescending(b => b.Title).ToList();
 
-            return View(books);
+            return View(books.ToPagedList(pageNumber, pageSize));
         }
         [ChildActionOnly]
-        public ActionResult GenresMenu(string genrename)
+        public ActionResult GenresMenu(string genrename, int? page)
         {
             var genres = db.Genres.ToList();
             var author = db.Books.Select(p => p.Author).Distinct();
             var authors = db.Books.ToList();
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
             var VM = new HomeViewModel
             {
                 Authors = authors,
@@ -111,17 +119,19 @@ namespace SerwisKsiazkowy.Controllers
             return PartialView("_GenresMenu", VM);
         }
 
-        public ActionResult FilterList(HomeViewModel author, string UrlPath)
+        public ActionResult FilterList(HomeViewModel author, string UrlPath, int? page, string currentFilter)
         {
             var genres = db.Genres.ToList();
             //var author = db.Books.Select(p => p.Author).Distinct();
             //string[] temp = null;
-
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
             List<String> temp = new List<string>();
 
             //int genre_start = UrlPath.LastIndexOf("/") + 1;
             //string genreName = UrlPath.Split('/').Last();
             string genreName = UrlPath.Split('/').ElementAt(2);
+            
 
            
             if (author.Author1 != null)
@@ -131,6 +141,7 @@ namespace SerwisKsiazkowy.Controllers
                      temp.Add(item);                                      
                 }
             }
+            ViewBag.listAuthor = temp;
             IEnumerable<Book> selectedBook = null;
             //temp = "Adam Mickiewicz" + "," + "Homer";
             var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genreName.ToUpper()).Single();
@@ -153,13 +164,16 @@ namespace SerwisKsiazkowy.Controllers
             
             //var data = db.Books.SqlQuery("select * from books where author in ("+temp+")").ToList();
             ViewBag.selectedBooks = "selectedBook: "+temp+" "+ genreName+"data: ";
-            return View("ListGenres",selectedBook);
+            return View("ListGenres",selectedBook.ToPagedList(pageNumber, pageSize));
         }
 
-        public async Task<ActionResult> Index(string searchString, string genrename)
+        public ActionResult Index(string searchString, string genrename, int? page)
         {
             var books = from m in db.Books
                         select m;
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
             var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -168,7 +182,7 @@ namespace SerwisKsiazkowy.Controllers
             var bookVM = new HomeViewModel
             {
                
-                LastBooks = await books.ToListAsync()
+                LastBooks =  books.ToPagedList(pageNumber, pageSize)
             };
 
             return View(books);
