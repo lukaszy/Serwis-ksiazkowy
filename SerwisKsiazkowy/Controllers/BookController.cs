@@ -16,6 +16,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
 using SerwisKsiazkowy.App_Start;
 using PagedList;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace SerwisKsiazkowy.Controllers
 {
@@ -91,7 +93,7 @@ namespace SerwisKsiazkowy.Controllers
         {
             var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
             var books = genre.Books.ToList();
-
+            ViewBag.genrename = genrename;
             int pageSize = 3;
             int pageNumber = (page ?? 1);
 
@@ -106,11 +108,20 @@ namespace SerwisKsiazkowy.Controllers
             var genres = db.Genres.ToList();
             var author = db.Books.Select(p => p.Author).Distinct();
             var authors = db.Books.ToList();
-
+            ViewBag.genrename = genrename;
             int pageSize = 3;
             int pageNumber = (page ?? 1);
+
             var VM = new HomeViewModel
             {
+                RatingsCheckBoxList = new List<CheckBoxItem>
+                {
+                    new CheckBoxItem {Value= true, Label="0-2,5"},
+                    new CheckBoxItem {Value= false, Label="2,6-4,5"},
+                    new CheckBoxItem {Value= false, Label="4,5-6,5"},
+                    new CheckBoxItem {Value= false, Label="6,6-8,5"},
+                    new CheckBoxItem {Value= false, Label="8,6-10"}
+                },
                 Authors = authors,
                 Author = author.ToList(),
                 Genres = genres
@@ -119,39 +130,106 @@ namespace SerwisKsiazkowy.Controllers
             return PartialView("_GenresMenu", VM);
         }
 
-        public ActionResult FilterList(HomeViewModel author, string UrlPath, int? page, string currentFilter)
+        public ActionResult FilterList(HomeViewModel model, string[] author1, int? page, string[] listAuthor, string genrename, string searchString, string currentFilter)
         {
             var genres = db.Genres.ToList();
             //var author = db.Books.Select(p => p.Author).Distinct();
             //string[] temp = null;
             int pageSize = 3;
             int pageNumber = (page ?? 1);
+            double minRating;
+            double maxRating;
+            try
+            {
+                 minRating = Double.Parse(model.MinRating);
+                 maxRating = Double.Parse(model.MaxRating);
+            }
+            catch
+            {
+                minRating = 0;
+                maxRating = 10;
+            }
+           
+            
+
             List<String> temp = new List<string>();
+            //string[] authorSplit = author1.Split(',');
+            string[] authorSplit = null;
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+           
+            if (author1 !=null)
+            {
+                if (author1.Count() > 1)
+                {
+                    authorSplit = author1;
+                }
+                else
+                {
+                    authorSplit = Regex.Split(author1[0], ",");
+                
+                }
+            }
+            else
+            {
+                authorSplit = db.Books.Where(p => p.Genre.Name == genrename).Select(p=>p.Author).Distinct().ToArray();
+            }
+           
+            
+
 
             //int genre_start = UrlPath.LastIndexOf("/") + 1;
             //string genreName = UrlPath.Split('/').Last();
-            string genreName = UrlPath.Split('/').ElementAt(2);
-            
+            //string genreName = UrlPath.Split('/').ElementAt(2);
+            //string genreName = "Epos";
+            ViewBag.listAuthor = author1;
 
-           
-            if (author.Author1 != null)
-            {      
-                foreach(var item in author.Author1)
-                {            
-                     temp.Add(item);                                      
-                }
-            }
-            ViewBag.listAuthor = temp;
+            ViewBag.Title = genrename;
+
+            //if (author1 != null)
+            //{
+            //    foreach (var item in author1)
+            //    {
+            //        temp.Add(item);
+            //    }
+            //    //ViewBag.Authors = author.Author1;
+            //}
+
             IEnumerable<Book> selectedBook = null;
+
+            var books = from b in db.Books
+                        select b;
             //temp = "Adam Mickiewicz" + "," + "Homer";
-            var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genreName.ToUpper()).Single();
-            
-            if(genre != null)
+            var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
+            if (!String.IsNullOrEmpty(searchString) && genre != null)
             {
+               
+                books = books.Where(a => a.Title.Contains(searchString) && a.Genre.Name.Contains(genrename) && authorSplit.Contains(a.Author)).OrderByDescending(p=>p.Title);
+
+                selectedBook = genre.Books.Where(a => authorSplit.Contains(a.Author) && a.Title.Contains(searchString));
+                    //selectedBook = genre.Books.Where(a => a.Title.Contains(searchString));
+
                 
-                //selectedBook = genre.Books.Where(a => a.Author == temp && temp.Contains(a.Author));
-                selectedBook = genre.Books.Where(a =>  temp.Contains(a.Author));
-                //selectedBook = db.Books.SqlQuery("select * from books where author in (" + temp + ")").ToList();
+            }else if(genre != null)
+            {
+
+                books = books.Where(a=>a.Genre.Name.Contains(genrename) && 
+                        authorSplit.Contains(a.Author) 
+                       ).OrderByDescending(p => p.Title);
+                selectedBook = genre.Books.Where(a => authorSplit.Contains(a.Author) &&
+                        getRating(a.BookId) < maxRating &&
+                        getRating(a.BookId) > minRating);
+                //selectedBook = genre.Books.Where(a => a.Title.Contains(searchString));
+               
             }
 
             //var VM = new HomeViewModel
@@ -161,10 +239,30 @@ namespace SerwisKsiazkowy.Controllers
             //    SelectedBook = selectedBook,
             //    Genres = genres
             //};
-            
+
             //var data = db.Books.SqlQuery("select * from books where author in ("+temp+")").ToList();
-            ViewBag.selectedBooks = "selectedBook: "+temp+" "+ genreName+"data: ";
-            return View("ListGenres",selectedBook.ToPagedList(pageNumber, pageSize));
+
+            string x = "";
+
+            if (temp != null)
+            {
+                foreach (var df in temp)
+                {
+                    if (String.IsNullOrEmpty(x))
+                    {
+                        x = "&autor="+df.Replace(" ", "%").ToLower();
+                    }
+                    else
+                    {
+                        x = x.Replace(" ", "%").ToLower() + "&autor=" + df.Replace(" ", "%").ToLower();
+                    }
+                }
+            }
+            ViewBag.Authors = author1;
+            Debug.WriteLine(x);
+            ViewBag.selectedBooks = "selectedBook: "+temp+" "+ genrename+"data: ";
+            ViewBag.FilterBook = selectedBook.ToPagedList(pageNumber, pageSize);
+            return View("ListGenres", books.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Index(string searchString, string genrename, int? page)
@@ -184,7 +282,7 @@ namespace SerwisKsiazkowy.Controllers
                
                 LastBooks =  books.ToPagedList(pageNumber, pageSize)
             };
-
+            ViewBag.genrename = genrename;
             return View(books);
         }
 
@@ -217,7 +315,24 @@ namespace SerwisKsiazkowy.Controllers
         }
 
 
+        public double getRating(int bookId)
+        {
+            double rating;
+            var userId = User.Identity.GetUserId();
+            try
+            {
+                //rate = db.Ratings.Where(r => r.BookId == id).Average(a => a.Value).ToString();
+                rating = Math.Round(db.Ratings.Where(r => r.BookId == bookId).Average(a => a.Value), 2);
+                
 
+            }
+            catch
+            {
+                rating = 0;
+            }
+            
+            return rating;
+        }
     }
 
     

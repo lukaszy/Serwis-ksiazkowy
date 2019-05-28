@@ -21,18 +21,38 @@
 
 
 </div>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
 
 @section scripts {
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    
+
 
     <script>
 
         $(function () {
 
-            $("#MultiSelectDropDown").chosen(default_multiple_text="aa");
+            $("#MultiSelectDropDown").chosen(default_multiple_text = "tekst");
 
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 10,
+                values: [0, 10],
+                slide: function (event, ui) {
+                    $("#ratings").val("od " + ui.values[0] + " do " + ui.values[1]);
+                    $("#MaxRating").val(ui.values[0]);
+                    $("#MinRating").val(ui.values[1]);
+                }
+            });
+            $("#MaxRating").val($("#slider-range").slider("values", 0));
+            $("#MinRating").val($("#slider-range").slider("values", 1));
+            $("#ratings").val("od " + $("#slider-range").slider("values", 0) +
+                " do " + $("#slider-range").slider("values", 1));
         });
 
 
     </script>
 
 }
+
