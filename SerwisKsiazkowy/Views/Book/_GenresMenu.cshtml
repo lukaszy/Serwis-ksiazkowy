@@ -51,27 +51,17 @@
                 </p>
             </div>
             <hr class="style1">
-            <div class="menu-left">
-                <p>@*Ocena:*@</p>
-                @for (var i = 0; i < Model.RatingsCheckBoxList.Count; ++i)
-                {
-                    <p>
-                        @*@Html.EditorFor(m => m.RatingsCheckBoxList[i].Value)*@
-                        @*@Model.RatingsCheckBoxList[i].Label*@
-                        @*@Html.HiddenFor(m => m.RatingsCheckBoxList[i].Label) <!-- optional postback label -->*@
-                    </p>
-
-                }
-            </div>
+            <div class="slider">
             <p>
                 <label for="ratings">Ocena</label>
-                <input type="text" id="ratings" readonly style="border:0; color:#f6931f; font-weight:bold; width:80%;">
+                <input type="text" id="ratings" class="ratings" readonly style="border:0; color:#f6931f; font-weight:bold; width:80%;">
                 @*<input type="text" id="MaxRatings" name="MaxRatings" readonly style="border:0; color:#f6931f; font-weight:bold; width:80%;">*@
                 @*<input type="text" id="MinRatings" name="MinRatings" readonly style="border:0; color:#f6931f; font-weight:bold; width:80%;">*@
                 @Html.HiddenFor(model => model.MaxRating, new { id = "MaxRating", name = "MaxRating" })
                 @Html.HiddenFor(model => model.MinRating, new { id = "MinRating", name = "MinRating" })
                 <div id="slider-range"></div>
             </p>
+            </div>
             <hr class="style1">
             <p><button type="submit" class="btn btn-primary  btn-block">Filtruj</button></p>
         }

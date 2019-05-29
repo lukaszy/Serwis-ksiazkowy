@@ -270,6 +270,10 @@
     <Compile Include="Migrations\201905241223180_AddRe1.Designer.cs">
       <DependentUpon>201905241223180_AddRe1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905290803051_AvgRatingInBook.cs" />
+    <Compile Include="Migrations\201905290803051_AvgRatingInBook.Designer.cs">
+      <DependentUpon>201905290803051_AvgRatingInBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -553,6 +557,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905241223180_AddRe1.resx">
       <DependentUpon>201905241223180_AddRe1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905290803051_AvgRatingInBook.resx">
+      <DependentUpon>201905290803051_AvgRatingInBook.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

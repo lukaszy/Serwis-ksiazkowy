@@ -88,7 +88,7 @@ namespace SerwisKsiazkowy.Controllers
             };
             return View(vm);
         }
-
+        
         public ActionResult ListGenres(string genrename, int? page)
         {
             var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
@@ -129,16 +129,16 @@ namespace SerwisKsiazkowy.Controllers
 
             return PartialView("_GenresMenu", VM);
         }
-
-        public ActionResult FilterList(HomeViewModel model, string[] author1, int? page, string[] listAuthor, string genrename, string searchString, string currentFilter)
+        
+        public ActionResult FilterList(HomeViewModel model, string[] author1, int? page, string[] listAuthor, string genrename, string searchString, string currentFilter, double minRating, double maxRating)
         {
             var genres = db.Genres.ToList();
             //var author = db.Books.Select(p => p.Author).Distinct();
             //string[] temp = null;
             int pageSize = 3;
             int pageNumber = (page ?? 1);
-            double minRating;
-            double maxRating;
+            //double minRating;
+            //double maxRating;
             try
             {
                  minRating = Double.Parse(model.MinRating);
@@ -149,8 +149,10 @@ namespace SerwisKsiazkowy.Controllers
                 minRating = 0;
                 maxRating = 10;
             }
-           
-            
+
+            ViewBag.MinRating = minRating;
+            ViewBag.MaxRating = maxRating;
+
 
             List<String> temp = new List<string>();
             //string[] authorSplit = author1.Split(',');
@@ -213,21 +215,31 @@ namespace SerwisKsiazkowy.Controllers
             if (!String.IsNullOrEmpty(searchString) && genre != null)
             {
                
-                books = books.Where(a => a.Title.Contains(searchString) && a.Genre.Name.Contains(genrename) && authorSplit.Contains(a.Author)).OrderByDescending(p=>p.Title);
+                books = books.Where(a => a.Title.Contains(searchString) && 
+                        a.Genre.Name.Contains(genrename) && 
+                        authorSplit.Contains(a.Author) &&
+                        a.AvgRating <= maxRating &&
+                        a.AvgRating >= minRating
+                        ).OrderByDescending(p=>p.Title);
 
-                selectedBook = genre.Books.Where(a => authorSplit.Contains(a.Author) && a.Title.Contains(searchString));
-                    //selectedBook = genre.Books.Where(a => a.Title.Contains(searchString));
+                selectedBook = genre.Books.Where(a => authorSplit.Contains(a.Author) && a.Title.Contains(searchString) &&
+                        getRating(a.BookId) <= maxRating &&
+                        getRating(a.BookId) >= minRating).ToList();
+                //selectedBook = genre.Books.Where(a => a.Title.Contains(searchString));
 
-                
-            }else if(genre != null)
+
+            }
+            else if(genre != null)
             {
 
                 books = books.Where(a=>a.Genre.Name.Contains(genrename) && 
-                        authorSplit.Contains(a.Author) 
+                        authorSplit.Contains(a.Author) &&
+                        a.AvgRating <= maxRating &&
+                        a.AvgRating >= minRating
                        ).OrderByDescending(p => p.Title);
                 selectedBook = genre.Books.Where(a => authorSplit.Contains(a.Author) &&
-                        getRating(a.BookId) < maxRating &&
-                        getRating(a.BookId) > minRating);
+                        getRating(a.BookId) <= maxRating &&
+                        getRating(a.BookId) >= minRating).ToList();
                 //selectedBook = genre.Books.Where(a => a.Title.Contains(searchString));
                
             }
@@ -302,7 +314,8 @@ namespace SerwisKsiazkowy.Controllers
             model.NewRate.UserId = User.Identity.GetUserId();
             //var errors = ModelState.Values.SelectMany(v => v.Errors);
             var bookTitle = db.Books.Where(p => p.BookId == model.NewRate.BookId).First().Title.Replace(" ", "-").ToLower().ToString();
-           
+            var book = db.Books.Where(p => p.BookId == model.NewRate.BookId).Single();
+            
             //ViewBag.error = errors;
             if (ModelState.IsValid)
             {
@@ -310,7 +323,12 @@ namespace SerwisKsiazkowy.Controllers
 
                 db.Ratings.Add(model.NewRate);
                 db.SaveChanges();
+
+                book.AvgRating = getRating(model.NewRate.BookId);
+                db.Entry(book).State = EntityState.Modified;
+                db.SaveChanges();
             }
+           
             return RedirectToAction("Details", "Book", new { id = model.NewRate.BookId, _title = bookTitle });
         }
 

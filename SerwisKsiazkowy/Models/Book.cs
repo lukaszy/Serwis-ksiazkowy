@@ -54,7 +54,10 @@ namespace SerwisKsiazkowy.Models
         [Display(Name = "Okładka")]
         public string CoverFileName { get; set; }
 
+        public double AvgRating { get; set; }
+
         public virtual Genre Genre { get; set; }
+        
 
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

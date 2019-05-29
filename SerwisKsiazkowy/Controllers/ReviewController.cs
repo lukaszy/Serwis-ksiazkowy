@@ -69,6 +69,7 @@ namespace SerwisKsiazkowy.Controllers
         {
 
             var bookTitle = db.Books.Where(p => p.BookId == model.Review.BookId).First().Title.Replace(" ", "-").ToLower().ToString();
+            var book = db.Books.Where(p => p.BookId == model.Review.BookId).Single();
             model.Review.DateAdded = DateTime.Now;
             model.Review.UserId = User.Identity.GetUserId();
             bool isRate = false;
@@ -111,6 +112,10 @@ namespace SerwisKsiazkowy.Controllers
                     //db.Entry(model.Review).State = EntityState.Modified;
                 }
                 
+                db.SaveChanges();
+
+                book.AvgRating = getRating(model.Review.BookId);
+                db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
             }
             
@@ -185,6 +190,25 @@ namespace SerwisKsiazkowy.Controllers
             }
             ViewBag.Value = rate;
             return PartialView("GetRate");
+        }
+
+        public double getRating(int bookId)
+        {
+            double rating;
+            var userId = User.Identity.GetUserId();
+            try
+            {
+                //rate = db.Ratings.Where(r => r.BookId == id).Average(a => a.Value).ToString();
+                rating = Math.Round(db.Ratings.Where(r => r.BookId == bookId).Average(a => a.Value), 2);
+
+
+            }
+            catch
+            {
+                rating = 0;
+            }
+
+            return rating;
         }
     }
 }

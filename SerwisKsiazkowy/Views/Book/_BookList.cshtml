@@ -17,8 +17,8 @@
                         </div>
 
                         @*<a href="@Url.Action("Details", "Book", new { id = book.BookId })">
-                                @book.Title
-                            </a>*@
+                    @book.Title
+                </a>*@
 
 
                         <div id="booklist-details-names">
@@ -48,11 +48,19 @@
                                 Liczba stron: @Book.Pages
                             </h1>
                             <h1>
-                                Data premiery: @Book.YearPublished
+                                Data premiery: @Book.YearPublished.ToShortDateString()
                             </h1>
                             <h1>
                                 Ocena:
-                                @Html.Action("GetRate", "Home", new { id = Book.BookId })
+                                @if (Book.AvgRating == 0)
+                                {
+                                    <span>Brak</span>
+                                }
+                                else
+                                {
+                                    <span>@Book.AvgRating / 10</span>
+                                }
+                                @*@Html.Action("GetRate", "Home", new { id = Book.BookId })*@
                             </h1>
 
 
@@ -77,20 +85,26 @@
                 Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
                 @*@Html.PagedListPager(Model, page => Url.Action("FilterList",
-                    new { page, genrename = ViewBag.Title, listAuthor=ViewBag.listAuthor }))*@
+        new { page, genrename = ViewBag.Title, listAuthor=ViewBag.listAuthor }))*@
 
                 @if (ViewBag.listAuthor != null)
                 {
                     @Html.PagedListPager(Model, page => Url.Action("FilterList",
-                                       new { page, author1 = string.Join(",", (string[])ViewBag.listAuthor), currentFilter = ViewBag.CurrentFilter }))
+                                       new { page, author1 = string.Join(",", (string[])ViewBag.listAuthor),  currentFilter = ViewBag.CurrentFilter, minRating = ViewBag.MinRating, maxRating = ViewBag.MaxRating }))
 
 
+
+                }
+                else if (ViewBag.MinRating != null)
+                {
+                    @Html.PagedListPager(Model, page => Url.Action("FilterList",
+                   new { page,   currentFilter = ViewBag.CurrentFilter, minRating = ViewBag.MinRating, maxRating = ViewBag.MaxRating }))
 
                 }
                 else
                 {
                     @Html.PagedListPager(Model, page => Url.Action("ListGenres",
-                                      new { page }))
+                                                          new { page }))
                 }
 
 

@@ -7,7 +7,7 @@
 
 <div id="book-details-comments">
 
-            Wszystkich komenatrzy (@Model.Count())
+    Wszystkich komenatrzy (@ViewBag.CommentCount)
 
 
 
@@ -69,13 +69,13 @@
                 <div id="book-details-comment-content">
                     @*@comments.Content*@
                     @Html.DisplayFor(modelItem => comments.Content)
-                    @Html.DisplayFor(modelItem => comments.CommentId)
-                    @Html.Action("GetChildren", "Comment", new { id = comments.CommentId })
+                    @*@Html.DisplayFor(modelItem => comments.CommentId)
+                    @Html.Action("GetChildren", "Comment", new { id = comments.CommentId })*@
 
                 </div>
 
 
-                @{
+                @*@{
                     var children = Model.Where(x => x.ParentId == comments.CommentId).ToList();
                     if (children.Count() > 0)
                     {
@@ -85,13 +85,13 @@
                     <div class="collapse" id="@comments.CommentId">
                         @Html.Partial("DajOdpowiedzi")
                     </div>
-                }
+                }*@
             </div>
         }
     }
 
-    
-    
+
+
 </div>
 
 

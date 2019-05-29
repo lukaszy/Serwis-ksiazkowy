@@ -42,6 +42,7 @@ namespace SerwisKsiazkowy.Controllers
         {
             var newComment = new Comment();
             newComment.BookId = bookId;
+            ViewBag.CommentCount = db.Comments.Where(c => c.BookId == bookId).Count();
             return View(newComment);
         }
 
@@ -52,6 +53,7 @@ namespace SerwisKsiazkowy.Controllers
             model.NewComment.UserId = User.Identity.GetUserId();
             bool isAdmin = User.IsInRole("Admin");
             ViewBag.IsAdmin = isAdmin;
+            ViewBag.CommentCount = db.Comments.Where(c => c.BookId == bookId).Count();
             if (ModelState.IsValid)
             {
                 db.Comments.Add(model.NewComment);
@@ -262,7 +264,7 @@ namespace SerwisKsiazkowy.Controllers
             bool isAdmin = User.IsInRole("Admin");
             ViewBag.IsAdmin = isAdmin;
             var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == bookId && c.ParentId == 0).OrderByDescending(d => d.DateAdded).Take(10).ToList();
-
+            ViewBag.CommentCount = db.Comments.Where(c => c.BookId == bookId).Count();
             return PartialView("_Comment",comments);
         }
 
@@ -272,6 +274,9 @@ namespace SerwisKsiazkowy.Controllers
             var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == bookId && c.ParentId == 0).OrderByDescending(d => d.DateAdded).ToList();
             int pageSize = 3;
             int pageNumber = (page ?? 1);
+            ViewBag.BookId = 1;
+            TempData["TestVal"] = 1;
+
             return View("_AllComments",comments.ToPagedList(pageNumber, pageSize));
             //return PartialView("_AllComments", comments);
         }

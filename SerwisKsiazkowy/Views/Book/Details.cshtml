@@ -63,19 +63,28 @@
                                     Liczba stron: @book.Pages
                                 </h2>
                                 <h2>
-                                    Data premiery: @book.YearPublished
+                                    Data premiery: @book.YearPublished.ToShortDateString()
                                 </h2>
                                 <h2>
                                     Ocena:
-                                    @Html.Action("GetRate", "Home", new { id = book.BookId })
+                                    @*@book.AvgRating*@
+                                    @if (book.AvgRating == 0)
+                                    {
+                                        <span>Brak</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@book.AvgRating / 10</span>
+                                    }
+                                    @*@Html.Action("GetRate", "Home", new { id = book.BookId })*@
                                     @*@if (Model.Ratings == -1)
-                                        {
-                                            @Html.Label("Brak")
-                                        }
-                                        else
-                                        {
-                                            <b>@Model.Ratings</b> @Html.Label("/ 5")
-                                        }*@
+                                    {
+                                        @Html.Label("Brak")
+                                    }
+                                    else
+                                    {
+                                        <b>@Model.Ratings</b> @Html.Label("/ 5")
+                                    }*@
 
                                 </h2>
                                 <h2>
@@ -90,7 +99,7 @@
                                     }
                                     else if (User.Identity.IsAuthenticated)
                                     {
-                                        @Html.Label("Nie oceniłeś tej książeki")
+                                        @Html.Label("Brak oceny")
                                         using (@Html.BeginForm("AddRate", "Book", FormMethod.Post))
                                         {
                                             @Html.AntiForgeryToken()
@@ -259,7 +268,7 @@
 </div>
 
 
-<div class="row">
+@*<div class="row">
 
     <div class="container">
         <div class="row">
@@ -371,7 +380,7 @@ BOOOK ID @Model.SelectedBook.Select(p => p.BookId).First()
 
 <script id="display-reply" type="text/x-handlebars-template">
     <p> {{Content}}</p>
-</script>
+</script>*@
 @section scripts{
 
     <script src="~/Scripts/jquery-3.3.1.js"></script>
