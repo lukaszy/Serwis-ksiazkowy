@@ -13,14 +13,18 @@
 
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-@Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
+@if (Model.Any())
+{
+    @Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
 
-<div id="comments-reviews">
-    <img src="@Url.Content("~/Content/Covers/" + Model.Select(p => p.Books.CoverFileName).First())" />
-    <h1>@Model.Select(p => p.Books.Title).First()</h1>
-    <h2>@Model.Select(p => p.Books.Author).First()</h2>
-    
-</div>
+    <div id="comments-reviews">
+        <img src="@Url.Content("~/Content/Covers/" + Model.Select(p => p.Books.CoverFileName).First())" />
+        <h1>@Model.Select(p => p.Books.Title).First()</h1>
+        <h2>@Model.Select(p => p.Books.Author).First()</h2>
+
+    </div>
+}
+
 
 <h1>@*Książka: @ViewBag.BookTitle*@</h1>
 
