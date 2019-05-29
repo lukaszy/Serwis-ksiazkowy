@@ -53,7 +53,7 @@ namespace SerwisKsiazkowy.Controllers
             model.NewComment.UserId = User.Identity.GetUserId();
             bool isAdmin = User.IsInRole("Admin");
             ViewBag.IsAdmin = isAdmin;
-            ViewBag.CommentCount = db.Comments.Where(c => c.BookId == bookId).Count();
+            
             if (ModelState.IsValid)
             {
                 db.Comments.Add(model.NewComment);
@@ -67,6 +67,7 @@ namespace SerwisKsiazkowy.Controllers
             //}
 
             //return RedirectToAction("Details", "Book",new { id = bookId, _title = bookTitle });
+            ViewBag.CommentCount = db.Comments.Where(c => c.BookId == bookId).Count();
             return PartialView("_Comment",comments);
         }
 
@@ -115,6 +116,7 @@ namespace SerwisKsiazkowy.Controllers
             var comments = db.Comments.Include(p => p.User).Where(c => c.BookId == bookId && c.ParentId == 0).OrderByDescending(d => d.DateAdded).Take(10).ToList();
 
             // return RedirectToAction("Details", "Book", new { id = bookId, _title = bookTitle });
+            ViewBag.CommentCount = db.Comments.Where(c => c.BookId == bookId).Count();
             return PartialView("_Comment", comments);
             //return Json(new { success = true });
         }

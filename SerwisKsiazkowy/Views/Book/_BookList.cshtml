@@ -71,7 +71,7 @@
 
 
                 }
-                *@if (ViewBag.listAuthor != null)
+                @if (ViewBag.listAuthor != null)
                 {
                     foreach (var mode in ViewBag.listAuthor)
                     {
@@ -80,8 +80,7 @@
 
                     }
                 }
-                @ViewBag.Authors
-                genre: @ViewBag.genrename
+               
                 Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
                 @*@Html.PagedListPager(Model, page => Url.Action("FilterList",
