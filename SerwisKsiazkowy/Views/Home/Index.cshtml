@@ -177,19 +177,28 @@
                                     Liczba stron: @book.Pages
                                 </h1>
                                 <h1>
-                                    Data premiery: @book.YearPublished
+                                    Data premiery: @book.YearPublished.ToShortDateString()
                                 </h1>
                                 <h1>
                                     Ocena:
-                                    @Html.Action("GetRate", "Home", new { id = book.BookId })
+                                    @*@Html.Action("GetRate", "Home", new { id = book.BookId })*@
+
+                                    @if (book.AvgRating == 0)
+                                    {
+                                        <span>Brak</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@book.AvgRating / 10</span>
+                                    }
                                     @*@if (book.Ratings. == -1)
-                        {
-                            @Html.Label("Brak")
-                        }
-                        else
-                        {
-                            @Model.Ratings
-                        }*@
+        {
+            @Html.Label("Brak")
+        }
+        else
+        {
+            @Model.Ratings
+        }*@
 
                                 </h1>
 
