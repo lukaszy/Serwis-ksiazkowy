@@ -106,16 +106,18 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Scripts/datepicker-pl.js"></script>
     <script>
 
         $(function () {
+            
 
-            $("#datepicker").datepicker({
-                //dayNamesMin=[ "Pn", "Wt", "Sr", "Cz", "Pt", "So", "Nd" ],
+            $("#datepicker").datepicker({           
                 dateFormat: "dd-MM-yy",
                 changeMonth: true,
                 changeYear: true
             });
+            $("#datepicker").datepicker($.datepicker.regional["pl"]);
 
 
         });
