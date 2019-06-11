@@ -140,6 +140,72 @@ namespace SerwisKsiazkowy.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult UserProfile()
+        {
+            ApplicationUser editUser = new ApplicationUser();
+            
+            editUser = UserManager.FindByName(User.Identity.Name);
+            EditProfileViewModel user = new EditProfileViewModel();
+            
+            
+            user.Email = editUser.Email;
+            return View(user);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UserProfile(EditProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            IdentityResult result = null;
+            
+            string id = User.Identity.GetUserId();
+            var user = UserManager.FindById(id);
+            try
+            {
+               result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            }
+            catch
+            {
+                result = null;
+            }
 
+            var check = await UserManager.CheckPasswordAsync(user, model.OldPassword);
+            var setEmail = await UserManager.SetEmailAsync(User.Identity.GetUserId(), model.Email);
+            if (setEmail.Succeeded && check)
+            {
+                 user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return RedirectToAction("Index","Home");
+            }
+            AddErrors(result);
+            return View(model);
+        }
+        //[HttpPost]
+        //public async Task<ActionResult> UserProfile(UserData model)
+        //{
+
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+        //    var book = new <ApplicationUser>(new ApplicationDbContext());
+        //    var manager = new UserManager<ApplicationUser>(book);
+        //    var currentUser = UserManager.FindByName(User.Identity.Name);
+        //    currentUser.UserData.FirstName = model.FirstName;
+        //    currentUser.UserData.LastName = model.LastName;
+
+        //    //await manager.UpdateAsync(currentUser);
+        //    //var ctx = store.Context;
+        //    //ctx.SaveChanges();
+
+        //    return RedirectToAction("ListUser");
+        //}
     }
 }

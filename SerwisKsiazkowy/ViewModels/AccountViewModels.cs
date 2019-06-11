@@ -38,4 +38,29 @@ namespace SerwisKsiazkowy.ViewModels
         [Compare("Password", ErrorMessage = "Hasło nie pasują do siebie.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class EditProfileViewModel
+    {
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Bieżące hasło")]
+        public string OldPassword { get; set; }
+
+        
+        [StringLength(100, ErrorMessage = "{0} musi mieć co najmniej następującą liczbę znaków: {2}.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Nowe hasło")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Potwierdź nowe hasło")]
+        [Compare("NewPassword", ErrorMessage = "Nowe hasło i potwierdzenia hasła nie są zgodne.")]
+        public string ConfirmPassword { get; set; }
+    }
 }

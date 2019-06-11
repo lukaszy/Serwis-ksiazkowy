@@ -1,15 +1,20 @@
 ﻿@model SerwisKsiazkowy.Models.Comment
 
 
+    @*<img src="@Url.Content("~/Content/Covers/" + Model.Book.CoverFileName).First())" />*@
+    <h1>@ViewBag.bookTitle.ToUpper()</h1>
+    
+    
+
 
 @using (Html.BeginForm("AddInAll", "Comment",  new { bookId = @ViewBag.bookId, bookTitle = @ViewBag.bookTitle },FormMethod.Post))
 {
-    @ViewBag.bookTitle
+   
 
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Dodaj recenzje</h4>
+        <h4>Dodaj komentarz</h4>
         <hr />
         @Html.HiddenFor(model => model.BookId)
         @Html.HiddenFor(model => model.UserId)
