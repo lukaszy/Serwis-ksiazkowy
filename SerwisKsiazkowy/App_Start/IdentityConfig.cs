@@ -62,7 +62,7 @@ namespace SerwisKsiazkowy.App_Start
 
             // Konfiguruj ustawienia domyślne blokady użytkownika
             manager.UserLockoutEnabledByDefault = true;
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(3);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
 
             // Zarejestruj dostawców uwierzytelniania dwuetapowego. W przypadku tej aplikacji kod weryfikujący użytkownika jest uzyskiwany przez telefon i pocztą e-mail

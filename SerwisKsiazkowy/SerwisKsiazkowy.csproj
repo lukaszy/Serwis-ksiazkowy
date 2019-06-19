@@ -505,6 +505,7 @@
     <Content Include="Views\Shared\_AllComments.cshtml" />
     <Content Include="Views\Comment\ListComments — Kopia.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904241030413_Initial.resx">
