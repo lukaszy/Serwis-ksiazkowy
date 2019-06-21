@@ -144,8 +144,8 @@ namespace SerwisKsiazkowy.Controllers
             ViewBag.bookId = db.Reviews.Where(p =>p.ReviewId == reviewId).Select(p=>p.BookId).Single();
             ViewBag.bookTitle = bookTitle.Replace(" ", "-").ToLower().ToString();
             var editReview = new ReviewViewModel();
-            var ratings = db.Ratings.ToArray();
-            editReview.RatingsVM = ratings;
+            //var ratings = db.Ratings.ToArray();
+            //editReview.RatingsVM = ratings;
             //editBook.ConfirmSuccess = confirmSuccess;
 
             Review b = db.Reviews.Find(reviewId);
@@ -167,8 +167,12 @@ namespace SerwisKsiazkowy.Controllers
         {
             var bookTitle = db.Books.Where(p => p.BookId == model.Review.BookId).First().Title.Replace(" ", "-").ToLower().ToString();
             model.Review.DateAdded = DateTime.Now;
-            db.Entry(model.Review).State = EntityState.Modified;
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                db.Entry(model.Review).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            
             return RedirectToAction("Details", "Book", new { id = model.Review.BookId, _title = bookTitle });
 
         }

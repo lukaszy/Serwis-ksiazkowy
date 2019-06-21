@@ -5,86 +5,93 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Dodaj recenzje</h4>
-    <hr />
-    @Html.HiddenFor(model => model.Review.BookId)
-    @Html.HiddenFor(model => model.Review.UserId)
-    @Html.HiddenFor(model => model.Rate.UserId)
-    @Html.HiddenFor(model => model.Rate.BookId)
+    <div class="form-horizontal">
+        <h4>Dodaj recenzje</h4>
+        <hr />
+        @Html.HiddenFor(model => model.Review.BookId)
+        @Html.HiddenFor(model => model.Review.UserId)
+        @Html.HiddenFor(model => model.Rate.UserId)
+        @Html.HiddenFor(model => model.Rate.BookId)
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Review.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*@Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })*@
-            @Html.TextAreaFor(model => model.Review.Content, new { @class = "form-control", rows = "5" })
-            @Html.ValidationMessageFor(model => model.Review.Content, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.DateAdded, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Review.Content, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DateAdded, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateAdded, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.TextAreaFor(model => model.Review.Content, new { @class = "form-control", rows = "5" })
+                @Html.ValidationMessageFor(model => model.Review.Content, "", new { @class = "text-danger" })
             </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.DateAdded, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DateAdded, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DateAdded, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BookId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BookId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BookId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            @*<div class="col-md-10">
+                    @Html.EditorFor(model => model.Rate.Value, new { htmlAttributes = new { @class = "form-control" } })
+                     @Html.ValidationMessageFor(model => model.Rate.Value, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(m => m.Rate.Value, new SelectList(Model.ValueRate), "Wybierz ocene")
+                </div>*@
+
+            @if (Model.isValueRate == true)
+            {
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Rate.Value, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                    @Html.ValidationMessageFor(model => model.Review.Rate.Value, "", new { @class = "text-danger" })
+                </div>
+                @Html.HiddenFor(model => model.Rate.Value)
+                @Html.HiddenFor(model => model.Rate.RateId)
+
+
+            }
+            else
+            {
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Rate.Value, new SelectList(Model.ValueRate), new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Review.Rate.Value, "", new { @class = "text-danger" })
+                </div>
+            }
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BookId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BookId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BookId, "", new { @class = "text-danger" })
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Dodaj recenzje" class="btn btn-default" />
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
-        
-        @*<div class="col-md-10">
-            @Html.EditorFor(model => model.Rate.Value, new { htmlAttributes = new { @class = "form-control" } })
-             @Html.ValidationMessageFor(model => model.Rate.Value, "", new { @class = "text-danger" })
-            @Html.DropDownListFor(m => m.Rate.Value, new SelectList(Model.ValueRate), "Wybierz ocene")
-        </div>*@
-
-        @if (Model.isValueRate == true)
-        {
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Rate.Value, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
-                @Html.ValidationMessageFor(model => model.Review.Rate.Value, "", new { @class = "text-danger" })
-            </div>
-            @Html.HiddenFor(model => model.Rate.Value)
-            @Html.HiddenFor(model => model.Rate.RateId)
-
-
-        }
-        else
-        {
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Rate.Value, new SelectList(Model.ValueRate), new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Review.Rate.Value, "", new { @class = "text-danger" })
-            </div>
-        }
     </div>
-    
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Dodaj recenzje" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Details", "Book", new { id = ViewBag.bookId},null)
+    @Html.ActionLink("Back to List", "Details", "Book", new { id = ViewBag.bookId }, null)
 
 </div>
+@section scripts{
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+}

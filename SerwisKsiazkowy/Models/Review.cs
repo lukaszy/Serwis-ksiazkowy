@@ -14,7 +14,7 @@ namespace SerwisKsiazkowy.Models
         public int ReviewId { get; set; }
 
         [Required(ErrorMessage = "Treść jest wymagana")]
-        [StringLength(2000, MinimumLength = 5, ErrorMessage = "Treść musi zawierać co najmniej {1} znaków")]
+        [StringLength(2000, MinimumLength = 5, ErrorMessage = "Treść musi zawierać co najmniej {2} znaków")]
         [Display(Name = "Treść")]
         public string Content { get; set; }
         public DateTime DateAdded { get; set; }

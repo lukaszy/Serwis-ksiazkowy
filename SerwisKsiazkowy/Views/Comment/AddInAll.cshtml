@@ -1,15 +1,15 @@
 ﻿@model SerwisKsiazkowy.Models.Comment
 
 
-    @*<img src="@Url.Content("~/Content/Covers/" + Model.Book.CoverFileName).First())" />*@
-    <h1>@ViewBag.bookTitle.ToUpper()</h1>
-    
-    
+@*<img src="@Url.Content("~/Content/Covers/" + Model.Book.CoverFileName).First())" />*@
+<h1>@ViewBag.bookTitle.ToUpper()</h1>
 
 
-@using (Html.BeginForm("AddInAll", "Comment",  new { bookId = @ViewBag.bookId, bookTitle = @ViewBag.bookTitle },FormMethod.Post))
+
+
+@using (Html.BeginForm("AddInAll", "Comment", new { bookId = @ViewBag.bookId, bookTitle = @ViewBag.bookTitle }, FormMethod.Post))
 {
-   
+
 
     @Html.AntiForgeryToken()
 
@@ -39,6 +39,13 @@
 }
 
 @*<div>
-    @Html.ActionLink("Powrót", "Details","Book", new { id = @ViewBag.bookId, _title = name })
+        @Html.ActionLink("Powrót", "Details","Book", new { id = @ViewBag.bookId, _title = name })
 
-</div>*@
+    </div>*@
+@section scripts{
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+   
+}
