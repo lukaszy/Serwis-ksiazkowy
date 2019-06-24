@@ -89,7 +89,10 @@
 
 
             <td>
-                @Html.DisplayFor(modelItem => item.CoverFileName)
+                @*@Html.DisplayFor(modelItem => item.CoverFileName)*@
+                
+                    <img class="manage-cover" src="@Url.Content("~/Content/Covers/" + item.CoverFileName)" />
+                
             </td>
             <td>
                 @*@Html.ActionLink("Edycja", "Edit", new { bookId = item.BookId })*@
@@ -112,8 +115,8 @@
                     <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Manage", new { bookId = item.BookId }) '">
                         Edycja
                     </button>
-                    var myModal = item.BookId;
-
+                        var myModal = item.BookId;
+                        var bookTitle = item.Title;
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@myModal">Usuń</button>
                     <!-- Modal -->
                     <div class="modal fade" id="@myModal" tabindex="-1" role="dialog" data-keyboard="false" aria-labelledby="myModalLabel">
@@ -128,7 +131,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    Czy napewno checesz usunąć książkę?
+                                    Czy napewno checesz usunąć książkę "@bookTitle"?
 
                                 </div>
                                 <div class="modal-footer">

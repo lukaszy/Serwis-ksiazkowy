@@ -338,3 +338,8 @@ hr.style2 {
     color: #39312d;
     text-align: left;
 }
+
+.manage-cover {
+    width: 90px;
+    height: 100px;
+}
