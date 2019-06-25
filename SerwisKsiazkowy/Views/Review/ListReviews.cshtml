@@ -17,12 +17,17 @@
 {
     @Html.MvcSiteMap().SiteMapPath("BootstrapSiteMapPathHelperModel")
 
-    <div id="comments-reviews">
-        <img src="@Url.Content("~/Content/Covers/" + Model.Select(p => p.Books.CoverFileName).First())" />
-        <h1>@Model.Select(p => p.Books.Title).First()</h1>
-        <h2>@Model.Select(p => p.Books.Author).First()</h2>
-
-    </div>
+<div id="comments-reviews">
+    <img src="@Url.Content("~/Content/Covers/" + Model.Select(p => p.Books.CoverFileName).First())" />
+    <h1>
+        <a href="@Url.Action("Details", "Book", new { id = @Model.Select(p => p.BookId).First(),  _title = @Model.Select(p => p.Books.Title).First().Replace(" ", "-").ToLower().ToString() } )">
+            @Model.Select(p => p.Books.Title).First()
+        </a>
+    </h1>
+    <h2>@Model.Select(p => p.Books.Author).First()</h2>
+    
+    
+</div>
 }
 
 
@@ -50,7 +55,7 @@
                     Autor:
                     @if (reviews.UserId != null)
                     {
-                        @reviews.User.UserName
+                    <b>  @reviews.User.UserName </b>
 
                     }
 
@@ -79,7 +84,7 @@
                                         </div>
                                         <div class="modal-body">
                                             @myModal
-                                            Czy napewno checesz usunąć komentarz?
+                                            Czy napewno checesz usunąć recenzje?
 
                                         </div>
                                         <div class="modal-footer">
@@ -98,7 +103,8 @@
                 <div id="book-details-comment-content">
                     @*@comments.Content*@
                     @Html.DisplayFor(modelItem => reviews.Content)
-
+                    <br />
+                  <b>  Ocena: @Html.DisplayFor(modelItem => reviews.Rate.Value) / 10 </b>
                 </div>
                 <hr class="style1">
             </div>

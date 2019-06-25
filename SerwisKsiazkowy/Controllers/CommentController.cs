@@ -41,6 +41,7 @@ namespace SerwisKsiazkowy.Controllers
         public ActionResult Add(int bookId)
         {
             var newComment = new Comment();
+            ViewBag.isUser = User.Identity.IsAuthenticated;
             newComment.BookId = bookId;
             ViewBag.CommentCount = db.Comments.Where(c => c.BookId == bookId).Count();
             return View(newComment);
@@ -76,6 +77,7 @@ namespace SerwisKsiazkowy.Controllers
 
         public ActionResult AddInAll(int bookId, string bookTitle)
         {
+            ViewBag.isUser = User.Identity.IsAuthenticated;
             ViewBag.bookId = bookId;
             ViewBag.bookTitle = bookTitle;
             
@@ -278,7 +280,8 @@ namespace SerwisKsiazkowy.Controllers
             int pageNumber = (page ?? 1);
             ViewBag.BookId = 1;
             TempData["TestVal"] = 1;
-
+            bool isAdmin = User.IsInRole("Admin");
+            ViewBag.IsAdmin = isAdmin;
             return View("_AllComments",comments.ToPagedList(pageNumber, pageSize));
             //return PartialView("_AllComments", comments);
         }

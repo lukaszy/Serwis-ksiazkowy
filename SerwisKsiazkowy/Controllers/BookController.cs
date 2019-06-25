@@ -36,6 +36,7 @@ namespace SerwisKsiazkowy.Controllers
         {
             bool isAdmin = User.IsInRole("Admin");
             ViewBag.IsAdmin = isAdmin;
+            ViewBag.isUser = User.Identity.IsAuthenticated;
             var userId = User.Identity.GetUserId();
             var BookId = db.Books.Where(g => g.BookId == id);
             //var BookTitle = db.Books.Where(g => g.Title.Replace(" ", "-").ToLower() == title);

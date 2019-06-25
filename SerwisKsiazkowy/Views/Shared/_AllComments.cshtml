@@ -41,27 +41,32 @@
                         Autor:
                         @if (comment.UserId != null)
                         {
-                            @comment.User.UserName
+                        <b> @comment.User.UserName </b>
 
                         }
 
                         Data dodania: @comment.DateAdded.ToString("dd MMMM yyyy hh:mm")
-                        @using (Ajax.BeginForm("DeleteComment", "Comment", new { id = comment.CommentId, bookId = comment.BookId, page = Model.PageNumber }, new AjaxOptions
+                        @if (ViewBag.IsAdmin)
                         {
-                            HttpMethod = "POST",
-                            UpdateTargetId = "Refresh",
-                            InsertionMode = InsertionMode.Replace,
-                            Confirm = "Czy napewno chcesz usunąć komentarz?  " + comment.Content
-                        }
-                         ))
-                        {
-                            @Html.AntiForgeryToken()
 
-                            <div id="button-delete">
-                                <input type="submit" value="Usuń" class="btn btn-danger" />
+                        
+                            using (Ajax.BeginForm("DeleteComment", "Comment", new { id = comment.CommentId, bookId = comment.BookId, page = Model.PageNumber }, new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                UpdateTargetId = "Refresh",
+                                InsertionMode = InsertionMode.Replace,
+                                Confirm = "Czy napewno chcesz usunąć komentarz?  " + comment.Content
+                            }
+                             ))
+                            {
+                                @Html.AntiForgeryToken()
 
-                            </div>
+                                <div id="button-delete">
+                                    <input type="submit" value="Usuń" class="btn btn-danger" />
 
+                                </div>
+
+                            }
                         }
                     </div>
                     <div id="book-details-comment-content">

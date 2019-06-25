@@ -135,22 +135,24 @@
                         </h2>
                         <hr class="style1">
                         <div id="book-details-comments">
-
-                            @if (Model.userReview == null)
+                            @if (ViewBag.isUser)
                             {
-                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Review", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }) '">
-                                    Dodaj recenzje
-                                </button>
+
+                                if (Model.userReview == null)
+                                {
+                                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Review", new { bookId = book.BookId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }) '">
+                                        Dodaj recenzje
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Review", new { reviewId = Model.userReview.ReviewId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }) '">
+                                        Edytuj recenzje
+                                    </button>
+
+
+                                }
                             }
-                            else
-                            {
-                                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Review", new { reviewId = Model.userReview.ReviewId, bookTitle = book.Title.Replace(" ", "-").ToLower().ToString() }) '">
-                                    Edytuj recenzje
-                                </button>
-
-
-                            }
-
                             <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListReviews", "Review", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
                                 zobacz wszytskie recenzje
                             </button>
@@ -165,12 +167,16 @@
                         </h2>
                         <hr class="style1">
                         <p>
-                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                Dodaj komentarz
-                            </a>
-                            @*<button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListComments", "Comment", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
-            zobacz wszytskie komentarze
-        </button>*@
+                            @if (ViewBag.isUser)
+                            {
+
+                                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    Dodaj komentarz
+                                </a> 
+                            }
+                                @*<button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("ListComments", "Comment", new { id = book.BookId,  _title = book.Title.Replace(" ", "-").ToLower().ToString() })'">
+                zobacz wszytskie komentarze
+            </button>*@
                             <button type="button" class="btn btn-primary btn-large" onclick="location.href='@Url.Action("GetAllComments", "Comment", new { bookId = book.BookId})'">
                                 zobacz wszystkie komentarze
                             </button>

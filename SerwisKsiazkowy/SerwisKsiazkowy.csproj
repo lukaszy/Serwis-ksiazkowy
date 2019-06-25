@@ -496,7 +496,6 @@
     <Content Include="Views\Review\ListReviews.cshtml" />
     <Content Include="Views\Comment\AddInAll.cshtml" />
     <Content Include="Views\Review\Edit.cshtml" />
-    <Content Include="Views\Shared\_CommentPartial.cshtml" />
     <Content Include="Views\Shared\_Reply.cshtml" />
     <Content Include="Views\Shared\DajOdpowiedzi.cshtml" />
     <Content Include="Views\Shared\GetChildren.cshtml" />

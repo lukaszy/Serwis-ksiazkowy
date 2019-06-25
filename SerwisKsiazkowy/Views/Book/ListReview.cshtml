@@ -20,7 +20,7 @@
                 Autor:
                 @if (reviews.UserId != null)
                 {
-                    @reviews.User.UserName
+                <b> @reviews.User.UserName </b>
 
                 }
 
@@ -69,7 +69,7 @@
                 @*@comments.Content*@
                 @Html.DisplayFor(modelItem => reviews.Content)
                 <br />
-                Ocena: @Html.DisplayFor(modelItem => reviews.Rate.Value) / 10
+                <b>Ocena: @Html.DisplayFor(modelItem => reviews.Rate.Value) / 10 </b>
                 @*@Html.Action("GetReviewRate","Review", new { bookId = reviews.BookId, userId = reviews.UserId})*@
 
             </div>

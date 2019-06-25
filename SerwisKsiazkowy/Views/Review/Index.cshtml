@@ -1,6 +1,6 @@
 ﻿@*@model SerwisKsiazkowy.Models.Review*@
 @model SerwisKsiazkowy.ViewModels.ReviewViewModel
-
+<h2>@ViewBag.bookTitle.Replace("-", " ").ToUpper()</h2>
 @using (Html.BeginForm("Add", "Review", new { isValue = Model.isValueRate }, FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -85,7 +85,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Details", "Book", new { id = ViewBag.bookId }, null)
+    @Html.ActionLink("Powrót", "Details", "Book", new { id = ViewBag.bookId }, null)
 
 </div>
 @section scripts{
