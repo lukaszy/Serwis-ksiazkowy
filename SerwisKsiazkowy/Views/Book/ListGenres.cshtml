@@ -33,7 +33,7 @@
         $(function () {
 
             $("#MultiSelectDropDown").chosen(default_multiple_text = "tekst");
-
+            
             $("#slider-range").slider({
                 range: true,
                 min: 0,
@@ -47,8 +47,11 @@
                     
                 },
                 change: function (event, ui) {
-                    console.log('It Works!');
+                    console.log('dziala!');
                 }
+            });
+            $("#amount").change(function () {
+                $("#slider-range").slider('values', 0, $(this).val());
             });
             $("#MaxRating").val($("#slider-range").slider("values", 1));
             $("#MinRating").val($("#slider-range").slider("values", 0));

@@ -89,7 +89,7 @@
                 @if (ViewBag.listAuthor != null)
                 {
                     @Html.PagedListPager(Model, page => Url.Action("FilterList",
-                                       new { page, author1 = string.Join(",", (string[])ViewBag.listAuthor),  currentFilter = ViewBag.CurrentFilter, minRating = ViewBag.MinRating, maxRating = ViewBag.MaxRating }))
+                                       new { page, author1 = string.Join(",", (string[])ViewBag.listAuthor),  currentFilter = ViewBag.CurrentFilter, minRating = ViewBag.MinRating, maxRating = ViewBag.MaxRating, sorting = ViewBag.CurrentSort }))
 
 
 
@@ -97,7 +97,7 @@
                 else if (ViewBag.MinRating != null)
                 {
                     @Html.PagedListPager(Model, page => Url.Action("FilterList",
-                   new { page,   currentFilter = ViewBag.CurrentFilter, minRating = ViewBag.MinRating, maxRating = ViewBag.MaxRating }))
+                   new { page,   currentFilter = ViewBag.CurrentFilter, minRating = ViewBag.MinRating, maxRating = ViewBag.MaxRating, sorting = ViewBag.CurrentSort }))
 
                 }
                 else

@@ -30,7 +30,7 @@ namespace SerwisKsiazkowy.ViewModels
         public IEnumerable<Rate> UserRate { get; set; }
 
 
-        public List<CheckBoxItem> RatingsCheckBoxList { get; set; }
+        //public List<CheckBoxItem> RatingsCheckBoxList { get; set; }
         
         public string MaxRating { get; set; }
         public string MinRating { get; set; }

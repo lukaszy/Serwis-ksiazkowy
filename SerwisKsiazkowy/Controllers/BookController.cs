@@ -110,19 +110,29 @@ namespace SerwisKsiazkowy.Controllers
             var author = db.Books.Select(p => p.Author).Distinct();
             var authors = db.Books.ToList();
             ViewBag.genrename = genrename;
-            int pageSize = 3;
+            //int pageSize = 3;
             int pageNumber = (page ?? 1);
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "Wybierz sortowanie...", Value = "sort", Selected = true });
+            items.Add(new SelectListItem { Text = "Tytuł - od A do Z", Value = "title_asc" });
+            items.Add(new SelectListItem { Text = "Tytuł - od Z do A", Value = "title_desc" });
+            items.Add(new SelectListItem { Text = "Ocena - od najniższej", Value = "ratings_asc" });
+            items.Add(new SelectListItem { Text = "Ocena - od najwyższej", Value = "ratings_desc" });
 
+            
+
+            ViewBag.Sorting = items;
+            //ViewBag.Sorting = new SelectList("ocena","ocena - malejaco");
             var VM = new HomeViewModel
             {
-                RatingsCheckBoxList = new List<CheckBoxItem>
-                {
-                    new CheckBoxItem {Value= true, Label="0-2,5"},
-                    new CheckBoxItem {Value= false, Label="2,6-4,5"},
-                    new CheckBoxItem {Value= false, Label="4,5-6,5"},
-                    new CheckBoxItem {Value= false, Label="6,6-8,5"},
-                    new CheckBoxItem {Value= false, Label="8,6-10"}
-                },
+                //RatingsCheckBoxList = new List<CheckBoxItem>
+                //{
+                //    new CheckBoxItem {Value= true, Label="0-2,5"},
+                //    new CheckBoxItem {Value= false, Label="2,6-4,5"},
+                //    new CheckBoxItem {Value= false, Label="4,5-6,5"},
+                //    new CheckBoxItem {Value= false, Label="6,6-8,5"},
+                //    new CheckBoxItem {Value= false, Label="8,6-10"}
+                //},
                 Authors = authors,
                 Author = author.ToList(),
                 Genres = genres
@@ -131,8 +141,9 @@ namespace SerwisKsiazkowy.Controllers
             return PartialView("_GenresMenu", VM);
         }
         
-        public ActionResult FilterList(HomeViewModel model, string[] author1, int? page, string[] listAuthor, string genrename, string searchString, string currentFilter, double minRating, double maxRating)
+        public ActionResult FilterList(HomeViewModel model, string[] author1, int? page, string[] listAuthor, string genrename, string searchString, string currentFilter, double minRating, double maxRating, string sorting)
         {
+            ViewBag.CurrentSort = sorting;
             var genres = db.Genres.ToList();
             //var author = db.Books.Select(p => p.Author).Distinct();
             //string[] temp = null;
@@ -244,7 +255,26 @@ namespace SerwisKsiazkowy.Controllers
                 //selectedBook = genre.Books.Where(a => a.Title.Contains(searchString));
                
             }
-
+            switch (sorting)
+            {
+                case "title_desc":
+                    books = books.OrderByDescending(s => s.Title);
+                    selectedBook = selectedBook.OrderByDescending(s => s.Author);
+                    break;
+                case "title_asc":
+                    books = books.OrderBy(s => s.Title);
+                    selectedBook = selectedBook.OrderBy(s => s.Author);
+                    break;
+                case "ratings_asc":
+                    books = books.OrderBy(s => s.Ratings.Average(a => a.Value));
+                    break;
+                case "ratings_desc":
+                    books = books.OrderByDescending(s => s.Ratings.Average(a => a.Value));
+                    break;
+                default:
+                    books = books.OrderBy(s => s.Title);
+                    break;
+            }
             //var VM = new HomeViewModel
             //{
 
@@ -255,24 +285,24 @@ namespace SerwisKsiazkowy.Controllers
 
             //var data = db.Books.SqlQuery("select * from books where author in ("+temp+")").ToList();
 
-            string x = "";
+            //string x = "";
 
-            if (temp != null)
-            {
-                foreach (var df in temp)
-                {
-                    if (String.IsNullOrEmpty(x))
-                    {
-                        x = "&autor="+df.Replace(" ", "%").ToLower();
-                    }
-                    else
-                    {
-                        x = x.Replace(" ", "%").ToLower() + "&autor=" + df.Replace(" ", "%").ToLower();
-                    }
-                }
-            }
+            //if (temp != null)
+            //{
+            //    foreach (var df in temp)
+            //    {
+            //        if (String.IsNullOrEmpty(x))
+            //        {
+            //            x = "&autor="+df.Replace(" ", "%").ToLower();
+            //        }
+            //        else
+            //        {
+            //            x = x.Replace(" ", "%").ToLower() + "&autor=" + df.Replace(" ", "%").ToLower();
+            //        }
+            //    }
+            //}
             ViewBag.Authors = author1;
-            Debug.WriteLine(x);
+            //Debug.WriteLine(x);
             ViewBag.selectedBooks = "selectedBook: "+temp+" "+ genrename+"data: ";
             ViewBag.FilterBook = selectedBook.ToPagedList(pageNumber, pageSize);
             return View("ListGenres", books.ToPagedList(pageNumber, pageSize));
