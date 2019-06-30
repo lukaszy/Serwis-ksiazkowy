@@ -25,37 +25,34 @@
     <tr>
 
         <th>
-            @*@Html.DisplayNameFor(model => model.Genre.Name)*@
             @Html.ActionLink("Gatunek", "Index", new { sortOrder = ViewBag.GenreSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Title)*@
             @Html.ActionLink("Tytuł", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.Author)*@
             @Html.ActionLink("Autor", "Index", new { sortOrder = ViewBag.AuthorSortParm, currentFilter = ViewBag.CurrentFilter })
 
         </th>
         <th>
-            
+
             Liczba stron
         </th>
         <th>
-            
+
             Rok wydania
         </th>
         <th>
-            
+
             Wydawnictwo
         </th>
 
         <th>
-            
+
             @Html.ActionLink("Ocena", "Index", new { sortOrder = ViewBag.RateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            
+
             Okładka
         </th>
         <th></th>
@@ -89,34 +86,19 @@
 
 
             <td>
-                @*@Html.DisplayFor(modelItem => item.CoverFileName)*@
-                
-                    <img class="manage-cover" src="@Url.Content("~/Content/Covers/" + item.CoverFileName)" />
-                
+
+                <img class="manage-cover" src="@Url.Content("~/Content/Covers/" + item.CoverFileName)" />
+
             </td>
             <td>
-                @*@Html.ActionLink("Edycja", "Edit", new { bookId = item.BookId })*@
-
-
-                @*@Html.ActionLink("Details", "Details", new { bookId = item.BookId }) |*@
-                @*@Html.ActionLink("Usuń", "Delete", new { bookId = item.BookId })*@
-
-
-                @*<button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Delete", "Manage", new { id = item.BookId, title = item.Title  })'">
-                        Usuń
-                    </button>*@
-
-
-
-
 
                 @using (Html.BeginForm("Delete", "Manage", new { id = item.BookId }))
                 {
                     <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Manage", new { bookId = item.BookId }) '">
                         Edycja
                     </button>
-                        var myModal = item.BookId;
-                        var bookTitle = item.Title;
+                    var myModal = item.BookId;
+                    var bookTitle = item.Title;
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@myModal">Usuń</button>
                     <!-- Modal -->
                     <div class="modal fade" id="@myModal" tabindex="-1" role="dialog" data-keyboard="false" aria-labelledby="myModalLabel">

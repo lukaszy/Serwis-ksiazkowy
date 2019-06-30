@@ -122,17 +122,9 @@ namespace SerwisKsiazkowy.Controllers
             
 
             ViewBag.Sorting = items;
-            //ViewBag.Sorting = new SelectList("ocena","ocena - malejaco");
             var VM = new HomeViewModel
             {
-                //RatingsCheckBoxList = new List<CheckBoxItem>
-                //{
-                //    new CheckBoxItem {Value= true, Label="0-2,5"},
-                //    new CheckBoxItem {Value= false, Label="2,6-4,5"},
-                //    new CheckBoxItem {Value= false, Label="4,5-6,5"},
-                //    new CheckBoxItem {Value= false, Label="6,6-8,5"},
-                //    new CheckBoxItem {Value= false, Label="8,6-10"}
-                //},
+               
                 Authors = authors,
                 Author = author.ToList(),
                 Genres = genres
@@ -145,12 +137,10 @@ namespace SerwisKsiazkowy.Controllers
         {
             ViewBag.CurrentSort = sorting;
             var genres = db.Genres.ToList();
-            //var author = db.Books.Select(p => p.Author).Distinct();
-            //string[] temp = null;
+        
             int pageSize = 3;
             int pageNumber = (page ?? 1);
-            //double minRating;
-            //double maxRating;
+           
             try
             {
                  minRating = Double.Parse(model.MinRating);
@@ -201,28 +191,17 @@ namespace SerwisKsiazkowy.Controllers
             
 
 
-            //int genre_start = UrlPath.LastIndexOf("/") + 1;
-            //string genreName = UrlPath.Split('/').Last();
-            //string genreName = UrlPath.Split('/').ElementAt(2);
-            //string genreName = "Epos";
+            
             ViewBag.listAuthor = author1;
 
             ViewBag.Title = genrename;
 
-            //if (author1 != null)
-            //{
-            //    foreach (var item in author1)
-            //    {
-            //        temp.Add(item);
-            //    }
-            //    //ViewBag.Authors = author.Author1;
-            //}
-
+          
             IEnumerable<Book> selectedBook = null;
 
             var books = from b in db.Books
                         select b;
-            //temp = "Adam Mickiewicz" + "," + "Homer";
+            
             var genre = db.Genres.Include("Books").Where(g => g.Name.ToUpper() == genrename.ToUpper()).Single();
             if (!String.IsNullOrEmpty(searchString) && genre != null)
             {
@@ -237,7 +216,7 @@ namespace SerwisKsiazkowy.Controllers
                 selectedBook = genre.Books.Where(a => authorSplit.Contains(a.Author) && a.Title.Contains(searchString) &&
                         getRating(a.BookId) <= maxRating &&
                         getRating(a.BookId) >= minRating).ToList();
-                //selectedBook = genre.Books.Where(a => a.Title.Contains(searchString));
+                
 
 
             }
@@ -275,32 +254,7 @@ namespace SerwisKsiazkowy.Controllers
                     books = books.OrderBy(s => s.Title);
                     break;
             }
-            //var VM = new HomeViewModel
-            //{
-
-            //    //Author = author.ToList(),
-            //    SelectedBook = selectedBook,
-            //    Genres = genres
-            //};
-
-            //var data = db.Books.SqlQuery("select * from books where author in ("+temp+")").ToList();
-
-            //string x = "";
-
-            //if (temp != null)
-            //{
-            //    foreach (var df in temp)
-            //    {
-            //        if (String.IsNullOrEmpty(x))
-            //        {
-            //            x = "&autor="+df.Replace(" ", "%").ToLower();
-            //        }
-            //        else
-            //        {
-            //            x = x.Replace(" ", "%").ToLower() + "&autor=" + df.Replace(" ", "%").ToLower();
-            //        }
-            //    }
-            //}
+           
             ViewBag.Authors = author1;
             //Debug.WriteLine(x);
             ViewBag.selectedBooks = "selectedBook: "+temp+" "+ genrename+"data: ";
@@ -329,25 +283,17 @@ namespace SerwisKsiazkowy.Controllers
             return View(books);
         }
 
-        //public ActionResult AddRate(int bookId)
-        //{
-        //    var newRate = new Rate();
-        //    newRate.BookId = bookId;
-        //    return View(newRate);
-        //}
-        [HttpPost]
-        //public ActionResult AddRate(DetailsViewModels model, int bookId, string bookTitle)
+       
+        [HttpPost]       
         public ActionResult AddRate(DetailsViewModels model)
         {
-            //model.NewRate.DateAdded = DateTime.Now;
-            //model.NewRate.BookId = bookId;
-            //model.NewRate.Value = 4;
+            
             model.NewRate.UserId = User.Identity.GetUserId();
             //var errors = ModelState.Values.SelectMany(v => v.Errors);
             var bookTitle = db.Books.Where(p => p.BookId == model.NewRate.BookId).First().Title.Replace(" ", "-").ToLower().ToString();
             var book = db.Books.Where(p => p.BookId == model.NewRate.BookId).Single();
             
-            //ViewBag.error = errors;
+           
             if (ModelState.IsValid)
             {
                 
@@ -370,7 +316,7 @@ namespace SerwisKsiazkowy.Controllers
             var userId = User.Identity.GetUserId();
             try
             {
-                //rate = db.Ratings.Where(r => r.BookId == id).Average(a => a.Value).ToString();
+               
                 rating = Math.Round(db.Ratings.Where(r => r.BookId == bookId).Average(a => a.Value), 2);
                 
 

@@ -9,13 +9,13 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Book.BookId)
+        @Html.HiddenFor(model => model.Book.AvgRating)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Book.GenreId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Book.GenreId, new SelectList(Model.Genres, "GenreId", "Name", " Wybierz"))
-                @*@Html.EditorFor(model => model.Book.GenreId, new { htmlAttributes = new { @class = "form-control" } })*@
-                @*@Html.ValidationMessageFor(model => model.Book.GenreId, "", new { @class = "text-danger" })*@
+
             </div>
         </div>
 
@@ -48,8 +48,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Book.YearPublished, new { htmlAttributes = new { id = "datepicker", @class = "form-control" } })
 
-                @*@Html.TextBoxFor(model => model.Book.YearPublished, new { htmlAttributes = new { id = "datepicker", @class = "datepicker" } })*@
-
                 @Html.ValidationMessageFor(model => model.Book.YearPublished, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -65,19 +63,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Book.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*@Html.EditorFor(model => model.Book.Description, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.TextAreaFor(model => model.Book.Description, new { @class = "form-control", rows = "5" })
                 @Html.ValidationMessageFor(model => model.Book.Description, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Book.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Book.Rate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Book.Rate, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Book.CoverFileName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -102,17 +92,18 @@
 </div>
 
 <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-
 @section scripts {
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
     <script src="~/Scripts/jquery-3.3.1.js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     <script src="~/Scripts/datepicker-pl.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    
     <script>
 
         $(function () {
-            var dayNamesMin = $(".selector").datepicker("option", "dayNamesMin");
+            // var dayNamesMin = $(".selector").datepicker("option", "dayNamesMin");
 
             $("#datepicker").datepicker({
                 //dayNamesMin=[ "Pn", "Wt", "Sr", "Cz", "Pt", "So", "Nd" ],

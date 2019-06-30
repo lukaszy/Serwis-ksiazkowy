@@ -169,43 +169,27 @@ namespace SerwisKsiazkowy.Controllers
             }
             catch
             {
-                result = null;
+                //result = null;
+                AddErrors(result);
             }
-
-            var check = await UserManager.CheckPasswordAsync(user, model.OldPassword);
-            var setEmail = await UserManager.SetEmailAsync(User.Identity.GetUserId(), model.Email);
-            if (setEmail.Succeeded && check)
+            if(result.Succeeded)
             {
-                 user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
+                var check = await UserManager.CheckPasswordAsync(user, model.OldPassword);
+                var setEmail = await UserManager.SetEmailAsync(User.Identity.GetUserId(), model.Email);
+                if (setEmail.Succeeded && check)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                     user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    if (user != null)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    return RedirectToAction("Index","Home");
                 }
-                return RedirectToAction("Index","Home");
             }
+            
             AddErrors(result);
             return View(model);
         }
-        //[HttpPost]
-        //public async Task<ActionResult> UserProfile(UserData model)
-        //{
-
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    var book = new <ApplicationUser>(new ApplicationDbContext());
-        //    var manager = new UserManager<ApplicationUser>(book);
-        //    var currentUser = UserManager.FindByName(User.Identity.Name);
-        //    currentUser.UserData.FirstName = model.FirstName;
-        //    currentUser.UserData.LastName = model.LastName;
-
-        //    //await manager.UpdateAsync(currentUser);
-        //    //var ctx = store.Context;
-        //    //ctx.SaveChanges();
-
-        //    return RedirectToAction("ListUser");
-        //}
+       
     }
 }

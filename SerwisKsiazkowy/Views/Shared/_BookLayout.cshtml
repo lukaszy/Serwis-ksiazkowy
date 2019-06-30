@@ -11,12 +11,7 @@
     @*<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />*@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @*<link href="../Content/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
-        <script src="../Scripts/bootstrap.min.js"></script>
-        <script src="../Scripts/modernizr-2.8.3.js"></script>*@
-    @*<link href="../Content/Site.css" rel="stylesheet">*@
-    @*<link rel="stylesheet" href="~/Content/css/font-awesome.min.css">*@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content")
@@ -65,15 +60,13 @@
                                     <form class="form-inline mr-auto" method="get" action="/">
                                         <p>
                                             <input class="form-control mr-sm-2" type="text" name="SearchString" placeholder="Szukaj...">
-                                            @*<input class="fas fa-search" type="submit" value="Szukaj" />*@
-                                            @*<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Szukaj</button>*@
+                                           
                                         </p>
                                     </form>
                                 </div>
                             </li>
 
-                            @*<li><a href="/Account/Register" id="registerLink">Rejestracja</a></li>
-                            <li><a href="/Account/Login" id="loginLink">Logowanie</a></li>*@
+                           
                             @Html.Partial("_LoginPartial")
                         </ul>
 

@@ -82,13 +82,11 @@
 
 
     </div>
-    @*<p> Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount </p>
-
-        @Html.PagedListPager(Model, page => Url.Action("GetAllComments", new {bookId=Model.Select(p=>p.BookId).First(), page }))*@
+  
 }
 
 <div id="Refresh">
-    @*@Model.Count()*@
+   
 
     @if (Model.Count() > 0)
     {

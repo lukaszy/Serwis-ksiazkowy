@@ -17,30 +17,7 @@ namespace SerwisKsiazkowy.Controllers
     {
         private BookContext db = new BookContext();
 
-       
-
-        //public ActionResult Index()
-        //{
-        //    //Genre newGenre = new Genre { Name = "Biografie" };
-        //    //db.Genres.Add(newGenre);
-        //    //db.SaveChanges();
-
-        //    // var booksList = db.Books.ToList();
-
-        //    var genres = db.Genres.ToList();
-
-        //    var lastBooks = db.Books.OrderByDescending(a => a.Title).ToList();
-
-        //    var vm = new HomeViewModel()
-        //    {
-        //        Genres = genres,
-        //        LastBooks = lastBooks
-
-        //    };
-                
-        //    return View(vm);
-        //}
-
+               
         public ActionResult Index(string searchString, int? page)
         {
             bool isAdmin = User.IsInRole("Admin");
@@ -76,9 +53,7 @@ namespace SerwisKsiazkowy.Controllers
                 Authors = authors.ToPagedList(pageNumber, pageSize),
                 Genres = genres,
                 LastBooks =  books.ToPagedList(pageNumber, pageSize)
-                //Ratings = rate
-               
-                
+                                               
             };
            
             return View(bookVM);
@@ -93,13 +68,13 @@ namespace SerwisKsiazkowy.Controllers
         [ChildActionOnly]
         public ActionResult GetRate(int id)
         {
-            //double? rate = -1;
+            
             string rate = "";
             double rateDouble;
             var userId = User.Identity.GetUserId();
             try
             {
-                //rate = db.Ratings.Where(r => r.BookId == id).Average(a => a.Value).ToString();
+               
                 rateDouble = Math.Round(db.Ratings.Where(r => r.BookId == id).Average(a => a.Value),2);
                 rate = rateDouble.ToString();
 

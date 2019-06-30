@@ -3,7 +3,7 @@
 
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-@*<center><div id="result"></div></center>*@
+
 
 <div id="book-details-comments">
 
@@ -28,13 +28,11 @@
                     Autor:
                     @if (comments.UserId != null)
                     {
-                    <b>  @comments.User.UserName</b>
+                        <b>  @comments.User.UserName</b>
 
                     }
 
                     Data dodania: @comments.DateAdded.ToString("dd MMMM yyyy hh:mm")
-                    @*@using (@Html.BeginForm("Delete", "Comment", new { id = comments.CommentId, bookId = comments.BookId, bookTitle = comments.Book.Title.Replace(" ", "-").ToLower().ToString() }, FormMethod.Post))*@
-
 
                     @{
                         var myModal = comments.BookId + "-" + comments.CommentId;
@@ -67,25 +65,14 @@
 
                 </div>
                 <div id="book-details-comment-content">
-                    @*@comments.Content*@
+
                     @Html.DisplayFor(modelItem => comments.Content)
-                    @*@Html.DisplayFor(modelItem => comments.CommentId)
-                    @Html.Action("GetChildren", "Comment", new { id = comments.CommentId })*@
+
 
                 </div>
 
 
-                @*@{
-                    var children = Model.Where(x => x.ParentId == comments.CommentId).ToList();
-                    if (children.Count() > 0)
-                    {
-                        <a class="odpowiedz" data-toggle="collapse" data-id="@comments.CommentId" href="#@comments.CommentId" name="Name">OdpowiedzNew</a>
-                    }
 
-                    <div class="collapse" id="@comments.CommentId">
-                        @Html.Partial("DajOdpowiedzi")
-                    </div>
-                }*@
             </div>
         }
     }
@@ -97,16 +84,16 @@
 
 
 
-    <script>
+<script>
 
-        function unloadModal(data) {
-            alert(data.Content);
-           
-            //$('#myModal').modal('hide');
-        };
+    function unloadModal(data) {
+        alert(data.Content);
 
-        function Alert() {
-            $('.alert-success').alert();
+        //$('#myModal').modal('hide');
+    };
 
-        };
-    </script>
+    function Alert() {
+        $('.alert-success').alert();
+
+    };
+</script>

@@ -1,10 +1,7 @@
 ﻿@model SerwisKsiazkowy.Models.Comment
 
 
-@*<img src="@Url.Content("~/Content/Covers/" + Model.Book.CoverFileName).First())" />*@
 <h1>@ViewBag.bookTitle.Replace("-", " ").ToUpper()</h1>
-
-
 
 
 @using (Html.BeginForm("AddInAll", "Comment", new { bookId = @ViewBag.bookId, bookTitle = @ViewBag.bookTitle }, FormMethod.Post))
@@ -23,7 +20,6 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*@Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.TextAreaFor(model => model.Content, new { @class = "form-control", rows = "5" })
                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
             </div>
@@ -38,10 +34,6 @@
     </div>
 }
 
-@*<div>
-        @Html.ActionLink("Powrót", "Details","Book", new { id = @ViewBag.bookId, _title = name })
-
-    </div>*@
 @section scripts{
 
     <script src="~/Scripts/jquery-3.3.1.js"></script>

@@ -450,7 +450,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Shared\_BookLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Index2.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -497,12 +496,8 @@
     <Content Include="Views\Comment\AddInAll.cshtml" />
     <Content Include="Views\Review\Edit.cshtml" />
     <Content Include="Views\Shared\_Reply.cshtml" />
-    <Content Include="Views\Shared\DajOdpowiedzi.cshtml" />
-    <Content Include="Views\Shared\GetChildren.cshtml" />
     <Content Include="Views\Comment\GetComments.cshtml" />
-    <Content Include="Views\Shared\_Comment — Kopia.cshtml" />
     <Content Include="Views\Shared\_AllComments.cshtml" />
-    <Content Include="Views\Comment\ListComments — Kopia.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
   </ItemGroup>
@@ -575,9 +570,7 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Details\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

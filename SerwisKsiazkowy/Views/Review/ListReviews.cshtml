@@ -1,15 +1,4 @@
-﻿@*@{
-        ViewBag.Title = "ListComments";
-        Layout = "~/Views/Shared/_BookLayout.cshtml";
-    }
-
-    <h2>ListComments</h2>
-    <div id="row">
-        @Html.Partial("_Comment")
-        </div>*@
-
-@*@model IEnumerable<SerwisKsiazkowy.Models.Comment>*@
-@model PagedList.IPagedList<SerwisKsiazkowy.Models.Review>
+﻿@model PagedList.IPagedList<SerwisKsiazkowy.Models.Review>
 
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
@@ -101,7 +90,7 @@
 
                 </div>
                 <div id="book-details-comment-content">
-                    @*@comments.Content*@
+                    
                     @Html.DisplayFor(modelItem => reviews.Content)
                     <br />
                   <b>  Ocena: @Html.DisplayFor(modelItem => reviews.Rate.Value) / 10 </b>

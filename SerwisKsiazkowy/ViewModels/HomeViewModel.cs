@@ -28,10 +28,7 @@ namespace SerwisKsiazkowy.ViewModels
         public double? Ratings { get; set; }
 
         public IEnumerable<Rate> UserRate { get; set; }
-
-
-        //public List<CheckBoxItem> RatingsCheckBoxList { get; set; }
-        
+                       
         public string MaxRating { get; set; }
         public string MinRating { get; set; }
 
@@ -42,18 +39,18 @@ namespace SerwisKsiazkowy.ViewModels
         public string Content { get; set; }
         public DateTime DateAdded { get; set; }
     }
-    public class CheckBoxItem
-    {
-        public bool Value { get; set; }
-        public string Label { get; set; }
-    }
-    public enum Values : byte
-    {
-        [Display(Name = "0-2,5")] Value1,
-        [Display(Name = "2,6-4,5")] Value2,
-        [Display(Name = "4,5-6,5")] Value3,
-        [Display(Name = "6,6-8,5")] Value4,
-        [Display(Name = "8,6-10")] Value5,
-    }
+    //public class CheckBoxItem
+    //{
+    //    public bool Value { get; set; }
+    //    public string Label { get; set; }
+    //}
+    //public enum Values : byte
+    //{
+    //    [Display(Name = "0-2,5")] Value1,
+    //    [Display(Name = "2,6-4,5")] Value2,
+    //    [Display(Name = "4,5-6,5")] Value3,
+    //    [Display(Name = "6,6-8,5")] Value4,
+    //    [Display(Name = "8,6-10")] Value5,
+    //}
     
 }

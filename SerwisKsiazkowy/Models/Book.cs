@@ -33,7 +33,7 @@ namespace SerwisKsiazkowy.Models
 
         [Display(Name = "Data wydania")]
         //[DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0: dd-MM-yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime YearPublished { get; set; }
 
         [Required(ErrorMessage = "Pole {0} jest wymagane")]

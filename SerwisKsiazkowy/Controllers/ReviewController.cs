@@ -61,7 +61,7 @@ namespace SerwisKsiazkowy.Controllers
             int pageSize = 7;
             int pageNumber = (page ?? 1);
             return View(reviews.ToPagedList(pageNumber, pageSize));
-            //return View(comments);
+            
         }
 
         [HttpPost]
@@ -82,7 +82,7 @@ namespace SerwisKsiazkowy.Controllers
             }
             else
             {
-                //model.Review.Rate = model.Rate;
+                
                 isRate = true;
             }
 
@@ -93,23 +93,18 @@ namespace SerwisKsiazkowy.Controllers
                 if (isRate == false)
                 {
                     db.Reviews.Add(model.Review);
-                    //db.Ratings.Add(model.Rate);
+                   
                     
                 } else
                 {
                     
-                    //db.SaveChanges();
+                   
                     db.Entry(model.Rate).State = EntityState.Modified;
                     db.SaveChanges();
 
                     db.Reviews.Add(model.Review);
                     model.Review.Rate = model.Rate;
-                    //db.Entry(model.Review).State = EntityState.Modified;
-
-                   
-                    //db.Reviews.Attach(model.Review);
-                    // model.Review.Rate = model.Rate;
-                    //db.Entry(model.Review).State = EntityState.Modified;
+                    
                 }
                 
                 db.SaveChanges();
@@ -144,9 +139,7 @@ namespace SerwisKsiazkowy.Controllers
             ViewBag.bookId = db.Reviews.Where(p =>p.ReviewId == reviewId).Select(p=>p.BookId).Single();
             ViewBag.bookTitle = bookTitle.Replace(" ", "-").ToLower().ToString();
             var editReview = new ReviewViewModel();
-            //var ratings = db.Ratings.ToArray();
-            //editReview.RatingsVM = ratings;
-            //editBook.ConfirmSuccess = confirmSuccess;
+            
 
             Review b = db.Reviews.Find(reviewId);
             var userRate = db.Ratings.Where(p => p.RateId == reviewId).Count();
@@ -180,7 +173,7 @@ namespace SerwisKsiazkowy.Controllers
         [ChildActionOnly]
         public ActionResult GetReviewRate(int bookId, string userId)
         {
-            //double? rate = -1;
+            
             string rate = "";
             
             try
@@ -202,7 +195,7 @@ namespace SerwisKsiazkowy.Controllers
             var userId = User.Identity.GetUserId();
             try
             {
-                //rate = db.Ratings.Where(r => r.BookId == id).Average(a => a.Value).ToString();
+               
                 rating = Math.Round(db.Ratings.Where(r => r.BookId == bookId).Average(a => a.Value), 2);
 
 

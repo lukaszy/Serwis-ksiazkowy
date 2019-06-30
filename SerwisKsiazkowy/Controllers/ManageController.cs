@@ -78,18 +78,12 @@ namespace SerwisKsiazkowy.Controllers
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(books.ToPagedList(pageNumber, pageSize));
-            //return View(books.ToList());
-            //var books = db.Books.ToList();
-            //return View(books);
+            
         }
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? bookId, bool? confirmSuccess)
         {
-            //Book books = db.Books.Find(id);
-            //var VM = new HomeViewModel
-            //{
-            //    SelectedBook = books
-            //};
+            
             var editBook = new EditBookViewModel();
             var genres = db.Genres.ToArray();
             editBook.Genres = genres;
@@ -194,24 +188,23 @@ namespace SerwisKsiazkowy.Controllers
             {
                 db.Comments.Remove(el);
             }
-
-            //db.Entry(model.Book).State = EntityState.Deleted;
+                       
             db.SaveChanges();
             return RedirectToAction("Index", new { confirmSuccess = true });
 
         }
+
         [Authorize(Roles = "Admin")]
         public ActionResult AddGenre()
-        {
-            
-
+        {            
             return View();
         }
+
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public ActionResult AddGenre(Genre genreModel)
         {
-            //Genre addGenre = db.Genres.Find();
+            
 
             var genre = from m in db.Genres
                         select m;
@@ -238,15 +231,9 @@ namespace SerwisKsiazkowy.Controllers
             {
                 return RedirectToAction("Index", new { confirmSuccess = false });
             }
-            
-            
-            //db.Entry(model.Book).State = EntityState.Deleted;
-           // db.SaveChanges();
-            
+                                            
 
         }
-
-
-       
+                       
     }
 }
